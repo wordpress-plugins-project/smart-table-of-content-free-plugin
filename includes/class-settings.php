@@ -1,13 +1,13 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) {
+    exit;
+}
+
 /**
  * Settings Handler
  *
  * @package Smart_TOC
  */
-
-if ( ! defined( 'ABSPATH' ) ) {
-    exit;
-}
 
 class Smart_TOC_Settings {
 

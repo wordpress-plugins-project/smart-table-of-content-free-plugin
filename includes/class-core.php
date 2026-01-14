@@ -1,13 +1,13 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) {
+    exit;
+}
+
 /**
  * Core Plugin Class
  *
  * @package Smart_TOC
  */
-
-if ( ! defined( 'ABSPATH' ) ) {
-    exit;
-}
 
 class Smart_TOC_Core {
 

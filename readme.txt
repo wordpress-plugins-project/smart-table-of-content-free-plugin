@@ -4,7 +4,7 @@ Donate link: https://anikchowdhury.net
 Tags: table of contents, toc, seo, navigation, headings
 Requires at least: 5.0
 Tested up to: 6.9
-Stable tag: 1.0.1
+Stable tag: 1.0.2
 Requires PHP: 7.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -164,6 +164,16 @@ Go to Settings → Smart TOC → Display Settings and check "Show Numbers" optio
 
 == Changelog ==
 
+= 1.0.2 =
+* Added missing `ABSPATH` checks and normalized line endings for Plugin Check compliance
+* Bumped internal version constants to ensure cache busting for assets
+* Minor documentation updates for WordPress.org submission
+
+= 1.0.1 =
+* Improved scrolling behavior for last TOC items and removed inner scrollbar
+* Added show-number option to frontend output and settings defaults
+* Updated documentation links and admin assets to new slug
+
 = 1.0.0 =
 * Initial release
 * Automatic TOC generation
@@ -177,6 +187,12 @@ Go to Settings → Smart TOC → Display Settings and check "Show Numbers" optio
 * Multi-language ready
 
 == Upgrade Notice ==
+
+= 1.0.2 =
+Recommended update for additional security hardening and WordPress.org review compliance.
+
+= 1.0.1 =
+Includes improved scrolling, numbering, and admin assets—update to keep frontend behavior consistent.
 
 = 1.0.0 =
 Initial release of Smart Table of Contents.

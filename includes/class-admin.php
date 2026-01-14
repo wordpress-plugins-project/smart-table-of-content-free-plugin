@@ -1,13 +1,13 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) {
+    exit;
+}
+
 /**
  * Admin Settings Page
  *
  * @package Smart_TOC
  */
-
-if ( ! defined( 'ABSPATH' ) ) {
-    exit;
-}
 
 class Smart_TOC_Admin {
 

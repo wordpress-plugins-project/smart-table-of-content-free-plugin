@@ -1,13 +1,13 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) {
+    exit;
+}
+
 /**
  * TOC Render Class
  *
  * @package Smart_TOC
  */
-
-if ( ! defined( 'ABSPATH' ) ) {
-    exit;
-}
 
 class Smart_TOC_Render {
 
