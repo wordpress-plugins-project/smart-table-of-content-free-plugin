@@ -1,0 +1,235 @@
+/**
+ * Smart TOC - Frontend Styles
+ *
+ * @package Smart_TOC
+ */
+
+/* TOC Container */
+.smart-toc {
+    background: #f8f9fa;
+    border: 1px solid #e2e4e7;
+    border-radius: 8px;
+    margin: 20px 0 30px;
+    max-width: 100%;
+    font-size: 15px;
+    line-height: 1.6;
+}
+
+/* TOC Header */
+.smart-toc-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 20px;
+    background: #fff;
+    border-bottom: 1px solid #e2e4e7;
+    border-radius: 8px 8px 0 0;
+    border-left: 4px solid #0073aa;
+}
+
+.smart-toc.collapsed .smart-toc-header {
+    border-bottom: none;
+    border-radius: 8px;
+}
+
+.smart-toc-title {
+    font-weight: 600;
+    font-size: 16px;
+    color: #1e1e1e;
+    margin: 0;
+}
+
+/* Toggle Button */
+.smart-toc-toggle {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    transition: background 0.2s ease;
+}
+
+.smart-toc-toggle:hover {
+    background: rgba(0, 0, 0, 0.05);
+}
+
+.smart-toc-toggle:focus {
+    outline: 2px solid #0073aa;
+    outline-offset: 2px;
+}
+
+.toggle-icon {
+    width: 0;
+    height: 0;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-top: 8px solid #555;
+    transition: transform 0.3s ease;
+}
+
+.smart-toc.collapsed .toggle-icon {
+    transform: rotate(-90deg);
+}
+
+/* TOC Body */
+.smart-toc-body {
+    padding: 15px 20px;
+    max-height: 500px;
+    overflow-y: auto;
+    transition: all 0.3s ease;
+}
+
+.smart-toc.collapsed .smart-toc-body {
+    display: none;
+}
+
+/* TOC List */
+.smart-toc-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.smart-toc-list .toc-item {
+    margin: 0;
+    padding: 0;
+}
+
+.smart-toc-list .toc-item > a {
+    display: block;
+    padding: 8px 12px;
+    color: #0073aa;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+    border-left: 2px solid transparent;
+}
+
+.smart-toc-list .toc-item > a:hover {
+    background: rgba(0, 115, 170, 0.08);
+    color: #005177;
+}
+
+.smart-toc-list .toc-item > a:focus {
+    outline: 2px solid #0073aa;
+    outline-offset: -2px;
+}
+
+.smart-toc-list .toc-item > a.active {
+    background: #0073aa;
+    color: #fff;
+    font-weight: 500;
+}
+
+/* Heading Level Indentation */
+.toc-level-2 > a {
+    padding-left: 12px;
+}
+
+.toc-level-3 > a {
+    padding-left: 28px;
+    font-size: 14px;
+}
+
+.toc-level-4 > a {
+    padding-left: 44px;
+    font-size: 13px;
+}
+
+.toc-level-5 > a {
+    padding-left: 60px;
+    font-size: 13px;
+}
+
+.toc-level-6 > a {
+    padding-left: 76px;
+    font-size: 12px;
+}
+
+/* Scrollbar Styling */
+.smart-toc-body::-webkit-scrollbar {
+    width: 6px;
+}
+
+.smart-toc-body::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 3px;
+}
+
+.smart-toc-body::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 3px;
+}
+
+.smart-toc-body::-webkit-scrollbar-thumb:hover {
+    background: #a1a1a1;
+}
+
+/* Responsive */
+@media screen and (max-width: 768px) {
+    .smart-toc {
+        margin: 15px 0 25px;
+        font-size: 14px;
+    }
+
+    .smart-toc-header {
+        padding: 12px 15px;
+    }
+
+    .smart-toc-title {
+        font-size: 15px;
+    }
+
+    .smart-toc-body {
+        padding: 12px 15px;
+        max-height: 350px;
+    }
+
+    .smart-toc-list .toc-item > a {
+        padding: 7px 10px;
+    }
+
+    .toc-level-3 > a {
+        padding-left: 22px;
+    }
+
+    .toc-level-4 > a {
+        padding-left: 34px;
+    }
+
+    .toc-level-5 > a {
+        padding-left: 46px;
+    }
+
+    .toc-level-6 > a {
+        padding-left: 58px;
+    }
+}
+
+/* Print Styles */
+@media print {
+    .smart-toc {
+        border: 1px solid #ccc;
+        page-break-inside: avoid;
+    }
+
+    .smart-toc-toggle {
+        display: none;
+    }
+
+    .smart-toc.collapsed .smart-toc-body {
+        display: block;
+    }
+}
+
+/* Accessibility - Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+    .smart-toc-body,
+    .toggle-icon,
+    .smart-toc-list .toc-item > a {
+        transition: none;
+    }
+}

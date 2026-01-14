@@ -1,0 +1,65 @@
+<?php
+/**
+ * Plugin Name: Smart Table of Contents
+ * Plugin URI:  https://developer.developer.developer.developer.developer.developer.developer.developer.developer/plugins/smart-toc
+ * Description: A lightweight, SEO-friendly Table of Contents plugin that automatically generates TOC from your headings with smooth scroll and collapsible features.
+ * Version:     1.0.0
+ * Author:      developer developer
+ * Author URI:  https://developer.developer.developer.developer.developer
+ * Text Domain: smart-toc
+ * Domain Path: /languages
+ * License:     GPL v2 or later
+ * License URI: https://www.gnu.org/licenses/gpl-2.0.html
+ * Requires at least: 5.0
+ * Tested up to: 6.4
+ * Requires PHP: 7.2
+ */
+
+// Prevent direct access
+if ( ! defined( 'ABSPATH' ) ) {
+    exit;
+}
+
+// Plugin constants
+define( 'SMART_TOC_VERSION', '1.0.0' );
+define( 'SMART_TOC_PATH', plugin_dir_path( __FILE__ ) );
+define( 'SMART_TOC_URL', plugin_dir_url( __FILE__ ) );
+define( 'SMART_TOC_BASENAME', plugin_basename( __FILE__ ) );
+
+// Activation hook
+register_activation_hook( __FILE__, 'smart_toc_activate' );
+function smart_toc_activate() {
+    // Set default options on activation
+    if ( ! get_option( 'smart_toc_settings' ) ) {
+        $defaults = array(
+            'enabled'           => true,
+            'post_types'        => array( 'post', 'page' ),
+            'min_headings'      => 2,
+            'heading_levels'    => array( 2, 3, 4, 5, 6 ),
+            'default_collapsed' => false,
+            'position'          => 'before_content',
+            'smooth_scroll'     => true,
+            'highlight_active'  => true,
+            'title'             => __( 'Table of Contents', 'smart-toc' ),
+            'theme_color'       => '#0073aa',
+        );
+        update_option( 'smart_toc_settings', $defaults );
+    }
+}
+
+// Deactivation hook
+register_deactivation_hook( __FILE__, 'smart_toc_deactivate' );
+function smart_toc_deactivate() {
+    // Cleanup transients if any
+    delete_transient( 'smart_toc_cache' );
+}
+
+// Load text domain
+add_action( 'plugins_loaded', 'smart_toc_load_textdomain' );
+function smart_toc_load_textdomain() {
+    load_plugin_textdomain( 'smart-toc', false, dirname( SMART_TOC_BASENAME ) . '/languages' );
+}
+
+// Initialize plugin
+require_once SMART_TOC_PATH . 'includes/class-core.php';
+Smart_TOC_Core::instance();
