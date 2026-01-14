@@ -38,7 +38,7 @@ class Smart_TOC_Admin {
      * Add settings link to plugins page
      */
     public function plugin_action_links( $links ) {
-        $settings_link = '<a href="' . admin_url( 'options-general.php?page=smart-toc' ) . '">' . __( 'Settings', 'smart-toc-free' ) . '</a>';
+        $settings_link = '<a href="' . admin_url( 'options-general.php?page=smart-toc-free' ) . '">' . __( 'Settings', 'smart-toc-free' ) . '</a>';
         $pro_link = '<a href="https://codecanyon.net/" target="_blank" style="color:#00a32a;font-weight:600;">' . __( 'Get Pro', 'smart-toc-free' ) . '</a>';
         array_unshift( $links, $settings_link );
         $links[] = $pro_link;
@@ -62,12 +62,12 @@ class Smart_TOC_Admin {
      * Enqueue admin assets
      */
     public function admin_assets( $hook ) {
-        if ( 'settings_page_smart-toc' !== $hook && 'post.php' !== $hook && 'post-new.php' !== $hook ) {
+        if ( 'settings_page_smart-toc-free' !== $hook && 'post.php' !== $hook && 'post-new.php' !== $hook ) {
             return;
         }
 
         wp_enqueue_style(
-            'smart-toc-admin',
+            'smart-toc-free-admin',
             SMART_TOC_URL . 'assets/css/admin.css',
             array(),
             SMART_TOC_VERSION

@@ -77,9 +77,10 @@
 /* TOC Body */
 .smart-toc-body {
     padding: 15px 20px;
-    max-height: 500px;
+    max-height: 60vh;
     overflow-y: auto;
     transition: all 0.3s ease;
+    overscroll-behavior: contain;
 }
 
 .smart-toc.collapsed .smart-toc-body {

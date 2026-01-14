@@ -348,13 +348,13 @@ class Smart_TOC_Render {
             return '';
         }
 
-        $show_numbers = $this->settings->get( 'show_numbers' );
+        $show_numbers = (bool) $this->settings->get( 'show_numbers', false );
         $html = '<ul class="smart-toc-list">';
         $counter = 1;
         
         foreach ( $items as $item ) {
             $indent_class = 'toc-level-' . $item['level'];
-            $number_html = $show_numbers ? '<span class="toc-number">' . $counter . '.</span> ' : '';
+            $number_html = $show_numbers ? '<span class="toc-number">' . esc_html( $counter ) . '.</span> ' : '';
             $html .= '<li class="toc-item ' . esc_attr( $indent_class ) . '">';
             $html .= '<a href="#' . esc_attr( $item['id'] ) . '">' . $number_html . esc_html( $item['text'] ) . '</a>';
             $html .= '</li>';

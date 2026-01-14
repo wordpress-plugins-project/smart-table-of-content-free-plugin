@@ -13,21 +13,32 @@ A lightweight, SEO-friendly Table of Contents plugin that automatically generate
 
 == Description ==
 
-**Smart Table of Contents** automatically creates a table of contents from your post and page headings, improving navigation and SEO for your WordPress site.
+**Smart Table of Contents** automatically creates a beautiful, SEO-friendly table of contents from your post and page headings. It helps visitors navigate long-form content easily while improving your site's SEO with structured content.
 
-= Features =
+https://www.youtube.com/watch?v=YOUR_VIDEO_ID
 
-* **Automatic TOC Generation** - Automatically scans your content and creates a table of contents
-* **Smooth Scrolling** - Elegant smooth scroll to sections when clicking TOC links
+**🎯 Perfect for:**
+* Bloggers with long-form content
+* Documentation sites
+* Tutorial websites
+* News and magazine sites
+* Educational content
+* Any site with lengthy articles
+
+= ✨ Key Features =
+
+* **Automatic TOC Generation** - Automatically scans your content and creates a table of contents from headings
+* **Smooth Scrolling** - Elegant smooth scroll animation when clicking TOC links
 * **Collapsible TOC** - Allow visitors to expand/collapse the table of contents
-* **Active Heading Highlight** - Highlights the current section as users scroll
+* **Active Heading Highlight** - Highlights the current section as users scroll through content
 * **Shortcode Support** - Use `[smart_toc]` to place TOC anywhere in your content
-* **Customizable** - Choose heading levels (H2-H6), minimum headings, and more
-* **Show Numbers** - Optional numbering for TOC items
-* **Theme Color** - Match your site's design with custom theme color
-* **SEO Friendly** - Clean HTML markup optimized for search engines
-* **Lightweight** - Minimal footprint, fast loading
-* **Translation Ready** - Fully translatable
+* **Customizable Headings** - Choose which heading levels to include (H2-H6)
+* **Show Numbers** - Optional numbering for TOC items (1, 2, 3...)
+* **Theme Color** - Match your site's design with custom accent color
+* **SEO Friendly** - Clean HTML markup with proper anchor links for search engines
+* **Lightweight** - Under 15KB, no jQuery dependency for frontend
+* **Translation Ready** - Fully translatable with POT file included
+* **Per-Post Control** - Disable TOC for specific posts/pages
 
 = How It Works =
 
@@ -76,27 +87,72 @@ Need more features? Check out **[Smart TOC Pro](https://codecanyon.net/)** with:
 
 = How do I add TOC to a specific location? =
 
-Use the shortcode `[smart_toc]` in your post or page content where you want the TOC to appear.
+Use the shortcode `[smart_toc]` in your post or page content where you want the TOC to appear. Set the position to "Manual (Shortcode Only)" in settings.
 
 = Can I exclude a specific post from having TOC? =
 
-Yes! Edit the post and look for the "Smart TOC" meta box. You can disable TOC for individual posts.
+Yes! Edit the post and look for the "Smart TOC" meta box in the sidebar. Check the box to disable TOC for that specific post or page.
 
 = How do I change the TOC position? =
 
-Go to Settings → Smart TOC → Display Settings and choose from "Before Content", "After First Paragraph", or "Manual (Shortcode only)".
+Go to Settings → Smart TOC → Display Settings and choose from:
+* **Before Content** - TOC appears at the top of your content
+* **After First Paragraph** - TOC appears after the first paragraph
+* **Manual (Shortcode only)** - Use `[smart_toc]` shortcode for custom placement
 
-= Can I exclude certain headings? =
+= Can I exclude certain headings from TOC? =
 
-Add the class `no-toc` to any heading you want to exclude. Example: `<h2 class="no-toc">This won't appear in TOC</h2>`
+Yes! Add the CSS class `no-toc` to any heading you want to exclude:
+`<h2 class="no-toc">This heading won't appear in TOC</h2>`
+
+= How do I change the TOC title? =
+
+Go to Settings → Smart TOC → Display Settings and change the "TOC Title" field. Or use the shortcode attribute: `[smart_toc title="In This Article"]`
 
 = Does it work with page builders? =
 
-Yes, the plugin works with most page builders including Elementor, Beaver Builder, and Divi.
+Yes, Smart TOC works with most page builders including:
+* Elementor
+* Beaver Builder
+* Divi Builder
+* WPBakery
+* Gutenberg
 
 = Is it compatible with caching plugins? =
 
-Yes, Smart TOC is fully compatible with popular caching plugins like WP Super Cache, W3 Total Cache, and WP Rocket.
+Yes, Smart TOC is fully compatible with popular caching plugins:
+* WP Super Cache
+* W3 Total Cache
+* WP Rocket
+* LiteSpeed Cache
+* Autoptimize
+
+= Why isn't the TOC showing on my posts? =
+
+Check these common issues:
+1. Make sure the plugin is enabled in Settings → Smart TOC
+2. Verify the post type is selected in settings
+3. Check if you have the minimum number of headings required
+4. Make sure TOC isn't disabled for that specific post
+
+= Does it affect page speed? =
+
+No! Smart TOC is extremely lightweight (under 15KB) and doesn't use jQuery on the frontend. It has minimal impact on your page load time.
+
+= Can I style the TOC to match my theme? =
+
+Yes! You can:
+1. Change the theme color in settings
+2. Add custom CSS to your theme
+3. The TOC uses clean HTML with CSS classes for easy styling
+
+= Does it support RTL languages? =
+
+Yes, Smart TOC fully supports RTL (Right-to-Left) languages like Arabic, Hebrew, and Persian.
+
+= How do I display numbers before TOC items? =
+
+Go to Settings → Smart TOC → Display Settings and check "Show Numbers" option.
 
 == Screenshots ==
 
