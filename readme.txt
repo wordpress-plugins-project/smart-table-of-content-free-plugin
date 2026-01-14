@@ -4,7 +4,7 @@ Donate link: https://anikchowdhury.net
 Tags: table of contents, toc, seo, navigation, headings
 Requires at least: 5.0
 Tested up to: 6.9
-Stable tag: 1.0.2
+Stable tag: 1.0.3
 Requires PHP: 7.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -164,6 +164,10 @@ Go to Settings → Smart TOC → Display Settings and check "Show Numbers" optio
 
 == Changelog ==
 
+= 1.0.3 =
+* Renamed the translation text domain to `smart-table-of-contents` to align with the plugin slug and silence Plugin Checker warnings
+* Updated the included POT file and text-domain references throughout the admin UI for consistent localization behavior
+
 = 1.0.2 =
 * Added missing `ABSPATH` checks and normalized line endings for Plugin Check compliance
 * Bumped internal version constants to ensure cache busting for assets
@@ -187,6 +191,9 @@ Go to Settings → Smart TOC → Display Settings and check "Show Numbers" optio
 * Multi-language ready
 
 == Upgrade Notice ==
+
+= 1.0.3 =
+Required if you plan to localize the plugin or submit to WordPress.org—text domain now matches the official slug.
 
 = 1.0.2 =
 Recommended update for additional security hardening and WordPress.org review compliance.

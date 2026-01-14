@@ -321,10 +321,10 @@ class Smart_TOC_Render {
         $collapsed_class = $collapsed ? ' collapsed' : '';
         $aria_expanded = $collapsed ? 'false' : 'true';
 
-        $html = '<nav class="smart-toc' . esc_attr( $collapsed_class ) . '" aria-label="' . esc_attr__( 'Table of Contents', 'smart-toc-free' ) . '">';
+        $html = '<nav class="smart-toc' . esc_attr( $collapsed_class ) . '" aria-label="' . esc_attr__( 'Table of Contents', 'smart-table-of-contents' ) . '">';
         $html .= '<div class="smart-toc-header">';
         $html .= '<span class="smart-toc-title">' . esc_html( $title ) . '</span>';
-        $html .= '<button class="smart-toc-toggle" aria-expanded="' . esc_attr( $aria_expanded ) . '" aria-label="' . esc_attr__( 'Toggle Table of Contents', 'smart-toc-free' ) . '">';
+        $html .= '<button class="smart-toc-toggle" aria-expanded="' . esc_attr( $aria_expanded ) . '" aria-label="' . esc_attr__( 'Toggle Table of Contents', 'smart-table-of-contents' ) . '">';
         $html .= '<span class="toggle-icon"></span>';
         $html .= '</button>';
         $html .= '</div>';

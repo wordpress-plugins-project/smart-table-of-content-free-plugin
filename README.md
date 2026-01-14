@@ -1,10 +1,10 @@
 # Smart Table of Contents
 
-[![WordPress Plugin Version](https://img.shields.io/badge/version-1.0.0-blue)](https://wordpress.org/plugins/smart-toc/)
-[![WordPress Tested](https://img.shields.io/badge/WordPress-6.7%20tested-brightgreen)](https://wordpress.org/plugins/smart-toc/)
+[![WordPress Plugin Version](https://img.shields.io/badge/version-1.0.3-blue)](https://wordpress.org/plugins/smart-table-of-contents/)
+[![WordPress Tested](https://img.shields.io/badge/WordPress-6.9%20tested-brightgreen)](https://wordpress.org/plugins/smart-table-of-contents/)
 [![PHP Version](https://img.shields.io/badge/PHP-7.2%2B-purple)](https://www.php.net/)
 [![License](https://img.shields.io/badge/license-GPLv2-orange)](https://www.gnu.org/licenses/gpl-2.0.html)
-[![Downloads](https://img.shields.io/badge/downloads-1k%2B-green)](https://wordpress.org/plugins/smart-toc/)
+[![Downloads](https://img.shields.io/badge/downloads-1k%2B-green)](https://wordpress.org/plugins/smart-table-of-contents/)
 
 > A lightweight, SEO-friendly Table of Contents plugin for WordPress that automatically generates navigation from your headings with smooth scroll and collapsible features.
 
@@ -124,7 +124,7 @@ smart-toc/
 │   ├── class-render.php   # TOC rendering
 │   └── class-shortcode.php# Shortcode handler
 └── languages/
-    └── smart-toc.pot      # Translation template
+    └── smart-table-of-contents.pot  # Translation template
 ```
 
 ## 🔌 Compatibility
@@ -171,11 +171,24 @@ This project is licensed under the GPL v2 or later - see the [LICENSE](https://w
 ## 📞 Support
 
 - **Documentation**: [Read Documentation](https://github.com/wordpress-plugins-project/smart-table-of-content-free-plugin#readme)
-- **WordPress.org**: [Support Forum](https://wordpress.org/support/plugin/smart-toc/)
+- **WordPress.org**: [Support Forum](https://wordpress.org/support/plugin/smart-table-of-contents/)
 - **Issues**: [GitHub Issues](https://github.com/wordpress-plugins-project/smart-table-of-content-free-plugin/issues)
 - **Developer**: [Anik Chowdhury](https://github.com/anikchowdhurybd)
 
 ## 📝 Changelog
+
+### 1.0.3
+- Renamed the translation text domain to `smart-table-of-contents` to align with the plugin slug
+- Updated POT file and text-domain references throughout the admin UI
+
+### 1.0.2
+- Added missing `ABSPATH` checks and normalized line endings for Plugin Check compliance
+- Bumped internal version constants for asset cache busting
+
+### 1.0.1
+- Improved scrolling behavior for last TOC items
+- Added show-number option to frontend output and settings defaults
+- Updated documentation and admin asset slugs
 
 ### 1.0.0
 

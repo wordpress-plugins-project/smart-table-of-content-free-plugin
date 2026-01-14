@@ -3,10 +3,10 @@
  * Plugin Name: Smart Table of Contents
  * Plugin URI:  https://github.com/wordpress-plugins-project/smart-table-of-content-free-plugin
  * Description: A lightweight, SEO-friendly Table of Contents plugin that automatically generates TOC from your headings with smooth scroll and collapsible features.
- * Version:     1.0.2
+ * Version:     1.0.3
  * Author:      Anik Chowdhury
  * Author URI:  https://anikchowdhury.net
- * Text Domain: smart-toc-free
+ * Text Domain: smart-table-of-contents
  * License:     GPL v2 or later
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
  * Requires at least: 5.0
@@ -20,7 +20,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 // Plugin constants
-define( 'SMART_TOC_VERSION', '1.0.2' );
+define( 'SMART_TOC_VERSION', '1.0.3' );
 define( 'SMART_TOC_PATH', plugin_dir_path( __FILE__ ) );
 define( 'SMART_TOC_URL', plugin_dir_url( __FILE__ ) );
 define( 'SMART_TOC_BASENAME', plugin_basename( __FILE__ ) );
@@ -39,7 +39,7 @@ function smart_toc_activate() {
             'position'          => 'before_content',
             'smooth_scroll'     => true,
             'highlight_active'  => true,
-            'title'             => __( 'Table of Contents', 'smart-toc-free' ),
+            'title'             => __( 'Table of Contents', 'smart-table-of-contents' ),
             'theme_color'       => '#0073aa',
             'scroll_offset'     => 80,
             'show_numbers'      => true,

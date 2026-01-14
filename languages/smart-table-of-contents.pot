@@ -14,9 +14,9 @@ msgstr ""
 "Language: en\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: WP-CLI\n"
-"X-Domain: smart-toc-free\n"
+"X-Domain: smart-table-of-contents\n"
 
-#: smart-toc-free.php:43 includes/class-settings.php:41
+#: smart-toc.php:43 includes/class-settings.php:41
 msgid "Table of Contents"
 msgstr ""
 
