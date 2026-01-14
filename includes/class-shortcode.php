@@ -73,9 +73,10 @@ class Smart_TOC_Shortcode {
         // Remove our shortcode from content to prevent infinite loop
         $content = preg_replace( '/\[smart_toc[^\]]*\]/', '', $content );
         
-        // Apply content filters (except our TOC filter)
-        remove_filter( 'the_content', array( Smart_TOC_Core::instance()->settings, 'render' ), 20 );
-        $content = apply_filters( 'the_content', $content );
+        // Process shortcodes and basic formatting without triggering the_content filter
+        $content = do_shortcode( $content );
+        $content = wptexturize( $content );
+        $content = wpautop( $content );
 
         // Generate TOC
         $render = new Smart_TOC_Render( $this->settings );

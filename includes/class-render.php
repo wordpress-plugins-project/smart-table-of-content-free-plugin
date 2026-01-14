@@ -65,7 +65,7 @@ class Smart_TOC_Render {
      */
     public function enqueue_assets() {
         wp_enqueue_style(
-            'smart-toc',
+            'smart-toc-free',
             SMART_TOC_URL . 'assets/css/toc.css',
             array(),
             SMART_TOC_VERSION
@@ -321,10 +321,10 @@ class Smart_TOC_Render {
         $collapsed_class = $collapsed ? ' collapsed' : '';
         $aria_expanded = $collapsed ? 'false' : 'true';
 
-        $html = '<nav class="smart-toc' . esc_attr( $collapsed_class ) . '" aria-label="' . esc_attr__( 'Table of Contents', 'smart-toc' ) . '">';
+        $html = '<nav class="smart-toc' . esc_attr( $collapsed_class ) . '" aria-label="' . esc_attr__( 'Table of Contents', 'smart-toc-free' ) . '">';
         $html .= '<div class="smart-toc-header">';
         $html .= '<span class="smart-toc-title">' . esc_html( $title ) . '</span>';
-        $html .= '<button class="smart-toc-toggle" aria-expanded="' . esc_attr( $aria_expanded ) . '" aria-label="' . esc_attr__( 'Toggle Table of Contents', 'smart-toc' ) . '">';
+        $html .= '<button class="smart-toc-toggle" aria-expanded="' . esc_attr( $aria_expanded ) . '" aria-label="' . esc_attr__( 'Toggle Table of Contents', 'smart-toc-free' ) . '">';
         $html .= '<span class="toggle-icon"></span>';
         $html .= '</button>';
         $html .= '</div>';

@@ -38,8 +38,8 @@ class Smart_TOC_Admin {
      * Add settings link to plugins page
      */
     public function plugin_action_links( $links ) {
-        $settings_link = '<a href="' . admin_url( 'options-general.php?page=smart-toc' ) . '">' . __( 'Settings', 'smart-toc' ) . '</a>';
-        $pro_link = '<a href="https://codecanyon.net/" target="_blank" style="color:#00a32a;font-weight:600;">' . __( 'Get Pro', 'smart-toc' ) . '</a>';
+        $settings_link = '<a href="' . admin_url( 'options-general.php?page=smart-toc' ) . '">' . __( 'Settings', 'smart-toc-free' ) . '</a>';
+        $pro_link = '<a href="https://codecanyon.net/" target="_blank" style="color:#00a32a;font-weight:600;">' . __( 'Get Pro', 'smart-toc-free' ) . '</a>';
         array_unshift( $links, $settings_link );
         $links[] = $pro_link;
         return $links;
@@ -50,10 +50,10 @@ class Smart_TOC_Admin {
      */
     public function add_admin_menu() {
         add_options_page(
-            __( 'Smart TOC Settings', 'smart-toc' ),
-            __( 'Smart TOC', 'smart-toc' ),
+            __( 'Smart TOC Settings', 'smart-toc-free' ),
+            __( 'Smart TOC', 'smart-toc-free' ),
             'manage_options',
-            'smart-toc',
+            'smart-toc-free',
             array( $this, 'settings_page' )
         );
     }
@@ -126,7 +126,7 @@ class Smart_TOC_Admin {
 
         $sanitized['title'] = isset( $input['title'] ) 
             ? sanitize_text_field( $input['title'] ) 
-            : __( 'Table of Contents', 'smart-toc' );
+            : __( 'Table of Contents', 'smart-toc-free' );
 
         $sanitized['theme_color'] = isset( $input['theme_color'] ) 
             ? sanitize_hex_color( $input['theme_color'] ) 
@@ -148,14 +148,14 @@ class Smart_TOC_Admin {
         $settings = $this->settings->get_all();
         ?>
         <div class="wrap smart-toc-admin">
-            <h1><?php esc_html_e( 'Smart Table of Contents', 'smart-toc' ); ?></h1>
+            <h1><?php esc_html_e( 'Smart Table of Contents', 'smart-toc-free' ); ?></h1>
             
             <!-- Pro Banner -->
             <div class="smart-toc-pro-banner">
                 <div class="pro-banner-content">
-                    <h3>🚀 <?php esc_html_e( 'Upgrade to Smart TOC Pro', 'smart-toc' ); ?></h3>
-                    <p><?php esc_html_e( 'Get advanced features like Sticky TOC, Reading Progress Bar, Gutenberg Block, Theme Presets, and more!', 'smart-toc' ); ?></p>
-                    <a href="https://codecanyon.net/" target="_blank" class="button button-primary"><?php esc_html_e( 'Get Pro Version', 'smart-toc' ); ?></a>
+                    <h3>🚀 <?php esc_html_e( 'Upgrade to Smart TOC Pro', 'smart-toc-free' ); ?></h3>
+                    <p><?php esc_html_e( 'Get advanced features like Sticky TOC, Reading Progress Bar, Gutenberg Block, Theme Presets, and more!', 'smart-toc-free' ); ?></p>
+                    <a href="https://codecanyon.net/" target="_blank" class="button button-primary"><?php esc_html_e( 'Get Pro Version', 'smart-toc-free' ); ?></a>
                 </div>
             </div>
 
@@ -165,20 +165,20 @@ class Smart_TOC_Admin {
                 <div class="smart-toc-settings-grid">
                     <!-- General Settings -->
                     <div class="smart-toc-card">
-                        <h2><?php esc_html_e( 'General Settings', 'smart-toc' ); ?></h2>
+                        <h2><?php esc_html_e( 'General Settings', 'smart-toc-free' ); ?></h2>
                         
                         <table class="form-table">
                             <tr>
-                                <th scope="row"><?php esc_html_e( 'Enable TOC', 'smart-toc' ); ?></th>
+                                <th scope="row"><?php esc_html_e( 'Enable TOC', 'smart-toc-free' ); ?></th>
                                 <td>
                                     <label>
                                         <input type="checkbox" name="smart_toc_settings[enabled]" value="1" <?php checked( $settings['enabled'] ); ?>>
-                                        <?php esc_html_e( 'Enable Table of Contents globally', 'smart-toc' ); ?>
+                                        <?php esc_html_e( 'Enable Table of Contents globally', 'smart-toc-free' ); ?>
                                     </label>
                                 </td>
                             </tr>
                             <tr>
-                                <th scope="row"><?php esc_html_e( 'Post Types', 'smart-toc' ); ?></th>
+                                <th scope="row"><?php esc_html_e( 'Post Types', 'smart-toc-free' ); ?></th>
                                 <td>
                                     <?php
                                     $post_types = get_post_types( array( 'public' => true ), 'objects' );
@@ -196,7 +196,7 @@ class Smart_TOC_Admin {
                                 </td>
                             </tr>
                             <tr>
-                                <th scope="row"><?php esc_html_e( 'Minimum Headings', 'smart-toc' ); ?></th>
+                                <th scope="row"><?php esc_html_e( 'Minimum Headings', 'smart-toc-free' ); ?></th>
                                 <td>
                                     <input type="number" 
                                            name="smart_toc_settings[min_headings]" 
@@ -204,11 +204,11 @@ class Smart_TOC_Admin {
                                            min="1" 
                                            max="10"
                                            class="small-text">
-                                    <p class="description"><?php esc_html_e( 'Minimum number of headings required to display TOC', 'smart-toc' ); ?></p>
+                                    <p class="description"><?php esc_html_e( 'Minimum number of headings required to display TOC', 'smart-toc-free' ); ?></p>
                                 </td>
                             </tr>
                             <tr>
-                                <th scope="row"><?php esc_html_e( 'Heading Levels', 'smart-toc' ); ?></th>
+                                <th scope="row"><?php esc_html_e( 'Heading Levels', 'smart-toc-free' ); ?></th>
                                 <td>
                                     <?php for ( $i = 2; $i <= 6; $i++ ) : ?>
                                         <label style="margin-right: 15px;">
@@ -226,11 +226,11 @@ class Smart_TOC_Admin {
 
                     <!-- Display Settings -->
                     <div class="smart-toc-card">
-                        <h2><?php esc_html_e( 'Display Settings', 'smart-toc' ); ?></h2>
+                        <h2><?php esc_html_e( 'Display Settings', 'smart-toc-free' ); ?></h2>
                         
                         <table class="form-table">
                             <tr>
-                                <th scope="row"><?php esc_html_e( 'TOC Title', 'smart-toc' ); ?></th>
+                                <th scope="row"><?php esc_html_e( 'TOC Title', 'smart-toc-free' ); ?></th>
                                 <td>
                                     <input type="text" 
                                            name="smart_toc_settings[title]" 
@@ -239,41 +239,41 @@ class Smart_TOC_Admin {
                                 </td>
                             </tr>
                             <tr>
-                                <th scope="row"><?php esc_html_e( 'Position', 'smart-toc' ); ?></th>
+                                <th scope="row"><?php esc_html_e( 'Position', 'smart-toc-free' ); ?></th>
                                 <td>
                                     <select name="smart_toc_settings[position]">
                                         <option value="before_content" <?php selected( $settings['position'], 'before_content' ); ?>>
-                                            <?php esc_html_e( 'Before Content', 'smart-toc' ); ?>
+                                            <?php esc_html_e( 'Before Content', 'smart-toc-free' ); ?>
                                         </option>
                                         <option value="after_first_paragraph" <?php selected( $settings['position'], 'after_first_paragraph' ); ?>>
-                                            <?php esc_html_e( 'After First Paragraph', 'smart-toc' ); ?>
+                                            <?php esc_html_e( 'After First Paragraph', 'smart-toc-free' ); ?>
                                         </option>
                                         <option value="manual" <?php selected( $settings['position'], 'manual' ); ?>>
-                                            <?php esc_html_e( 'Manual (Shortcode Only)', 'smart-toc' ); ?>
+                                            <?php esc_html_e( 'Manual (Shortcode Only)', 'smart-toc-free' ); ?>
                                         </option>
                                     </select>
                                 </td>
                             </tr>
                             <tr>
-                                <th scope="row"><?php esc_html_e( 'Default State', 'smart-toc' ); ?></th>
+                                <th scope="row"><?php esc_html_e( 'Default State', 'smart-toc-free' ); ?></th>
                                 <td>
                                     <label>
                                         <input type="checkbox" name="smart_toc_settings[default_collapsed]" value="1" <?php checked( $settings['default_collapsed'] ); ?>>
-                                        <?php esc_html_e( 'Collapsed by default', 'smart-toc' ); ?>
+                                        <?php esc_html_e( 'Collapsed by default', 'smart-toc-free' ); ?>
                                     </label>
                                 </td>
                             </tr>
                             <tr>
-                                <th scope="row"><?php esc_html_e( 'Show Numbers', 'smart-toc' ); ?></th>
+                                <th scope="row"><?php esc_html_e( 'Show Numbers', 'smart-toc-free' ); ?></th>
                                 <td>
                                     <label>
                                         <input type="checkbox" name="smart_toc_settings[show_numbers]" value="1" <?php checked( $settings['show_numbers'] ); ?>>
-                                        <?php esc_html_e( 'Display numbers before TOC items (1, 2, 3...)', 'smart-toc' ); ?>
+                                        <?php esc_html_e( 'Display numbers before TOC items (1, 2, 3...)', 'smart-toc-free' ); ?>
                                     </label>
                                 </td>
                             </tr>
                             <tr>
-                                <th scope="row"><?php esc_html_e( 'Theme Color', 'smart-toc' ); ?></th>
+                                <th scope="row"><?php esc_html_e( 'Theme Color', 'smart-toc-free' ); ?></th>
                                 <td>
                                     <input type="text" 
                                            name="smart_toc_settings[theme_color]" 
@@ -286,29 +286,29 @@ class Smart_TOC_Admin {
 
                     <!-- Behavior Settings -->
                     <div class="smart-toc-card">
-                        <h2><?php esc_html_e( 'Behavior Settings', 'smart-toc' ); ?></h2>
+                        <h2><?php esc_html_e( 'Behavior Settings', 'smart-toc-free' ); ?></h2>
                         
                         <table class="form-table">
                             <tr>
-                                <th scope="row"><?php esc_html_e( 'Smooth Scroll', 'smart-toc' ); ?></th>
+                                <th scope="row"><?php esc_html_e( 'Smooth Scroll', 'smart-toc-free' ); ?></th>
                                 <td>
                                     <label>
                                         <input type="checkbox" name="smart_toc_settings[smooth_scroll]" value="1" <?php checked( $settings['smooth_scroll'] ); ?>>
-                                        <?php esc_html_e( 'Enable smooth scrolling to headings', 'smart-toc' ); ?>
+                                        <?php esc_html_e( 'Enable smooth scrolling to headings', 'smart-toc-free' ); ?>
                                     </label>
                                 </td>
                             </tr>
                             <tr>
-                                <th scope="row"><?php esc_html_e( 'Highlight Active', 'smart-toc' ); ?></th>
+                                <th scope="row"><?php esc_html_e( 'Highlight Active', 'smart-toc-free' ); ?></th>
                                 <td>
                                     <label>
                                         <input type="checkbox" name="smart_toc_settings[highlight_active]" value="1" <?php checked( $settings['highlight_active'] ); ?>>
-                                        <?php esc_html_e( 'Highlight current section in TOC', 'smart-toc' ); ?>
+                                        <?php esc_html_e( 'Highlight current section in TOC', 'smart-toc-free' ); ?>
                                     </label>
                                 </td>
                             </tr>
                             <tr>
-                                <th scope="row"><?php esc_html_e( 'Scroll Offset', 'smart-toc' ); ?></th>
+                                <th scope="row"><?php esc_html_e( 'Scroll Offset', 'smart-toc-free' ); ?></th>
                                 <td>
                                     <input type="number" 
                                            name="smart_toc_settings[scroll_offset]" 
@@ -316,7 +316,7 @@ class Smart_TOC_Admin {
                                            min="0" 
                                            max="200"
                                            class="small-text"> px
-                                    <p class="description"><?php esc_html_e( 'Offset from top when scrolling (useful for fixed headers)', 'smart-toc' ); ?></p>
+                                    <p class="description"><?php esc_html_e( 'Offset from top when scrolling (useful for fixed headers)', 'smart-toc-free' ); ?></p>
                                 </td>
                             </tr>
                         </table>
@@ -324,20 +324,20 @@ class Smart_TOC_Admin {
 
                     <!-- Pro Features Preview -->
                     <div class="smart-toc-card smart-toc-pro-features">
-                        <h2>✨ <?php esc_html_e( 'Pro Features', 'smart-toc' ); ?></h2>
+                        <h2>✨ <?php esc_html_e( 'Pro Features', 'smart-toc-free' ); ?></h2>
                         <ul class="pro-features-list">
-                            <li>🔒 <?php esc_html_e( 'Sticky/Floating TOC', 'smart-toc' ); ?></li>
-                            <li>🔒 <?php esc_html_e( 'Reading Progress Bar', 'smart-toc' ); ?></li>
-                            <li>🔒 <?php esc_html_e( 'Estimated Reading Time', 'smart-toc' ); ?></li>
-                            <li>🔒 <?php esc_html_e( 'Back to Top Button', 'smart-toc' ); ?></li>
-                            <li>🔒 <?php esc_html_e( 'Keyboard Navigation', 'smart-toc' ); ?></li>
-                            <li>🔒 <?php esc_html_e( 'Multiple Theme Presets', 'smart-toc' ); ?></li>
-                            <li>🔒 <?php esc_html_e( 'Custom CSS Support', 'smart-toc' ); ?></li>
-                            <li>🔒 <?php esc_html_e( 'Mobile-specific Options', 'smart-toc' ); ?></li>
-                            <li>🔒 <?php esc_html_e( 'Gutenberg Block', 'smart-toc' ); ?></li>
-                            <li>🔒 <?php esc_html_e( 'Sidebar Widget', 'smart-toc' ); ?></li>
+                            <li>🔒 <?php esc_html_e( 'Sticky/Floating TOC', 'smart-toc-free' ); ?></li>
+                            <li>🔒 <?php esc_html_e( 'Reading Progress Bar', 'smart-toc-free' ); ?></li>
+                            <li>🔒 <?php esc_html_e( 'Estimated Reading Time', 'smart-toc-free' ); ?></li>
+                            <li>🔒 <?php esc_html_e( 'Back to Top Button', 'smart-toc-free' ); ?></li>
+                            <li>🔒 <?php esc_html_e( 'Keyboard Navigation', 'smart-toc-free' ); ?></li>
+                            <li>🔒 <?php esc_html_e( 'Multiple Theme Presets', 'smart-toc-free' ); ?></li>
+                            <li>🔒 <?php esc_html_e( 'Custom CSS Support', 'smart-toc-free' ); ?></li>
+                            <li>🔒 <?php esc_html_e( 'Mobile-specific Options', 'smart-toc-free' ); ?></li>
+                            <li>🔒 <?php esc_html_e( 'Gutenberg Block', 'smart-toc-free' ); ?></li>
+                            <li>🔒 <?php esc_html_e( 'Sidebar Widget', 'smart-toc-free' ); ?></li>
                         </ul>
-                        <a href="https://codecanyon.net/" target="_blank" class="button button-primary"><?php esc_html_e( 'Unlock All Features', 'smart-toc' ); ?></a>
+                        <a href="https://codecanyon.net/" target="_blank" class="button button-primary"><?php esc_html_e( 'Unlock All Features', 'smart-toc-free' ); ?></a>
                     </div>
                 </div>
 
@@ -346,12 +346,12 @@ class Smart_TOC_Admin {
 
             <!-- Shortcode Info -->
             <div class="smart-toc-card">
-                <h2><?php esc_html_e( 'Shortcode Usage', 'smart-toc' ); ?></h2>
-                <p><?php esc_html_e( 'Use the following shortcode to manually place the TOC:', 'smart-toc' ); ?></p>
+                <h2><?php esc_html_e( 'Shortcode Usage', 'smart-toc-free' ); ?></h2>
+                <p><?php esc_html_e( 'Use the following shortcode to manually place the TOC:', 'smart-toc-free' ); ?></p>
                 <code>[smart_toc]</code>
-                <p style="margin-top: 10px;"><?php esc_html_e( 'With custom title:', 'smart-toc' ); ?></p>
+                <p style="margin-top: 10px;"><?php esc_html_e( 'With custom title:', 'smart-toc-free' ); ?></p>
                 <code>[smart_toc title="In This Article"]</code>
-                <p style="margin-top: 10px;"><?php esc_html_e( 'Collapsed by default:', 'smart-toc' ); ?></p>
+                <p style="margin-top: 10px;"><?php esc_html_e( 'Collapsed by default:', 'smart-toc-free' ); ?></p>
                 <code>[smart_toc collapsed="true"]</code>
             </div>
         </div>
@@ -367,7 +367,7 @@ class Smart_TOC_Admin {
         foreach ( $post_types as $post_type ) {
             add_meta_box(
                 'smart_toc_meta_box',
-                __( 'Smart TOC', 'smart-toc' ),
+                __( 'Smart TOC', 'smart-toc-free' ),
                 array( $this, 'render_meta_box' ),
                 $post_type,
                 'side',
@@ -386,7 +386,7 @@ class Smart_TOC_Admin {
         ?>
         <label>
             <input type="checkbox" name="smart_toc_disable" value="1" <?php checked( $disabled ); ?>>
-            <?php esc_html_e( 'Disable TOC for this post', 'smart-toc' ); ?>
+            <?php esc_html_e( 'Disable TOC for this post', 'smart-toc-free' ); ?>
         </label>
         <?php
     }
@@ -399,7 +399,8 @@ class Smart_TOC_Admin {
             return;
         }
 
-        if ( ! wp_verify_nonce( $_POST['smart_toc_meta_box_nonce'], 'smart_toc_meta_box' ) ) {
+        $nonce = sanitize_text_field( wp_unslash( $_POST['smart_toc_meta_box_nonce'] ) );
+        if ( ! wp_verify_nonce( $nonce, 'smart_toc_meta_box' ) ) {
             return;
         }
 

@@ -1,9 +1,9 @@
 === Smart Table of Contents ===
-Contributors: anikchowdhurybd
+Contributors: anikchowdhury
 Donate link: https://anikchowdhury.net
 Tags: table of contents, toc, seo, navigation, headings
 Requires at least: 5.0
-Tested up to: 6.7
+Tested up to: 6.9
 Stable tag: 1.0.0
 Requires PHP: 7.2
 License: GPLv2 or later
