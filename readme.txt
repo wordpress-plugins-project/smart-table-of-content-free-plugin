@@ -1,9 +1,9 @@
 === Smart Table of Contents ===
-Contributors: developer developer
-Donate link: https://developer.developer.developer.developer.developer
+Contributors: anikchowdhurybd
+Donate link: https://anikchowdhury.net
 Tags: table of contents, toc, seo, navigation, headings
 Requires at least: 5.0
-Tested up to: 6.4
+Tested up to: 6.7
 Stable tag: 1.0.0
 Requires PHP: 7.2
 License: GPLv2 or later
@@ -23,6 +23,7 @@ A lightweight, SEO-friendly Table of Contents plugin that automatically generate
 * **Active Heading Highlight** - Highlights the current section as users scroll
 * **Shortcode Support** - Use `[smart_toc]` to place TOC anywhere in your content
 * **Customizable** - Choose heading levels (H2-H6), minimum headings, and more
+* **Show Numbers** - Optional numbering for TOC items
 * **Theme Color** - Match your site's design with custom theme color
 * **SEO Friendly** - Clean HTML markup optimized for search engines
 * **Lightweight** - Minimal footprint, fast loading
@@ -116,6 +117,7 @@ Yes, Smart TOC is fully compatible with popular caching plugins like WP Super Ca
 * Shortcode support
 * Theme color customization
 * Per-post enable/disable
+* Show numbers option
 * Multi-language ready
 
 == Upgrade Notice ==

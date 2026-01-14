@@ -149,6 +149,13 @@
     font-size: 12px;
 }
 
+/* TOC Numbers */
+.toc-number {
+    font-weight: 600;
+    color: inherit;
+    margin-right: 4px;
+}
+
 /* Scrollbar Styling */
 .smart-toc-body::-webkit-scrollbar {
     width: 6px;

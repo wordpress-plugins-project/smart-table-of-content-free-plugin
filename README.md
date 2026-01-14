@@ -1,11 +1,12 @@
-# Smart Table of Contents - WordPress Plugin
+# Smart Table of Contents
 
-![WordPress Plugin Version](https://img.shields.io/badge/version-1.0.0-blue)
-![WordPress Tested](https://img.shields.io/badge/WordPress-6.4%20tested-brightgreen)
-![PHP Version](https://img.shields.io/badge/PHP-7.2%2B-purple)
-![License](https://img.shields.io/badge/license-GPLv2-orange)
+[![WordPress Plugin Version](https://img.shields.io/badge/version-1.0.0-blue)](https://wordpress.org/plugins/smart-toc/)
+[![WordPress Tested](https://img.shields.io/badge/WordPress-6.7%20tested-brightgreen)](https://wordpress.org/plugins/smart-toc/)
+[![PHP Version](https://img.shields.io/badge/PHP-7.2%2B-purple)](https://www.php.net/)
+[![License](https://img.shields.io/badge/license-GPLv2-orange)](https://www.gnu.org/licenses/gpl-2.0.html)
+[![Downloads](https://img.shields.io/badge/downloads-1k%2B-green)](https://wordpress.org/plugins/smart-toc/)
 
-A lightweight, SEO-friendly Table of Contents plugin for WordPress that automatically generates TOC from your headings with smooth scroll and collapsible features.
+> A lightweight, SEO-friendly Table of Contents plugin for WordPress that automatically generates navigation from your headings with smooth scroll and collapsible features.
 
 ![Smart TOC Preview](https://via.placeholder.com/800x400?text=Smart+Table+of+Contents+Preview)
 
@@ -17,6 +18,7 @@ A lightweight, SEO-friendly Table of Contents plugin for WordPress that automati
 - **Active Heading Highlight** - Highlights the current section as users scroll through content
 - **Shortcode Support** - Use `[smart_toc]` to place TOC anywhere in your content
 - **Customizable Heading Levels** - Choose which heading levels (H2-H6) to include
+- **Show Numbers** - Optional sequential numbering for TOC items (1, 2, 3...)
 - **Theme Color** - Match your site's design with custom theme color
 - **SEO Friendly** - Clean HTML markup optimized for search engines
 - **Lightweight** - Minimal footprint, fast loading with no dependencies
@@ -55,12 +57,13 @@ git clone https://github.com/wordpress-plugins-project/smart-table-of-content-fr
 After activation, go to **Settings → Smart TOC** to configure:
 
 | Setting | Description |
-|---------|-------------|
+| ------- | ----------- |
 | Enable TOC | Globally enable/disable the table of contents |
 | Post Types | Select which post types should display TOC |
 | Minimum Headings | Minimum number of headings required to show TOC |
 | Heading Levels | Choose which heading levels (H2-H6) to include |
 | Default Collapsed | Start TOC in collapsed state |
+| Show Numbers | Display sequential numbers before TOC items |
 | Position | Before content, After first paragraph, or Manual |
 | Smooth Scroll | Enable smooth scrolling animation |
 | Highlight Active | Highlight current section in TOC |
@@ -101,12 +104,13 @@ Add the `no-toc` class to any heading you want to exclude:
 
 ## 📁 File Structure
 
-```
+```text
 smart-toc/
 ├── smart-toc.php          # Main plugin file
 ├── uninstall.php          # Cleanup on uninstall
 ├── index.php              # Security index
 ├── readme.txt             # WordPress.org readme
+├── README.md              # GitHub readme
 ├── assets/
 │   ├── css/
 │   │   ├── admin.css      # Admin styles
@@ -119,7 +123,8 @@ smart-toc/
 │   ├── class-settings.php # Settings handler
 │   ├── class-render.php   # TOC rendering
 │   └── class-shortcode.php# Shortcode handler
-└── languages/             # Translation files
+└── languages/
+    └── smart-toc.pot      # Translation template
 ```
 
 ## 🔌 Compatibility
@@ -131,32 +136,23 @@ Smart TOC works seamlessly with:
 - **Caching Plugins**: WP Super Cache, W3 Total Cache, WP Rocket, LiteSpeed Cache
 - **SEO Plugins**: Yoast SEO, Rank Math, All in One SEO
 
-## ⭐ Pro Version
+## 🚀 Looking for More Features?
 
-Need more advanced features? Check out **[Smart TOC Pro](https://codecanyon.net/)** which includes:
+**[Smart TOC Pro](https://codecanyon.net/)** extends this plugin with advanced features:
 
-| Feature | Free | Pro |
-|---------|:----:|:---:|
-| Automatic TOC Generation | ✅ | ✅ |
-| Smooth Scrolling | ✅ | ✅ |
-| Collapsible TOC | ✅ | ✅ |
-| Active Heading Highlight | ✅ | ✅ |
-| Shortcode Support | ✅ | ✅ |
-| Theme Color | ✅ | ✅ |
-| Per-Post Control | ✅ | ✅ |
-| Sticky/Floating TOC | ❌ | ✅ |
-| Reading Progress Bar | ❌ | ✅ |
-| Estimated Reading Time | ❌ | ✅ |
-| Back to Top Button | ❌ | ✅ |
-| Keyboard Navigation | ❌ | ✅ |
-| Multiple Theme Presets | ❌ | ✅ |
-| Custom CSS Support | ❌ | ✅ |
-| Mobile-Specific Options | ❌ | ✅ |
-| Collapsible Sections | ❌ | ✅ |
-| Heading Numbers | ❌ | ✅ |
-| Gutenberg Block | ❌ | ✅ |
-| Sidebar Widget | ❌ | ✅ |
-| Priority Support | ❌ | ✅ |
+- 📌 Sticky/Floating TOC
+- 📊 Reading Progress Bar  
+- ⏱️ Estimated Reading Time
+- ⬆️ Back to Top Button
+- ⌨️ Keyboard Navigation
+- 🎨 Multiple Theme Presets
+- � Custom CSS Support
+- 📱 Mobile-Specific Options
+- 🔢 Hierarchical Heading Numbers (1.1, 1.2, 2.1...)
+- 🧱 Gutenberg Block & Sidebar Widget
+- 🌟 Priority Support
+
+[Learn More →](https://codecanyon.net/)
 
 ## 🤝 Contributing
 
@@ -182,6 +178,7 @@ This project is licensed under the GPL v2 or later - see the [LICENSE](https://w
 ## 📝 Changelog
 
 ### 1.0.0
+
 - Initial release
 - Automatic TOC generation
 - Smooth scroll navigation
@@ -189,6 +186,7 @@ This project is licensed under the GPL v2 or later - see the [LICENSE](https://w
 - Active heading highlight
 - Shortcode support
 - Theme color customization
+- Show numbers option
 - Per-post enable/disable
 - Multi-language ready
 

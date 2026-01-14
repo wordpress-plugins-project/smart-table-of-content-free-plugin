@@ -43,6 +43,7 @@ class Smart_TOC_Settings {
         'theme_color'       => '#0073aa',
         'exclude_class'     => 'no-toc',
         'scroll_offset'     => 80,
+        'show_numbers'      => false,
     );
 
     /**
@@ -111,6 +112,11 @@ class Smart_TOC_Settings {
     public function should_display() {
         // Check if globally enabled
         if ( ! $this->get( 'enabled' ) ) {
+            return false;
+        }
+
+        // Don't show on front page / homepage
+        if ( is_front_page() || is_home() ) {
             return false;
         }
 

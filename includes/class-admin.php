@@ -136,6 +136,8 @@ class Smart_TOC_Admin {
             ? absint( $input['scroll_offset'] ) 
             : 80;
 
+        $sanitized['show_numbers'] = ! empty( $input['show_numbers'] );
+
         return $sanitized;
     }
 
@@ -258,6 +260,15 @@ class Smart_TOC_Admin {
                                     <label>
                                         <input type="checkbox" name="smart_toc_settings[default_collapsed]" value="1" <?php checked( $settings['default_collapsed'] ); ?>>
                                         <?php esc_html_e( 'Collapsed by default', 'smart-toc' ); ?>
+                                    </label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row"><?php esc_html_e( 'Show Numbers', 'smart-toc' ); ?></th>
+                                <td>
+                                    <label>
+                                        <input type="checkbox" name="smart_toc_settings[show_numbers]" value="1" <?php checked( $settings['show_numbers'] ); ?>>
+                                        <?php esc_html_e( 'Display numbers before TOC items (1, 2, 3...)', 'smart-toc' ); ?>
                                     </label>
                                 </td>
                             </tr>

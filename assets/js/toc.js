@@ -14,6 +14,10 @@
         scrollOffset: 80
     };
 
+    // Flag to prevent highlight updates during programmatic scroll
+    let isScrolling = false;
+    let scrollTimeout = null;
+
     /**
      * Initialize TOC functionality
      */
@@ -70,11 +74,23 @@
                 const targetElement = document.getElementById(targetId);
                 
                 if (targetElement) {
+                    // Set scrolling flag to prevent highlight interference
+                    isScrolling = true;
+                    
+                    // Clear any existing timeout
+                    if (scrollTimeout) {
+                        clearTimeout(scrollTimeout);
+                    }
+                    
                     const offset = parseInt(settings.scrollOffset, 10) || 80;
                     const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - offset;
                     
+                    // Calculate max scroll position
+                    const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+                    const finalPosition = Math.min(targetPosition, maxScroll);
+                    
                     window.scrollTo({
-                        top: targetPosition,
+                        top: finalPosition,
                         behavior: 'smooth'
                     });
 
@@ -84,6 +100,18 @@
                     // Focus the target for accessibility
                     targetElement.setAttribute('tabindex', '-1');
                     targetElement.focus({ preventScroll: true });
+                    
+                    // Manually set active state for clicked link
+                    const allLinks = toc.querySelectorAll('.smart-toc-list a');
+                    allLinks.forEach(function(l) {
+                        l.classList.remove('active');
+                    });
+                    this.classList.add('active');
+                    
+                    // Reset scrolling flag after animation completes
+                    scrollTimeout = setTimeout(function() {
+                        isScrolling = false;
+                    }, 1000);
                 }
             });
         });
@@ -120,19 +148,35 @@
         let ticking = false;
         
         function updateActiveHeading() {
+            // Skip if we're in the middle of a programmatic scroll
+            if (isScrolling) {
+                ticking = false;
+                return;
+            }
+            
             const scrollPosition = window.pageYOffset;
             const offset = parseInt(settings.scrollOffset, 10) || 80;
+            const windowHeight = window.innerHeight;
+            const documentHeight = document.documentElement.scrollHeight;
             
             let activeHeading = null;
             
-            // Find the current active heading
-            for (let i = headings.length - 1; i >= 0; i--) {
-                const heading = headings[i];
-                const headingTop = heading.element.getBoundingClientRect().top + window.pageYOffset;
-                
-                if (scrollPosition >= headingTop - offset - 10) {
-                    activeHeading = heading;
-                    break;
+            // Check if we're at the bottom of the page
+            const isAtBottom = (scrollPosition + windowHeight) >= (documentHeight - 50);
+            
+            if (isAtBottom && headings.length > 0) {
+                // If at bottom, highlight the last heading
+                activeHeading = headings[headings.length - 1];
+            } else {
+                // Find the current active heading
+                for (let i = headings.length - 1; i >= 0; i--) {
+                    const heading = headings[i];
+                    const headingTop = heading.element.getBoundingClientRect().top + window.pageYOffset;
+                    
+                    if (scrollPosition >= headingTop - offset - 10) {
+                        activeHeading = heading;
+                        break;
+                    }
                 }
             }
 
@@ -143,9 +187,6 @@
 
             if (activeHeading) {
                 activeHeading.link.classList.add('active');
-                
-                // Scroll active item into view in TOC if needed
-                scrollActiveIntoView(activeHeading.link);
             }
 
             ticking = false;
