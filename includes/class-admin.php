@@ -39,7 +39,7 @@ class Smart_TOC_Admin {
      */
     public function plugin_action_links( $links ) {
         $settings_link = '<a href="' . admin_url( 'options-general.php?page=smart-toc-free' ) . '">' . __( 'Settings', 'smart-toc-free' ) . '</a>';
-        $pro_link = '<a href="https://codecanyon.net/" target="_blank" style="color:#00a32a;font-weight:600;">' . __( 'Get Pro', 'smart-toc-free' ) . '</a>';
+        $pro_link = '<a href="https://anikchowdhury.net/smart-toc-pro/" target="_blank" style="color:#00a32a;font-weight:600;">' . __( 'Get Pro', 'smart-toc-free' ) . '</a>';
         array_unshift( $links, $settings_link );
         $links[] = $pro_link;
         return $links;
@@ -155,7 +155,7 @@ class Smart_TOC_Admin {
                 <div class="pro-banner-content">
                     <h3>🚀 <?php esc_html_e( 'Upgrade to Smart TOC Pro', 'smart-toc-free' ); ?></h3>
                     <p><?php esc_html_e( 'Get advanced features like Sticky TOC, Reading Progress Bar, Gutenberg Block, Theme Presets, and more!', 'smart-toc-free' ); ?></p>
-                    <a href="https://codecanyon.net/" target="_blank" class="button button-primary"><?php esc_html_e( 'Get Pro Version', 'smart-toc-free' ); ?></a>
+                    <a href="https://anikchowdhury.net/smart-toc-pro/" target="_blank" class="button button-primary"><?php esc_html_e( 'Get Pro Version', 'smart-toc-free' ); ?></a>
                 </div>
             </div>
 
@@ -337,7 +337,7 @@ class Smart_TOC_Admin {
                             <li>🔒 <?php esc_html_e( 'Gutenberg Block', 'smart-toc-free' ); ?></li>
                             <li>🔒 <?php esc_html_e( 'Sidebar Widget', 'smart-toc-free' ); ?></li>
                         </ul>
-                        <a href="https://codecanyon.net/" target="_blank" class="button button-primary"><?php esc_html_e( 'Unlock All Features', 'smart-toc-free' ); ?></a>
+                        <a href="https://anikchowdhury.net/smart-toc-pro/" target="_blank" class="button button-primary"><?php esc_html_e( 'Unlock All Features', 'smart-toc-free' ); ?></a>
                     </div>
                 </div>
 

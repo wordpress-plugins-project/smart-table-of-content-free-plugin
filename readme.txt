@@ -4,7 +4,7 @@ Donate link: https://anikchowdhury.net
 Tags: table of contents, toc, seo, navigation, headings
 Requires at least: 5.0
 Tested up to: 6.9
-Stable tag: 1.0.0
+Stable tag: 1.0.1
 Requires PHP: 7.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -60,7 +60,7 @@ https://www.youtube.com/watch?v=YOUR_VIDEO_ID
 
 = Pro Version =
 
-Need more features? Check out **[Smart TOC Pro](https://codecanyon.net/)** with:
+Need more features? Check out **[Smart TOC Pro](https://anikchowdhury.net/smart-toc-pro/)** with:
 
 * Sticky/Floating TOC
 * Reading progress bar

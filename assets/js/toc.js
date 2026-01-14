@@ -71,62 +71,51 @@
                 e.preventDefault();
                 e.stopPropagation();
                 
-                const targetId = this.getAttribute('href').slice(1);
+                const targetId = this.getAttribute('href').substring(1);
                 const targetElement = document.getElementById(targetId);
                 const clickedLink = this;
                 
-                if (targetElement) {
-                    // Set scrolling flag to prevent highlight interference
-                    isScrolling = true;
-                    
-                    // Clear any existing timeout
-                    if (scrollTimeout) {
-                        clearTimeout(scrollTimeout);
-                    }
-                    
-                    const offset = parseInt(settings.scrollOffset, 10) || 80;
-                    
-                    // Manually set active state for clicked link immediately
-                    const allLinks = toc.querySelectorAll('.smart-toc-list a');
-                    allLinks.forEach(function(l) {
-                        l.classList.remove('active');
-                    });
-                    clickedLink.classList.add('active');
-                    
-                    // Calculate target position
-                    const elementRect = targetElement.getBoundingClientRect();
-                    const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
-                    const targetPosition = currentScroll + elementRect.top - offset;
-                    
-                    // Check if we can actually scroll to the target
-                    const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
-                    const finalPosition = Math.min(Math.max(0, targetPosition), maxScroll);
-                    
-                    // Scroll to target
-                    window.scrollTo({
-                        top: finalPosition,
-                        behavior: 'smooth'
-                    });
-
-                    // Update URL hash without jumping
-                    if (history.pushState) {
-                        history.pushState(null, null, '#' + targetId);
-                    }
-
-                    // Focus the target for accessibility
-                    targetElement.setAttribute('tabindex', '-1');
-                    targetElement.focus({ preventScroll: true });
-                    
-                    // Reset scrolling flag after animation completes
-                    scrollTimeout = setTimeout(function() {
-                        isScrolling = false;
-                        // Keep the clicked link active even after scroll ends
-                        allLinks.forEach(function(l) {
-                            l.classList.remove('active');
-                        });
-                        clickedLink.classList.add('active');
-                    }, 1200);
+                if (!targetElement) {
+                    return;
                 }
+                
+                // Set scrolling flag
+                isScrolling = true;
+                
+                // Clear any existing timeout
+                if (scrollTimeout) {
+                    clearTimeout(scrollTimeout);
+                }
+                
+                const offset = parseInt(settings.scrollOffset, 10) || 80;
+                
+                // Set active state immediately
+                const allLinks = toc.querySelectorAll('.smart-toc-list a');
+                allLinks.forEach(function(l) {
+                    l.classList.remove('active');
+                });
+                clickedLink.classList.add('active');
+                
+                // Calculate position
+                const targetRect = targetElement.getBoundingClientRect();
+                const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                const targetY = targetRect.top + scrollTop - offset;
+                
+                // Scroll using scrollTo
+                window.scrollTo({
+                    top: Math.max(0, targetY),
+                    behavior: 'smooth'
+                });
+
+                // Update URL
+                if (history.pushState) {
+                    history.pushState(null, '', '#' + targetId);
+                }
+                
+                // Reset flag after scroll completes
+                scrollTimeout = setTimeout(function() {
+                    isScrolling = false;
+                }, 1000);
             });
         });
     }
@@ -162,70 +151,32 @@
         let ticking = false;
         
         function updateActiveHeading() {
-            // Skip if we're in the middle of a programmatic scroll
+            // Skip during programmatic scroll
             if (isScrolling) {
                 ticking = false;
                 return;
             }
             
-            const scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
+            const scrollPos = window.pageYOffset || document.documentElement.scrollTop;
             const offset = parseInt(settings.scrollOffset, 10) || 80;
-            const windowHeight = window.innerHeight;
-            const documentHeight = document.documentElement.scrollHeight;
             
             let activeHeading = null;
             
-            // Check if we're near the bottom of the page (within 50px)
-            const isNearBottom = (scrollPosition + windowHeight) >= (documentHeight - 50);
-            
-            if (isNearBottom && headings.length > 0) {
-                // If near bottom, find the last visible heading
-                for (let i = headings.length - 1; i >= 0; i--) {
-                    const heading = headings[i];
-                    const headingRect = heading.element.getBoundingClientRect();
-                    // If this heading is visible on screen
-                    if (headingRect.top < windowHeight) {
-                        activeHeading = heading;
-                        break;
-                    }
-                }
-                // Fallback to last heading if none visible
-                if (!activeHeading) {
-                    activeHeading = headings[headings.length - 1];
-                }
-            } else {
-                // Normal scroll behavior - find the heading that's currently in view
-                for (let i = 0; i < headings.length; i++) {
-                    const heading = headings[i];
-                    const headingTop = heading.element.getBoundingClientRect().top;
-                    
-                    // If heading is at or above the offset point
-                    if (headingTop <= offset + 50) {
-                        activeHeading = heading;
-                    } else {
-                        break;
-                    }
+            // Find heading that user has scrolled past
+            for (let i = 0; i < headings.length; i++) {
+                const rect = headings[i].element.getBoundingClientRect();
+                if (rect.top <= offset + 10) {
+                    activeHeading = headings[i];
                 }
             }
 
-            // Update active states
+            // Update active class
             tocLinks.forEach(function(link) {
                 link.classList.remove('active');
             });
 
             if (activeHeading) {
                 activeHeading.link.classList.add('active');
-                
-                // Scroll the TOC to show active link if needed
-                const tocBody = activeHeading.link.closest('.smart-toc-body');
-                if (tocBody) {
-                    const linkRect = activeHeading.link.getBoundingClientRect();
-                    const bodyRect = tocBody.getBoundingClientRect();
-                    
-                    if (linkRect.top < bodyRect.top || linkRect.bottom > bodyRect.bottom) {
-                        activeHeading.link.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
-                    }
-                }
             }
 
             ticking = false;

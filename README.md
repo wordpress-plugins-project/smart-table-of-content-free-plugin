@@ -138,7 +138,7 @@ Smart TOC works seamlessly with:
 
 ## 🚀 Looking for More Features?
 
-**[Smart TOC Pro](https://codecanyon.net/)** extends this plugin with advanced features:
+**[Smart TOC Pro](https://anikchowdhury.net/smart-toc-pro/)** extends this plugin with advanced features:
 
 - 📌 Sticky/Floating TOC
 - 📊 Reading Progress Bar  
@@ -152,7 +152,7 @@ Smart TOC works seamlessly with:
 - 🧱 Gutenberg Block & Sidebar Widget
 - 🌟 Priority Support
 
-[Learn More →](https://codecanyon.net/)
+[Learn More →](https://anikchowdhury.net/smart-toc-pro/)
 
 ## 🤝 Contributing
 

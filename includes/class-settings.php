@@ -35,7 +35,7 @@ class Smart_TOC_Settings {
         'post_types'        => array( 'post', 'page' ),
         'min_headings'      => 2,
         'heading_levels'    => array( 2, 3, 4, 5, 6 ),
-        'default_collapsed' => false,
+        'default_collapsed' => true,
         'position'          => 'before_content',
         'smooth_scroll'     => true,
         'highlight_active'  => true,
@@ -43,7 +43,7 @@ class Smart_TOC_Settings {
         'theme_color'       => '#0073aa',
         'exclude_class'     => 'no-toc',
         'scroll_offset'     => 80,
-        'show_numbers'      => false,
+        'show_numbers'      => true,
     );
 
     /**
