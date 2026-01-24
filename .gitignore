@@ -1,0 +1,34 @@
+# Virtual environments
+.venv/
+venv/
+env/
+
+# IDE / Editor
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Local development
+phpcs.xml
+phpunit.xml
+.phpcs.xml
+.phpunit.xml
+
+# Build artifacts
+node_modules/
+vendor/
+*.log
+
+# Temporary files
+*.tmp
+*.bak
+*.swp
+
+# Local testing
+audit.md
+tests/

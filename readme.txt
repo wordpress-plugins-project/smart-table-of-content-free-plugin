@@ -1,10 +1,10 @@
 === Smart Table of Contents ===
 Contributors: anikchowdhury
-Donate link: https://anikchowdhury.net
+Donate link: https://buymeacoffee.com/anikchowdhury
 Tags: table of contents, toc, seo, navigation, headings
 Requires at least: 5.0
 Tested up to: 6.9
-Stable tag: 1.0.3
+Stable tag: 1.0.4
 Requires PHP: 7.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -60,7 +60,7 @@ https://www.youtube.com/watch?v=YOUR_VIDEO_ID
 
 = Pro Version =
 
-Need more features? Check out **[Smart TOC Pro](https://anikchowdhury.net/smart-toc-pro/)** with:
+Need more features? Check out **[Smart TOC Pro](https://smallseoengine.com/plugins/smart-table-of-content/)** with:
 
 * Sticky/Floating TOC
 * Reading progress bar
@@ -78,7 +78,7 @@ Need more features? Check out **[Smart TOC Pro](https://anikchowdhury.net/smart-
 
 == Installation ==
 
-1. Upload the `smart-toc` folder to the `/wp-content/plugins/` directory
+1. Upload the `smart-table-of-contents` folder to the `/wp-content/plugins/` directory
 2. Activate the plugin through the 'Plugins' menu in WordPress
 3. Go to Settings → Smart TOC to configure the plugin
 4. That's it! TOC will automatically appear on your posts and pages
@@ -164,6 +164,13 @@ Go to Settings → Smart TOC → Display Settings and check "Show Numbers" optio
 
 == Changelog ==
 
+= 1.0.4 =
+* Added Documentation tab in admin settings panel with comprehensive user guide
+* Includes Quick Start guide, Settings Reference, Shortcode Usage, Troubleshooting, and FAQ sections
+* Improved admin UI with tabbed navigation
+* Added Dashboard widget with TOC stats and quick access to settings
+* Added review request notice after 7 days of usage
+
 = 1.0.3 =
 * Renamed the translation text domain to `smart-table-of-contents` to align with the plugin slug and silence Plugin Checker warnings
 * Updated the included POT file and text-domain references throughout the admin UI for consistent localization behavior
@@ -191,6 +198,9 @@ Go to Settings → Smart TOC → Display Settings and check "Show Numbers" optio
 * Multi-language ready
 
 == Upgrade Notice ==
+
+= 1.0.4 =
+Adds in-admin Documentation tab with comprehensive help guide, troubleshooting, and FAQ.
 
 = 1.0.3 =
 Required if you plan to localize the plugin or submit to WordPress.org—text domain now matches the official slug.

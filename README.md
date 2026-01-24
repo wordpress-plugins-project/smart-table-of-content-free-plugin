@@ -1,10 +1,9 @@
 # Smart Table of Contents
 
-[![WordPress Plugin Version](https://img.shields.io/badge/version-1.0.3-blue)](https://wordpress.org/plugins/smart-table-of-contents/)
+[![WordPress Plugin Version](https://img.shields.io/badge/version-1.0.4-blue)](https://wordpress.org/plugins/smart-table-of-contents/)
 [![WordPress Tested](https://img.shields.io/badge/WordPress-6.9%20tested-brightgreen)](https://wordpress.org/plugins/smart-table-of-contents/)
 [![PHP Version](https://img.shields.io/badge/PHP-7.2%2B-purple)](https://www.php.net/)
 [![License](https://img.shields.io/badge/license-GPLv2-orange)](https://www.gnu.org/licenses/gpl-2.0.html)
-[![Downloads](https://img.shields.io/badge/downloads-1k%2B-green)](https://wordpress.org/plugins/smart-table-of-contents/)
 
 > A lightweight, SEO-friendly Table of Contents plugin for WordPress that automatically generates navigation from your headings with smooth scroll and collapsible features.
 
@@ -105,24 +104,23 @@ Add the `no-toc` class to any heading you want to exclude:
 ## 📁 File Structure
 
 ```text
-smart-toc/
-├── smart-toc.php          # Main plugin file
-├── uninstall.php          # Cleanup on uninstall
-├── index.php              # Security index
-├── readme.txt             # WordPress.org readme
-├── README.md              # GitHub readme
+smart-table-of-contents/
+├── smart-table-of-contents.php  # Main plugin file
+├── uninstall.php                # Cleanup on uninstall
+├── index.php                    # Security index
+├── readme.txt                   # WordPress.org readme
 ├── assets/
 │   ├── css/
-│   │   ├── admin.css      # Admin styles
-│   │   └── toc.css        # Frontend TOC styles
+│   │   ├── admin.css            # Admin styles
+│   │   └── toc.css              # Frontend TOC styles
 │   └── js/
-│       └── toc.js         # Frontend TOC functionality
+│       └── toc.js               # Frontend TOC functionality
 ├── includes/
-│   ├── class-core.php     # Core plugin class
-│   ├── class-admin.php    # Admin functionality
-│   ├── class-settings.php # Settings handler
-│   ├── class-render.php   # TOC rendering
-│   └── class-shortcode.php# Shortcode handler
+│   ├── class-core.php           # Core plugin class
+│   ├── class-admin.php          # Admin functionality & Documentation
+│   ├── class-settings.php       # Settings handler
+│   ├── class-render.php         # TOC rendering
+│   └── class-shortcode.php      # Shortcode handler
 └── languages/
     └── smart-table-of-contents.pot  # Translation template
 ```
@@ -138,7 +136,7 @@ Smart TOC works seamlessly with:
 
 ## 🚀 Looking for More Features?
 
-**[Smart TOC Pro](https://anikchowdhury.net/smart-toc-pro/)** extends this plugin with advanced features:
+**[Smart TOC Pro](https://smallseoengine.com/plugins/smart-table-of-content/)** extends this plugin with advanced features:
 
 - 📌 Sticky/Floating TOC
 - 📊 Reading Progress Bar  
@@ -152,7 +150,7 @@ Smart TOC works seamlessly with:
 - 🧱 Gutenberg Block & Sidebar Widget
 - 🌟 Priority Support
 
-[Learn More →](https://anikchowdhury.net/smart-toc-pro/)
+[Learn More →](https://smallseoengine.com/plugins/smart-table-of-content/)
 
 ## 🤝 Contributing
 
@@ -173,9 +171,16 @@ This project is licensed under the GPL v2 or later - see the [LICENSE](https://w
 - **Documentation**: [Read Documentation](https://github.com/wordpress-plugins-project/smart-table-of-content-free-plugin#readme)
 - **WordPress.org**: [Support Forum](https://wordpress.org/support/plugin/smart-table-of-contents/)
 - **Issues**: [GitHub Issues](https://github.com/wordpress-plugins-project/smart-table-of-content-free-plugin/issues)
-- **Developer**: [Anik Chowdhury](https://github.com/anikchowdhurybd)
+- **Website**: [Small SEO Engine](https://smallseoengine.com)
+- **Buy Me a Coffee**: [Support Development](https://buymeacoffee.com/anikchowdhury)
 
 ## 📝 Changelog
+
+### 1.0.4
+- Added Documentation tab in admin settings panel with comprehensive user guide
+- Includes Quick Start guide, Settings Reference, Shortcode Usage, Troubleshooting, and FAQ
+- Improved admin UI with tabbed navigation
+- Renamed main plugin file to match WordPress.org slug
 
 ### 1.0.3
 - Renamed the translation text domain to `smart-table-of-contents` to align with the plugin slug
@@ -205,6 +210,9 @@ This project is licensed under the GPL v2 or later - see the [LICENSE](https://w
 
 ---
 
-**Made with ❤️ by [Anik Chowdhury](https://github.com/anikchowdhurybd) for the WordPress community**
+**Made with ❤️ by [Small SEO Engine](https://smallseoengine.com) for the WordPress community**
 
-If you find this plugin helpful, please consider giving it a ⭐ on GitHub and leaving a review on WordPress.org!
+If you find this plugin helpful, please consider:
+- ⭐ Giving it a star on GitHub
+- 📝 Leaving a review on [WordPress.org](https://wordpress.org/plugins/smart-table-of-contents/)
+- ☕ [Buy me a coffee](https://buymeacoffee.com/anikchowdhury)
