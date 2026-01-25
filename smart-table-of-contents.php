@@ -15,46 +15,44 @@
  */
 
 // Prevent direct access
-if (!defined('ABSPATH')) {
-    exit;
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
 }
 
 // Plugin constants
-define('SMART_TOC_VERSION', '1.0.4');
-define('SMART_TOC_PATH', plugin_dir_path(__FILE__));
-define('SMART_TOC_URL', plugin_dir_url(__FILE__));
-define('SMART_TOC_BASENAME', plugin_basename(__FILE__));
+define( 'SMART_TOC_VERSION', '1.0.4' );
+define( 'SMART_TOC_PATH', plugin_dir_path( __FILE__ ) );
+define( 'SMART_TOC_URL', plugin_dir_url( __FILE__ ) );
+define( 'SMART_TOC_BASENAME', plugin_basename( __FILE__ ) );
 
 // Activation hook
-register_activation_hook(__FILE__, 'smart_toc_activate');
-function smart_toc_activate()
-{
-    // Set default options on activation
-    if (!get_option('smart_toc_settings')) {
-        $defaults = array(
-            'enabled' => true,
-            'post_types' => array('post', 'page'),
-            'min_headings' => 2,
-            'heading_levels' => array(2, 3, 4, 5, 6),
-            'default_collapsed' => true,
-            'position' => 'before_content',
-            'smooth_scroll' => true,
-            'highlight_active' => true,
-            'title' => __('Table of Contents', 'smart-table-of-contents'),
-            'theme_color' => '#0073aa',
-            'scroll_offset' => 80,
-            'show_numbers' => true,
-        );
-        update_option('smart_toc_settings', $defaults);
-    }
+register_activation_hook( __FILE__, 'smart_toc_activate' );
+function smart_toc_activate() {
+	// Set default options on activation
+	if ( ! get_option( 'smart_toc_settings' ) ) {
+		$defaults = array(
+			'enabled'           => true,
+			'post_types'        => array( 'post', 'page' ),
+			'min_headings'      => 2,
+			'heading_levels'    => array( 2, 3, 4, 5, 6 ),
+			'default_collapsed' => true,
+			'position'          => 'before_content',
+			'smooth_scroll'     => true,
+			'highlight_active'  => true,
+			'title'             => __( 'Table of Contents', 'smart-table-of-contents' ),
+			'theme_color'       => '#0073aa',
+			'scroll_offset'     => 80,
+			'show_numbers'      => true,
+		);
+		update_option( 'smart_toc_settings', $defaults );
+	}
 }
 
 // Deactivation hook
-register_deactivation_hook(__FILE__, 'smart_toc_deactivate');
-function smart_toc_deactivate()
-{
-    // Cleanup transients if any
-    delete_transient('smart_toc_cache');
+register_deactivation_hook( __FILE__, 'smart_toc_deactivate' );
+function smart_toc_deactivate() {
+	// Cleanup transients if any
+	delete_transient( 'smart_toc_cache' );
 }
 
 // Initialize plugin

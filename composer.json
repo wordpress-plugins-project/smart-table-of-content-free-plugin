@@ -1,0 +1,24 @@
+{
+  "name": "wordpress-plugins-project/smart-table-of-contents",
+  "description": "Smart Table of Contents - Lightweight WordPress TOC plugin",
+  "type": "wordpress-plugin",
+  "license": "GPL-2.0-or-later",
+  "require": {
+    "php": ">=7.4"
+  },
+  "require-dev": {
+    "squizlabs/php_codesniffer": "^3.7",
+    "wp-coding-standards/wpcs": "^3.0",
+    "phpcompatibility/phpcompatibility-wp": "^2.1",
+    "php-stubs/wordpress-stubs": "^6.4"
+  },
+  "config": {
+    "allow-plugins": {
+      "dealerdirect/phpcodesniffer-composer-installer": true
+    }
+  },
+  "scripts": {
+    "phpcs": "phpcs",
+    "phpcbf": "phpcbf"
+  }
+}

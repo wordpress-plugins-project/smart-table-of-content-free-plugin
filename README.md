@@ -4,6 +4,7 @@
 [![WordPress Tested](https://img.shields.io/badge/WordPress-6.9%20tested-brightgreen)](https://wordpress.org/plugins/smart-table-of-contents/)
 [![PHP Version](https://img.shields.io/badge/PHP-7.2%2B-purple)](https://www.php.net/)
 [![License](https://img.shields.io/badge/license-GPLv2-orange)](https://www.gnu.org/licenses/gpl-2.0.html)
+[![Buy Me a Coffee](https://img.shields.io/badge/Donate-Buy%20Me%20a%20Coffee-yellow?logo=buymeacoffee)](https://buymeacoffee.com/anikchowdhury)
 
 > A lightweight, SEO-friendly Table of Contents plugin for WordPress that automatically generates navigation from your headings with smooth scroll and collapsible features.
 

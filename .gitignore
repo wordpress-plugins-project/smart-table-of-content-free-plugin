@@ -13,11 +13,11 @@ env/
 .DS_Store
 Thumbs.db
 
-# Local development
-phpcs.xml
+# Local development (keep phpcs.xml in repo)
 phpunit.xml
 .phpcs.xml
 .phpunit.xml
+composer.lock
 
 # Build artifacts
 node_modules/

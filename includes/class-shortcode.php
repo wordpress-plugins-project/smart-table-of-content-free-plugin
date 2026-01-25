@@ -1,6 +1,6 @@
 <?php
 if ( ! defined( 'ABSPATH' ) ) {
-    exit;
+	exit;
 }
 
 /**
@@ -11,77 +11,77 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 class Smart_TOC_Shortcode {
 
-    /**
-     * Settings instance
-     *
-     * @var Smart_TOC_Settings
-     */
-    private $settings;
+	/**
+	 * Settings instance
+	 *
+	 * @var Smart_TOC_Settings
+	 */
+	private $settings;
 
-    /**
-     * Constructor
-     *
-     * @param Smart_TOC_Settings $settings Settings instance.
-     */
-    public function __construct( $settings ) {
-        $this->settings = $settings;
-        
-        add_shortcode( 'smart_toc', array( $this, 'render_shortcode' ) );
-    }
+	/**
+	 * Constructor
+	 *
+	 * @param Smart_TOC_Settings $settings Settings instance.
+	 */
+	public function __construct( $settings ) {
+		$this->settings = $settings;
 
-    /**
-     * Render shortcode
-     *
-     * @param array $atts Shortcode attributes.
-     * @return string
-     */
-    public function render_shortcode( $atts ) {
-        $atts = shortcode_atts(
-            array(
-                'title'     => '',
-                'collapsed' => '',
-            ),
-            $atts,
-            'smart_toc'
-        );
+		add_shortcode( 'smart_toc', array( $this, 'render_shortcode' ) );
+	}
 
-        // Check if we're on a singular page
-        if ( ! is_singular() ) {
-            return '';
-        }
+	/**
+	 * Render shortcode
+	 *
+	 * @param array $atts Shortcode attributes.
+	 * @return string
+	 */
+	public function render_shortcode( $atts ) {
+		$atts = shortcode_atts(
+			array(
+				'title'     => '',
+				'collapsed' => '',
+			),
+			$atts,
+			'smart_toc'
+		);
 
-        // Get current post content
-        global $post;
-        if ( ! $post ) {
-            return '';
-        }
+		// Check if we're on a singular page
+		if ( ! is_singular() ) {
+			return '';
+		}
 
-        // Build overrides from shortcode attributes
-        $overrides = array();
-        
-        if ( ! empty( $atts['title'] ) ) {
-            $overrides['title'] = sanitize_text_field( $atts['title'] );
-        }
-        
-        if ( '' !== $atts['collapsed'] ) {
-            $overrides['collapsed'] = filter_var( $atts['collapsed'], FILTER_VALIDATE_BOOLEAN );
-        }
+		// Get current post content
+		global $post;
+		if ( ! $post ) {
+			return '';
+		}
 
-        // Get content
-        $content = $post->post_content;
-        
-        // Remove our shortcode from content to prevent infinite loop
-        $content = preg_replace( '/\[smart_toc[^\]]*\]/', '', $content );
-        
-        // Process shortcodes and basic formatting without triggering the_content filter
-        $content = do_shortcode( $content );
-        $content = wptexturize( $content );
-        $content = wpautop( $content );
+		// Build overrides from shortcode attributes
+		$overrides = array();
 
-        // Generate TOC
-        $render = new Smart_TOC_Render( $this->settings );
-        $toc_html = $render->generate_toc_html( $content, $overrides );
+		if ( ! empty( $atts['title'] ) ) {
+			$overrides['title'] = sanitize_text_field( $atts['title'] );
+		}
 
-        return $toc_html;
-    }
+		if ( '' !== $atts['collapsed'] ) {
+			$overrides['collapsed'] = filter_var( $atts['collapsed'], FILTER_VALIDATE_BOOLEAN );
+		}
+
+		// Get content
+		$content = $post->post_content;
+
+		// Remove our shortcode from content to prevent infinite loop
+		$content = preg_replace( '/\[smart_toc[^\]]*\]/', '', $content );
+
+		// Process shortcodes and basic formatting without triggering the_content filter
+		$content = do_shortcode( $content );
+		$content = wptexturize( $content );
+		$content = wpautop( $content );
+
+		// Generate TOC
+		$render   = new Smart_TOC_Render( $this->settings );
+		$toc_html = $render->generate_toc_html( $content, $overrides );
+
+		return $toc_html;
+	}
 }
