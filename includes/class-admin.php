@@ -69,8 +69,8 @@ class Smart_TOC_Admin {
 	 */
 	public function add_admin_menu() {
 		add_options_page(
-			__( 'Smart TOC Lite Settings', 'small-seo-engine-smart-toc' ),
-			__( 'Smart TOC Lite', 'small-seo-engine-smart-toc' ),
+			__( 'Smart TOC Settings', 'small-seo-engine-smart-toc' ),
+			__( 'Smart TOC', 'small-seo-engine-smart-toc' ),
 			'manage_options',
 			'smart-toc-free',
 			array( $this, 'settings_page' )

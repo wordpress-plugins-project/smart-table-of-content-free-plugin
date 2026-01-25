@@ -1,4 +1,4 @@
-=== Small SEO Engine Smart TOC ===
+=== Small SEO Engine - Smart TOC ===
 Contributors: anikchowdhury
 Donate link: https://smallseoengine.com
 Tags: table of contents, toc, seo, navigation, headings
@@ -66,7 +66,7 @@ Take your table of contents to the next level with **[Smart TOC Pro](https://sma
 = How It Works =
 
 1. Install and activate the plugin
-2. Configure settings under **Settings → Smart TOC Lite**
+2. Configure settings under **Settings → Smart TOC**
 3. The TOC automatically appears on your posts and pages
 4. Or use `[smart_toc]` shortcode for manual placement
 
@@ -107,7 +107,7 @@ Have a feature request? [Submit it on GitHub](https://github.com/wordpress-plugi
 
 1. Upload the `small-seo-engine-smart-toc` folder to the `/wp-content/plugins/` directory
 2. Activate the plugin through the 'Plugins' menu in WordPress
-3. Go to Settings → Smart TOC Lite to configure the plugin
+3. Go to Settings → Smart TOC to configure the plugin
 4. That's it! TOC will automatically appear on your posts and pages
 
 == Frequently Asked Questions ==
@@ -122,7 +122,7 @@ Yes! Edit the post and look for the "Smart TOC" meta box in the sidebar. Check t
 
 = How do I change the TOC position? =
 
-Go to Settings → Smart TOC Lite → Display Settings and choose from:
+Go to Settings → Smart TOC → Display Settings and choose from:
 * **Before Content** - TOC appears at the top of your content
 * **After First Paragraph** - TOC appears after the first paragraph
 * **Manual (Shortcode only)** - Use `[smart_toc]` shortcode for custom placement
@@ -134,7 +134,7 @@ Yes! Add the CSS class `no-toc` to any heading you want to exclude:
 
 = How do I change the TOC title? =
 
-Go to Settings → Smart TOC Lite → Display Settings and change the "TOC Title" field. Or use the shortcode attribute: `[smart_toc title="In This Article"]`
+Go to Settings → Smart TOC → Display Settings and change the "TOC Title" field. Or use the shortcode attribute: `[smart_toc title="In This Article"]`
 
 = Does it work with page builders? =
 
@@ -157,7 +157,7 @@ Yes, Smart TOC is fully compatible with popular caching plugins:
 = Why isn't the TOC showing on my posts? =
 
 Check these common issues:
-1. Make sure the plugin is enabled in Settings → Smart TOC Lite
+1. Make sure the plugin is enabled in Settings → Smart TOC
 2. Verify the post type is selected in settings
 3. Check if you have the minimum number of headings required
 4. Make sure TOC isn't disabled for that specific post
@@ -179,7 +179,7 @@ Yes, Smart TOC fully supports RTL (Right-to-Left) languages like Arabic, Hebrew,
 
 = How do I display numbers before TOC items? =
 
-Go to Settings → Smart TOC Lite → Display Settings and check "Show Numbers" option.
+Go to Settings → Smart TOC → Display Settings and check "Show Numbers" option.
 
 == Screenshots ==
 
@@ -200,7 +200,7 @@ Go to Settings → Smart TOC Lite → Display Settings and check "Show Numbers" 
 
 = 1.0.5 =
 * Fixed text domain mismatch for proper internationalization
-* Renamed admin menu to "Smart TOC Lite" for clear branding
+* Renamed admin menu to "Smart TOC" for clear branding
 * Added PHPCS with WordPress Coding Standards configuration
 * Applied WordPress coding standards formatting throughout
 * Fixed all PHPCS errors and warnings

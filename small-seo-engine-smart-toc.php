@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name: Small SEO Engine Smart TOC
+ * Plugin Name: Small SEO Engine - Smart TOC
  * Plugin URI:  https://smallseoengine.com/plugins/small-seo-engine-smart-toc/
  * Description: A lightweight, SEO-friendly Table of Contents plugin that automatically generates TOC from your headings with smooth scroll and collapsible features.
  * Version:     1.0.7

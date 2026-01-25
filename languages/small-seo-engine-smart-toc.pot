@@ -29,11 +29,11 @@ msgid "Get Pro"
 msgstr ""
 
 #: includes/class-admin.php:52
-msgid "Smart TOC Lite Settings"
+msgid "Smart TOC Settings"
 msgstr ""
 
 #: includes/class-admin.php:53
-msgid "Smart TOC Lite"
+msgid "Smart TOC"
 msgstr ""
 
 #: includes/class-admin.php:153

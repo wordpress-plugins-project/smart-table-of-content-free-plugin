@@ -186,7 +186,7 @@ This project is licensed under the GPL v2 or later - see the [LICENSE](https://w
 
 ### 1.0.5
 - Fixed text domain mismatch for proper internationalization
-- Renamed admin menu to "Smart TOC Lite" for clear branding
+- Renamed admin menu to "Smart TOC" for clear branding
 - Added PHPCS with WordPress Coding Standards configuration
 - Applied WordPress coding standards formatting throughout
 - Fixed all PHPCS errors and warnings
