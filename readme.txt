@@ -1,11 +1,11 @@
 === Smart Table of Contents ===
 Contributors: anikchowdhury
-Donate link: https://buymeacoffee.com/anikchowdhury
+Donate link: https://smallseoengine.com
 Tags: table of contents, toc, seo, navigation, headings
 Requires at least: 5.0
 Tested up to: 6.9
-Stable tag: 1.0.4
-Requires PHP: 7.2
+Stable tag: 1.0.5
+Requires PHP: 7.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -13,38 +13,61 @@ A lightweight, SEO-friendly Table of Contents plugin that automatically generate
 
 == Description ==
 
-**Smart Table of Contents** automatically creates a beautiful, SEO-friendly table of contents from your post and page headings. It helps visitors navigate long-form content easily while improving your site's SEO with structured content.
+**Smart Table of Contents** is the ultimate lightweight, SEO-friendly Table of Contents plugin for WordPress. It automatically generates a beautiful, clickable TOC from your post and page headings — helping visitors navigate long-form content effortlessly while boosting your site's SEO with structured, crawlable anchor links.
 
-https://www.youtube.com/watch?v=YOUR_VIDEO_ID
+🚀 **[Upgrade to Smart TOC Pro](https://smallseoengine.com/plugins/smart-table-of-content/)** for Sticky TOC, Reading Progress Bar, Gutenberg Block, and more!
 
-**🎯 Perfect for:**
+= 🎯 Perfect For =
+
 * Bloggers with long-form content
-* Documentation sites
-* Tutorial websites
-* News and magazine sites
-* Educational content
-* Any site with lengthy articles
+* Documentation & knowledge base sites
+* Tutorial and how-to websites
+* News and magazine publishers
+* Educational platforms & online courses
+* Any WordPress site with lengthy articles
 
-= ✨ Key Features =
+= ✨ Free Features =
 
-* **Automatic TOC Generation** - Automatically scans your content and creates a table of contents from headings
+* **Automatic TOC Generation** - Instantly creates a table of contents from your H2-H6 headings
 * **Smooth Scrolling** - Elegant smooth scroll animation when clicking TOC links
-* **Collapsible TOC** - Allow visitors to expand/collapse the table of contents
-* **Active Heading Highlight** - Highlights the current section as users scroll through content
+* **Collapsible TOC** - Visitors can expand/collapse the table of contents
+* **Active Heading Highlight** - Highlights the current section as users scroll
 * **Shortcode Support** - Use `[smart_toc]` to place TOC anywhere in your content
-* **Customizable Headings** - Choose which heading levels to include (H2-H6)
-* **Show Numbers** - Optional numbering for TOC items (1, 2, 3...)
-* **Theme Color** - Match your site's design with custom accent color
-* **SEO Friendly** - Clean HTML markup with proper anchor links for search engines
-* **Lightweight** - Under 15KB, no jQuery dependency for frontend
-* **Translation Ready** - Fully translatable with POT file included
-* **Per-Post Control** - Disable TOC for specific posts/pages
+* **Customizable Heading Levels** - Choose which headings to include (H2-H6)
+* **Numbered Lists** - Optional sequential numbering for TOC items
+* **Theme Color Picker** - Match your site's branding with custom accent color
+* **SEO Optimized** - Clean HTML markup with proper anchor links for search engines
+* **Ultra Lightweight** - Under 15KB, zero jQuery dependency
+* **Translation Ready** - Fully internationalized with POT file included
+* **Per-Post Control** - Enable/disable TOC for individual posts or pages
+* **Multiple Positions** - Before content, after first paragraph, or manual placement
+* **Exclude Headings** - Skip specific headings using CSS class
+
+= 🚀 Smart TOC Pro Features =
+
+Take your table of contents to the next level with **[Smart TOC Pro](https://smallseoengine.com/plugins/smart-table-of-content/)**:
+
+* **📌 Sticky/Floating TOC** - Always-visible TOC that follows users as they scroll
+* **📊 Reading Progress Bar** - Visual indicator showing reading progress
+* **⏱️ Estimated Reading Time** - Display how long it takes to read the article
+* **⬆️ Back to Top Button** - Quick scroll-to-top functionality
+* **⌨️ Keyboard Navigation** - Navigate TOC with keyboard shortcuts
+* **🎨 Multiple Theme Presets** - Beautiful pre-designed TOC styles
+* **💻 Custom CSS Support** - Full styling control with custom CSS
+* **📱 Mobile-Specific Options** - Optimized settings for mobile devices
+* **🔢 Advanced Numbering** - Hierarchical numbering (1.1, 1.2, 2.1...)
+* **🧱 Gutenberg Block** - Native block editor support
+* **📦 Sidebar Widget** - Display TOC in any widget area
+* **� SEO Schema Markup** - JSON-LD structured data for Google "Jump to" links
+* **�🔒 Priority Support** - Fast, dedicated customer support
+
+👉 **[Get Smart TOC Pro Now](https://smallseoengine.com/plugins/smart-table-of-content/)**
 
 = How It Works =
 
 1. Install and activate the plugin
-2. Configure settings under Settings → Smart TOC
-3. The TOC will automatically appear on your posts and pages
+2. Configure settings under **Settings → Smart TOC Lite**
+3. The TOC automatically appears on your posts and pages
 4. Or use `[smart_toc]` shortcode for manual placement
 
 = Shortcode Usage =
@@ -58,29 +81,33 @@ https://www.youtube.com/watch?v=YOUR_VIDEO_ID
 **Collapsed by default:**
 `[smart_toc collapsed="true"]`
 
-= Pro Version =
+= 🐛 Bug Reports =
 
-Need more features? Check out **[Smart TOC Pro](https://smallseoengine.com/plugins/smart-table-of-content/)** with:
+Found a bug? Please report it on our [GitHub Issues](https://github.com/wordpress-plugins-project/smart-table-of-content-free-plugin/issues) page.
 
-* Sticky/Floating TOC
-* Reading progress bar
-* Estimated reading time
-* Back to top button
-* Keyboard navigation
-* Multiple theme presets
-* Custom CSS support
-* Mobile-specific options
-* Collapsible sections
-* Heading numbers
-* Gutenberg block
-* Sidebar widget
-* Priority support
+= 💬 Support & Help =
+
+* **Documentation**: [Smart TOC Documentation](https://smallseoengine.com/plugins/smart-table-of-contents/docs)
+* **Support Forum**: [WordPress.org Support](https://wordpress.org/support/plugin/smart-table-of-contents/)
+* **Contact**: [Contact](https://smallseoengine.com/contact/)
+* **Pro Support**: [Priority Support for Pro Users](https://smallseoengine.com/plugins/smart-table-of-content/)
+
+= 🗺️ Roadmap =
+
+We're constantly improving Smart TOC! Upcoming features:
+
+* More theme presets
+* Advanced styling options
+* Additional shortcode attributes
+* Performance optimizations
+
+Have a feature request? [Submit it on GitHub](https://github.com/wordpress-plugins-project/smart-table-of-content-free-plugin/issues)!
 
 == Installation ==
 
 1. Upload the `smart-table-of-contents` folder to the `/wp-content/plugins/` directory
 2. Activate the plugin through the 'Plugins' menu in WordPress
-3. Go to Settings → Smart TOC to configure the plugin
+3. Go to Settings → Smart TOC Lite to configure the plugin
 4. That's it! TOC will automatically appear on your posts and pages
 
 == Frequently Asked Questions ==
@@ -95,7 +122,7 @@ Yes! Edit the post and look for the "Smart TOC" meta box in the sidebar. Check t
 
 = How do I change the TOC position? =
 
-Go to Settings → Smart TOC → Display Settings and choose from:
+Go to Settings → Smart TOC Lite → Display Settings and choose from:
 * **Before Content** - TOC appears at the top of your content
 * **After First Paragraph** - TOC appears after the first paragraph
 * **Manual (Shortcode only)** - Use `[smart_toc]` shortcode for custom placement
@@ -107,7 +134,7 @@ Yes! Add the CSS class `no-toc` to any heading you want to exclude:
 
 = How do I change the TOC title? =
 
-Go to Settings → Smart TOC → Display Settings and change the "TOC Title" field. Or use the shortcode attribute: `[smart_toc title="In This Article"]`
+Go to Settings → Smart TOC Lite → Display Settings and change the "TOC Title" field. Or use the shortcode attribute: `[smart_toc title="In This Article"]`
 
 = Does it work with page builders? =
 
@@ -130,7 +157,7 @@ Yes, Smart TOC is fully compatible with popular caching plugins:
 = Why isn't the TOC showing on my posts? =
 
 Check these common issues:
-1. Make sure the plugin is enabled in Settings → Smart TOC
+1. Make sure the plugin is enabled in Settings → Smart TOC Lite
 2. Verify the post type is selected in settings
 3. Check if you have the minimum number of headings required
 4. Make sure TOC isn't disabled for that specific post
@@ -152,7 +179,7 @@ Yes, Smart TOC fully supports RTL (Right-to-Left) languages like Arabic, Hebrew,
 
 = How do I display numbers before TOC items? =
 
-Go to Settings → Smart TOC → Display Settings and check "Show Numbers" option.
+Go to Settings → Smart TOC Lite → Display Settings and check "Show Numbers" option.
 
 == Screenshots ==
 
@@ -163,6 +190,15 @@ Go to Settings → Smart TOC → Display Settings and check "Show Numbers" optio
 5. Per-post TOC settings
 
 == Changelog ==
+
+= 1.0.5 =
+* Fixed text domain mismatch for proper internationalization
+* Renamed admin menu to "Smart TOC Lite" for clear branding
+* Added PHPCS with WordPress Coding Standards configuration
+* Applied WordPress coding standards formatting throughout
+* Fixed all PHPCS errors and warnings
+* Updated minimum PHP requirement to 7.4
+* Code quality improvements and cleanup
 
 = 1.0.4 =
 * Added Documentation tab in admin settings panel with comprehensive user guide
@@ -198,6 +234,9 @@ Go to Settings → Smart TOC → Display Settings and check "Show Numbers" optio
 * Multi-language ready
 
 == Upgrade Notice ==
+
+= 1.0.5 =
+Code quality update with WordPress coding standards compliance, text domain fix, and PHP 7.4 minimum requirement.
 
 = 1.0.4 =
 Adds in-admin Documentation tab with comprehensive help guide, troubleshooting, and FAQ.

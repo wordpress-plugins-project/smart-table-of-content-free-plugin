@@ -1,8 +1,8 @@
 # Smart Table of Contents
 
-[![WordPress Plugin Version](https://img.shields.io/badge/version-1.0.4-blue)](https://wordpress.org/plugins/smart-table-of-contents/)
-[![WordPress Tested](https://img.shields.io/badge/WordPress-6.9%20tested-brightgreen)](https://wordpress.org/plugins/smart-table-of-contents/)
-[![PHP Version](https://img.shields.io/badge/PHP-7.2%2B-purple)](https://www.php.net/)
+[![WordPress Plugin Version](https://img.shields.io/badge/version-1.0.5-blue)](https://wordpress.org/plugins/smart-table-of-contents/)
+[![WordPress Tested](https://img.shields.io/badge/WordPress-6.7%20tested-brightgreen)](https://wordpress.org/plugins/smart-table-of-contents/)
+[![PHP Version](https://img.shields.io/badge/PHP-7.4%2B-purple)](https://www.php.net/)
 [![License](https://img.shields.io/badge/license-GPLv2-orange)](https://www.gnu.org/licenses/gpl-2.0.html)
 [![Buy Me a Coffee](https://img.shields.io/badge/Donate-Buy%20Me%20a%20Coffee-yellow?logo=buymeacoffee)](https://buymeacoffee.com/anikchowdhury)
 
@@ -176,6 +176,15 @@ This project is licensed under the GPL v2 or later - see the [LICENSE](https://w
 - **Buy Me a Coffee**: [Support Development](https://buymeacoffee.com/anikchowdhury)
 
 ## 📝 Changelog
+
+### 1.0.5
+- Fixed text domain mismatch for proper internationalization
+- Renamed admin menu to "Smart TOC Lite" for clear branding
+- Added PHPCS with WordPress Coding Standards configuration
+- Applied WordPress coding standards formatting throughout
+- Fixed all PHPCS errors and warnings
+- Updated minimum PHP requirement to 7.4
+- Code quality improvements and cleanup
 
 ### 1.0.4
 - Added Documentation tab in admin settings panel with comprehensive user guide
