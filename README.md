@@ -1,7 +1,7 @@
-# Smart Table of Contents
+# Small SEO Engine Smart TOC
 
-[![WordPress Plugin Version](https://img.shields.io/badge/version-1.0.5-blue)](https://wordpress.org/plugins/smart-table-of-contents/)
-[![WordPress Tested](https://img.shields.io/badge/WordPress-6.7%20tested-brightgreen)](https://wordpress.org/plugins/smart-table-of-contents/)
+[![WordPress Plugin Version](https://img.shields.io/badge/version-1.0.7-blue)](https://wordpress.org/plugins/small-seo-engine-smart-toc/)
+[![WordPress Tested](https://img.shields.io/badge/WordPress-6.9%20tested-brightgreen)](https://wordpress.org/plugins/small-seo-engine-smart-toc/)
 [![PHP Version](https://img.shields.io/badge/PHP-7.4%2B-purple)](https://www.php.net/)
 [![License](https://img.shields.io/badge/license-GPLv2-orange)](https://www.gnu.org/licenses/gpl-2.0.html)
 [![Buy Me a Coffee](https://img.shields.io/badge/Donate-Buy%20Me%20a%20Coffee-yellow?logo=buymeacoffee)](https://buymeacoffee.com/anikchowdhury)
@@ -35,7 +35,7 @@
 ### From WordPress Admin
 
 1. Go to **Plugins → Add New**
-2. Search for "Smart Table of Contents"
+2. Search for "Small SEO Engine Smart TOC"
 3. Click **Install Now** and then **Activate**
 
 ### Manual Installation
@@ -49,7 +49,7 @@
 
 ```bash
 cd wp-content/plugins/
-git clone https://github.com/wordpress-plugins-project/smart-table-of-content-free-plugin.git smart-toc
+git clone https://github.com/wordpress-plugins-project/small-seo-engine-smart-toc.git smart-toc
 ```
 
 ## ⚙️ Configuration
@@ -105,8 +105,8 @@ Add the `no-toc` class to any heading you want to exclude:
 ## 📁 File Structure
 
 ```text
-smart-table-of-contents/
-├── smart-table-of-contents.php  # Main plugin file
+small-seo-engine-smart-toc/
+├── small-seo-engine-smart-toc.php       # Main plugin file
 ├── uninstall.php                # Cleanup on uninstall
 ├── index.php                    # Security index
 ├── readme.txt                   # WordPress.org readme
@@ -123,7 +123,7 @@ smart-table-of-contents/
 │   ├── class-render.php         # TOC rendering
 │   └── class-shortcode.php      # Shortcode handler
 └── languages/
-    └── smart-table-of-contents.pot  # Translation template
+    └── small-seo-engine-smart-toc.pot      # Translation template
 ```
 
 ## 🔌 Compatibility
@@ -169,13 +169,20 @@ This project is licensed under the GPL v2 or later - see the [LICENSE](https://w
 
 ## 📞 Support
 
-- **Documentation**: [Read Documentation](https://github.com/wordpress-plugins-project/smart-table-of-content-free-plugin#readme)
-- **WordPress.org**: [Support Forum](https://wordpress.org/support/plugin/smart-table-of-contents/)
-- **Issues**: [GitHub Issues](https://github.com/wordpress-plugins-project/smart-table-of-content-free-plugin/issues)
+- **Documentation**: [Read Documentation](https://github.com/wordpress-plugins-project/small-seo-engine-smart-toc#readme)
+- **WordPress.org**: [Support Forum](https://wordpress.org/support/plugin/small-seo-engine-smart-toc/)
+- **Issues**: [GitHub Issues](https://github.com/wordpress-plugins-project/small-seo-engine-smart-toc/issues)
 - **Website**: [Small SEO Engine](https://smallseoengine.com)
 - **Buy Me a Coffee**: [Support Development](https://buymeacoffee.com/anikchowdhury)
 
 ## 📝 Changelog
+
+### 1.0.7
+- Renamed plugin from "Smart Table of Contents" to "Small SEO Engine Smart TOC" for distinctive branding
+- Updated text domain from `smart-table-of-contents` to `small-seo-engine-smart-toc`
+- Updated all plugin references, URLs, and documentation to reflect new name
+- Renamed main plugin file to `small-seo-engine-smart-toc.php`
+- Updated translation template (.pot file) with new text domain
 
 ### 1.0.5
 - Fixed text domain mismatch for proper internationalization
@@ -193,7 +200,7 @@ This project is licensed under the GPL v2 or later - see the [LICENSE](https://w
 - Renamed main plugin file to match WordPress.org slug
 
 ### 1.0.3
-- Renamed the translation text domain to `smart-table-of-contents` to align with the plugin slug
+- Renamed the translation text domain to `small-seo-engine-smart-toc` to align with the plugin slug
 - Updated POT file and text-domain references throughout the admin UI
 
 ### 1.0.2
@@ -224,5 +231,5 @@ This project is licensed under the GPL v2 or later - see the [LICENSE](https://w
 
 If you find this plugin helpful, please consider:
 - ⭐ Giving it a star on GitHub
-- 📝 Leaving a review on [WordPress.org](https://wordpress.org/plugins/smart-table-of-contents/)
+- 📝 Leaving a review on [WordPress.org](https://wordpress.org/plugins/small-seo-engine-smart-toc/)
 - ☕ [Buy me a coffee](https://buymeacoffee.com/anikchowdhury)

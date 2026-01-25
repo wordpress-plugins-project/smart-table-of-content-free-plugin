@@ -1,6 +1,6 @@
 {
-  "name": "wordpress-plugins-project/smart-table-of-contents",
-  "description": "Smart Table of Contents - Lightweight WordPress TOC plugin",
+  "name": "wordpress-plugins-project/small-seo-engine-smart-toc",
+  "description": "Small SEO Engine Smart TOC - Lightweight WordPress TOC plugin",
   "type": "wordpress-plugin",
   "license": "GPL-2.0-or-later",
   "require": {

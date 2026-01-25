@@ -57,8 +57,8 @@ class Smart_TOC_Admin {
 	 * Add settings link to plugins page
 	 */
 	public function plugin_action_links( $links ) {
-		$settings_link = '<a href="' . admin_url( 'options-general.php?page=smart-toc-free' ) . '">' . __( 'Settings', 'smart-table-of-contents' ) . '</a>';
-		$pro_link      = '<a href="https://smallseoengine.com/plugins/smart-table-of-content/" target="_blank" style="color:#00a32a;font-weight:600;">' . __( 'Get Pro', 'smart-table-of-contents' ) . '</a>';
+		$settings_link = '<a href="' . admin_url( 'options-general.php?page=smart-toc-free' ) . '">' . __( 'Settings', 'small-seo-engine-smart-toc' ) . '</a>';
+		$pro_link      = '<a href="https://smallseoengine.com/plugins/smart-table-of-content/" target="_blank" style="color:#00a32a;font-weight:600;">' . __( 'Get Pro', 'small-seo-engine-smart-toc' ) . '</a>';
 		array_unshift( $links, $settings_link );
 		$links[] = $pro_link;
 		return $links;
@@ -69,8 +69,8 @@ class Smart_TOC_Admin {
 	 */
 	public function add_admin_menu() {
 		add_options_page(
-			__( 'Smart TOC Lite Settings', 'smart-table-of-contents' ),
-			__( 'Smart TOC Lite', 'smart-table-of-contents' ),
+			__( 'Smart TOC Lite Settings', 'small-seo-engine-smart-toc' ),
+			__( 'Smart TOC Lite', 'small-seo-engine-smart-toc' ),
 			'manage_options',
 			'smart-toc-free',
 			array( $this, 'settings_page' )
@@ -148,7 +148,7 @@ class Smart_TOC_Admin {
 
 		$sanitized['title'] = isset( $input['title'] )
 			? sanitize_text_field( $input['title'] )
-			: __( 'Table of Contents', 'smart-table-of-contents' );
+			: __( 'Table of Contents', 'small-seo-engine-smart-toc' );
 
 		$sanitized['theme_color'] = isset( $input['theme_color'] )
 			? sanitize_hex_color( $input['theme_color'] )
@@ -172,24 +172,24 @@ class Smart_TOC_Admin {
 		$active_tab = isset( $_GET['tab'] ) ? sanitize_key( wp_unslash( $_GET['tab'] ) ) : 'settings';
 		?>
 		<div class="wrap smart-toc-admin">
-			<h1><?php esc_html_e( 'Smart Table of Contents', 'smart-table-of-contents' ); ?></h1>
+			<h1><?php esc_html_e( 'Small SEO Engine Smart TOC', 'small-seo-engine-smart-toc' ); ?></h1>
 			
 			<!-- Pro Banner -->
 			<div class="smart-toc-pro-banner">
 				<div class="pro-banner-content">
-					<h3>🚀 <?php esc_html_e( 'Upgrade to Smart TOC Pro', 'smart-table-of-contents' ); ?></h3>
-					<p><?php esc_html_e( 'Get advanced features like Sticky TOC, Reading Progress Bar, Gutenberg Block, Theme Presets, and more!', 'smart-table-of-contents' ); ?></p>
-					<a href="https://smallseoengine.com/plugins/smart-table-of-content/" target="_blank" class="button button-primary"><?php esc_html_e( 'Get Pro Version', 'smart-table-of-contents' ); ?></a>
+					<h3>🚀 <?php esc_html_e( 'Upgrade to Smart TOC Pro', 'small-seo-engine-smart-toc' ); ?></h3>
+					<p><?php esc_html_e( 'Get advanced features like Sticky TOC, Reading Progress Bar, Gutenberg Block, Theme Presets, and more!', 'small-seo-engine-smart-toc' ); ?></p>
+					<a href="https://smallseoengine.com/plugins/smart-table-of-content/" target="_blank" class="button button-primary"><?php esc_html_e( 'Get Pro Version', 'small-seo-engine-smart-toc' ); ?></a>
 				</div>
 			</div>
 
 			<!-- Navigation Tabs -->
 			<nav class="nav-tab-wrapper smart-toc-tabs">
 				<a href="<?php echo esc_url( admin_url( 'options-general.php?page=smart-toc-free&tab=settings' ) ); ?>" class="nav-tab <?php echo 'settings' === $active_tab ? 'nav-tab-active' : ''; ?>">
-					<span class="dashicons dashicons-admin-settings"></span> <?php esc_html_e( 'Settings', 'smart-table-of-contents' ); ?>
+					<span class="dashicons dashicons-admin-settings"></span> <?php esc_html_e( 'Settings', 'small-seo-engine-smart-toc' ); ?>
 				</a>
 				<a href="<?php echo esc_url( admin_url( 'options-general.php?page=smart-toc-free&tab=documentation' ) ); ?>" class="nav-tab <?php echo 'documentation' === $active_tab ? 'nav-tab-active' : ''; ?>">
-					<span class="dashicons dashicons-book"></span> <?php esc_html_e( 'Documentation', 'smart-table-of-contents' ); ?>
+					<span class="dashicons dashicons-book"></span> <?php esc_html_e( 'Documentation', 'small-seo-engine-smart-toc' ); ?>
 				</a>
 			</nav>
 
@@ -200,20 +200,20 @@ class Smart_TOC_Admin {
 				<div class="smart-toc-settings-grid">
 					<!-- General Settings -->
 					<div class="smart-toc-card">
-						<h2><?php esc_html_e( 'General Settings', 'smart-table-of-contents' ); ?></h2>
+						<h2><?php esc_html_e( 'General Settings', 'small-seo-engine-smart-toc' ); ?></h2>
 						
 						<table class="form-table">
 							<tr>
-								<th scope="row"><?php esc_html_e( 'Enable TOC', 'smart-table-of-contents' ); ?></th>
+								<th scope="row"><?php esc_html_e( 'Enable TOC', 'small-seo-engine-smart-toc' ); ?></th>
 								<td>
 									<label>
 										<input type="checkbox" name="smart_toc_settings[enabled]" value="1" <?php checked( $settings['enabled'] ); ?>>
-										<?php esc_html_e( 'Enable Table of Contents globally', 'smart-table-of-contents' ); ?>
+										<?php esc_html_e( 'Enable Table of Contents globally', 'small-seo-engine-smart-toc' ); ?>
 									</label>
 								</td>
 							</tr>
 							<tr>
-								<th scope="row"><?php esc_html_e( 'Post Types', 'smart-table-of-contents' ); ?></th>
+								<th scope="row"><?php esc_html_e( 'Post Types', 'small-seo-engine-smart-toc' ); ?></th>
 								<td>
 									<?php
 									$post_types = get_post_types( array( 'public' => true ), 'objects' );
@@ -233,7 +233,7 @@ class Smart_TOC_Admin {
 								</td>
 							</tr>
 							<tr>
-								<th scope="row"><?php esc_html_e( 'Minimum Headings', 'smart-table-of-contents' ); ?></th>
+								<th scope="row"><?php esc_html_e( 'Minimum Headings', 'small-seo-engine-smart-toc' ); ?></th>
 								<td>
 									<input type="number" 
 											name="smart_toc_settings[min_headings]" 
@@ -241,11 +241,11 @@ class Smart_TOC_Admin {
 											min="1" 
 											max="10"
 											class="small-text">
-									<p class="description"><?php esc_html_e( 'Minimum number of headings required to display TOC', 'smart-table-of-contents' ); ?></p>
+									<p class="description"><?php esc_html_e( 'Minimum number of headings required to display TOC', 'small-seo-engine-smart-toc' ); ?></p>
 								</td>
 							</tr>
 							<tr>
-								<th scope="row"><?php esc_html_e( 'Heading Levels', 'smart-table-of-contents' ); ?></th>
+								<th scope="row"><?php esc_html_e( 'Heading Levels', 'small-seo-engine-smart-toc' ); ?></th>
 								<td>
 									<?php for ( $i = 2; $i <= 6; $i++ ) : ?>
 										<label style="margin-right: 15px;">
@@ -263,11 +263,11 @@ class Smart_TOC_Admin {
 
 					<!-- Display Settings -->
 					<div class="smart-toc-card">
-						<h2><?php esc_html_e( 'Display Settings', 'smart-table-of-contents' ); ?></h2>
+						<h2><?php esc_html_e( 'Display Settings', 'small-seo-engine-smart-toc' ); ?></h2>
 						
 						<table class="form-table">
 							<tr>
-								<th scope="row"><?php esc_html_e( 'TOC Title', 'smart-table-of-contents' ); ?></th>
+								<th scope="row"><?php esc_html_e( 'TOC Title', 'small-seo-engine-smart-toc' ); ?></th>
 								<td>
 									<input type="text" 
 											name="smart_toc_settings[title]" 
@@ -276,41 +276,41 @@ class Smart_TOC_Admin {
 								</td>
 							</tr>
 							<tr>
-								<th scope="row"><?php esc_html_e( 'Position', 'smart-table-of-contents' ); ?></th>
+								<th scope="row"><?php esc_html_e( 'Position', 'small-seo-engine-smart-toc' ); ?></th>
 								<td>
 									<select name="smart_toc_settings[position]">
 										<option value="before_content" <?php selected( $settings['position'], 'before_content' ); ?>>
-											<?php esc_html_e( 'Before Content', 'smart-table-of-contents' ); ?>
+											<?php esc_html_e( 'Before Content', 'small-seo-engine-smart-toc' ); ?>
 										</option>
 										<option value="after_first_paragraph" <?php selected( $settings['position'], 'after_first_paragraph' ); ?>>
-											<?php esc_html_e( 'After First Paragraph', 'smart-table-of-contents' ); ?>
+											<?php esc_html_e( 'After First Paragraph', 'small-seo-engine-smart-toc' ); ?>
 										</option>
 										<option value="manual" <?php selected( $settings['position'], 'manual' ); ?>>
-											<?php esc_html_e( 'Manual (Shortcode Only)', 'smart-table-of-contents' ); ?>
+											<?php esc_html_e( 'Manual (Shortcode Only)', 'small-seo-engine-smart-toc' ); ?>
 										</option>
 									</select>
 								</td>
 							</tr>
 							<tr>
-								<th scope="row"><?php esc_html_e( 'Default State', 'smart-table-of-contents' ); ?></th>
+								<th scope="row"><?php esc_html_e( 'Default State', 'small-seo-engine-smart-toc' ); ?></th>
 								<td>
 									<label>
 										<input type="checkbox" name="smart_toc_settings[default_collapsed]" value="1" <?php checked( $settings['default_collapsed'] ); ?>>
-										<?php esc_html_e( 'Collapsed by default', 'smart-table-of-contents' ); ?>
+										<?php esc_html_e( 'Collapsed by default', 'small-seo-engine-smart-toc' ); ?>
 									</label>
 								</td>
 							</tr>
 							<tr>
-								<th scope="row"><?php esc_html_e( 'Show Numbers', 'smart-table-of-contents' ); ?></th>
+								<th scope="row"><?php esc_html_e( 'Show Numbers', 'small-seo-engine-smart-toc' ); ?></th>
 								<td>
 									<label>
 										<input type="checkbox" name="smart_toc_settings[show_numbers]" value="1" <?php checked( $settings['show_numbers'] ); ?>>
-										<?php esc_html_e( 'Display numbers before TOC items (1, 2, 3...)', 'smart-table-of-contents' ); ?>
+										<?php esc_html_e( 'Display numbers before TOC items (1, 2, 3...)', 'small-seo-engine-smart-toc' ); ?>
 									</label>
 								</td>
 							</tr>
 							<tr>
-								<th scope="row"><?php esc_html_e( 'Theme Color', 'smart-table-of-contents' ); ?></th>
+								<th scope="row"><?php esc_html_e( 'Theme Color', 'small-seo-engine-smart-toc' ); ?></th>
 								<td>
 									<input type="text" 
 											name="smart_toc_settings[theme_color]" 
@@ -323,29 +323,29 @@ class Smart_TOC_Admin {
 
 					<!-- Behavior Settings -->
 					<div class="smart-toc-card">
-						<h2><?php esc_html_e( 'Behavior Settings', 'smart-table-of-contents' ); ?></h2>
+						<h2><?php esc_html_e( 'Behavior Settings', 'small-seo-engine-smart-toc' ); ?></h2>
 						
 						<table class="form-table">
 							<tr>
-								<th scope="row"><?php esc_html_e( 'Smooth Scroll', 'smart-table-of-contents' ); ?></th>
+								<th scope="row"><?php esc_html_e( 'Smooth Scroll', 'small-seo-engine-smart-toc' ); ?></th>
 								<td>
 									<label>
 										<input type="checkbox" name="smart_toc_settings[smooth_scroll]" value="1" <?php checked( $settings['smooth_scroll'] ); ?>>
-										<?php esc_html_e( 'Enable smooth scrolling to headings', 'smart-table-of-contents' ); ?>
+										<?php esc_html_e( 'Enable smooth scrolling to headings', 'small-seo-engine-smart-toc' ); ?>
 									</label>
 								</td>
 							</tr>
 							<tr>
-								<th scope="row"><?php esc_html_e( 'Highlight Active', 'smart-table-of-contents' ); ?></th>
+								<th scope="row"><?php esc_html_e( 'Highlight Active', 'small-seo-engine-smart-toc' ); ?></th>
 								<td>
 									<label>
 										<input type="checkbox" name="smart_toc_settings[highlight_active]" value="1" <?php checked( $settings['highlight_active'] ); ?>>
-										<?php esc_html_e( 'Highlight current section in TOC', 'smart-table-of-contents' ); ?>
+										<?php esc_html_e( 'Highlight current section in TOC', 'small-seo-engine-smart-toc' ); ?>
 									</label>
 								</td>
 							</tr>
 							<tr>
-								<th scope="row"><?php esc_html_e( 'Scroll Offset', 'smart-table-of-contents' ); ?></th>
+								<th scope="row"><?php esc_html_e( 'Scroll Offset', 'small-seo-engine-smart-toc' ); ?></th>
 								<td>
 									<input type="number" 
 											name="smart_toc_settings[scroll_offset]" 
@@ -353,7 +353,7 @@ class Smart_TOC_Admin {
 											min="0" 
 											max="200"
 											class="small-text"> px
-									<p class="description"><?php esc_html_e( 'Offset from top when scrolling (useful for fixed headers)', 'smart-table-of-contents' ); ?></p>
+									<p class="description"><?php esc_html_e( 'Offset from top when scrolling (useful for fixed headers)', 'small-seo-engine-smart-toc' ); ?></p>
 								</td>
 							</tr>
 						</table>
@@ -361,20 +361,20 @@ class Smart_TOC_Admin {
 
 					<!-- Pro Features Preview -->
 					<div class="smart-toc-card smart-toc-pro-features">
-						<h2>✨ <?php esc_html_e( 'Pro Features', 'smart-table-of-contents' ); ?></h2>
+						<h2>✨ <?php esc_html_e( 'Pro Features', 'small-seo-engine-smart-toc' ); ?></h2>
 						<ul class="pro-features-list">
-							<li>🔒 <?php esc_html_e( 'Sticky/Floating TOC', 'smart-table-of-contents' ); ?></li>
-							<li>🔒 <?php esc_html_e( 'Reading Progress Bar', 'smart-table-of-contents' ); ?></li>
-							<li>🔒 <?php esc_html_e( 'Estimated Reading Time', 'smart-table-of-contents' ); ?></li>
-							<li>🔒 <?php esc_html_e( 'Back to Top Button', 'smart-table-of-contents' ); ?></li>
-							<li>🔒 <?php esc_html_e( 'Keyboard Navigation', 'smart-table-of-contents' ); ?></li>
-							<li>🔒 <?php esc_html_e( 'Multiple Theme Presets', 'smart-table-of-contents' ); ?></li>
-							<li>🔒 <?php esc_html_e( 'Custom CSS Support', 'smart-table-of-contents' ); ?></li>
-							<li>🔒 <?php esc_html_e( 'Mobile-specific Options', 'smart-table-of-contents' ); ?></li>
-							<li>🔒 <?php esc_html_e( 'Gutenberg Block', 'smart-table-of-contents' ); ?></li>
-							<li>🔒 <?php esc_html_e( 'Sidebar Widget', 'smart-table-of-contents' ); ?></li>
+							<li>🔒 <?php esc_html_e( 'Sticky/Floating TOC', 'small-seo-engine-smart-toc' ); ?></li>
+							<li>🔒 <?php esc_html_e( 'Reading Progress Bar', 'small-seo-engine-smart-toc' ); ?></li>
+							<li>🔒 <?php esc_html_e( 'Estimated Reading Time', 'small-seo-engine-smart-toc' ); ?></li>
+							<li>🔒 <?php esc_html_e( 'Back to Top Button', 'small-seo-engine-smart-toc' ); ?></li>
+							<li>🔒 <?php esc_html_e( 'Keyboard Navigation', 'small-seo-engine-smart-toc' ); ?></li>
+							<li>🔒 <?php esc_html_e( 'Multiple Theme Presets', 'small-seo-engine-smart-toc' ); ?></li>
+							<li>🔒 <?php esc_html_e( 'Custom CSS Support', 'small-seo-engine-smart-toc' ); ?></li>
+							<li>🔒 <?php esc_html_e( 'Mobile-specific Options', 'small-seo-engine-smart-toc' ); ?></li>
+							<li>🔒 <?php esc_html_e( 'Gutenberg Block', 'small-seo-engine-smart-toc' ); ?></li>
+							<li>🔒 <?php esc_html_e( 'Sidebar Widget', 'small-seo-engine-smart-toc' ); ?></li>
 						</ul>
-						<a href="https://smallseoengine.com/plugins/smart-table-of-content/" target="_blank" class="button button-primary"><?php esc_html_e( 'Unlock All Features', 'smart-table-of-contents' ); ?></a>
+						<a href="https://smallseoengine.com/plugins/smart-table-of-content/" target="_blank" class="button button-primary"><?php esc_html_e( 'Unlock All Features', 'small-seo-engine-smart-toc' ); ?></a>
 					</div>
 				</div>
 
@@ -383,12 +383,12 @@ class Smart_TOC_Admin {
 
 			<!-- Shortcode Info -->
 			<div class="smart-toc-card">
-				<h2><?php esc_html_e( 'Shortcode Usage', 'smart-table-of-contents' ); ?></h2>
-				<p><?php esc_html_e( 'Use the following shortcode to manually place the TOC:', 'smart-table-of-contents' ); ?></p>
+				<h2><?php esc_html_e( 'Shortcode Usage', 'small-seo-engine-smart-toc' ); ?></h2>
+				<p><?php esc_html_e( 'Use the following shortcode to manually place the TOC:', 'small-seo-engine-smart-toc' ); ?></p>
 				<code>[smart_toc]</code>
-				<p style="margin-top: 10px;"><?php esc_html_e( 'With custom title:', 'smart-table-of-contents' ); ?></p>
+				<p style="margin-top: 10px;"><?php esc_html_e( 'With custom title:', 'small-seo-engine-smart-toc' ); ?></p>
 				<code>[smart_toc title="In This Article"]</code>
-				<p style="margin-top: 10px;"><?php esc_html_e( 'Collapsed by default:', 'smart-table-of-contents' ); ?></p>
+				<p style="margin-top: 10px;"><?php esc_html_e( 'Collapsed by default:', 'small-seo-engine-smart-toc' ); ?></p>
 				<code>[smart_toc collapsed="true"]</code>
 			</div>
 
@@ -410,110 +410,110 @@ class Smart_TOC_Admin {
 		<div class="smart-toc-docs-container">
 			<!-- Quick Start -->
 			<div class="smart-toc-card smart-toc-docs-card">
-				<h2><span class="dashicons dashicons-controls-play"></span> <?php esc_html_e( 'Quick Start', 'smart-table-of-contents' ); ?></h2>
+				<h2><span class="dashicons dashicons-controls-play"></span> <?php esc_html_e( 'Quick Start', 'small-seo-engine-smart-toc' ); ?></h2>
 				<ol class="smart-toc-docs-list">
-					<li><?php esc_html_e( 'Activate the plugin - TOC is enabled by default', 'smart-table-of-contents' ); ?></li>
-					<li><?php esc_html_e( 'Create or edit a post/page with at least 2 headings (H2-H6)', 'smart-table-of-contents' ); ?></li>
-					<li><?php esc_html_e( 'View your post - The TOC appears automatically before your content', 'smart-table-of-contents' ); ?></li>
-					<li><?php esc_html_e( 'Customize via Settings tab as needed', 'smart-table-of-contents' ); ?></li>
+					<li><?php esc_html_e( 'Activate the plugin - TOC is enabled by default', 'small-seo-engine-smart-toc' ); ?></li>
+					<li><?php esc_html_e( 'Create or edit a post/page with at least 2 headings (H2-H6)', 'small-seo-engine-smart-toc' ); ?></li>
+					<li><?php esc_html_e( 'View your post - The TOC appears automatically before your content', 'small-seo-engine-smart-toc' ); ?></li>
+					<li><?php esc_html_e( 'Customize via Settings tab as needed', 'small-seo-engine-smart-toc' ); ?></li>
 				</ol>
 			</div>
 
 			<div class="smart-toc-docs-grid">
 				<!-- Settings Reference -->
 				<div class="smart-toc-card smart-toc-docs-card">
-					<h2><span class="dashicons dashicons-admin-settings"></span> <?php esc_html_e( 'Settings Reference', 'smart-table-of-contents' ); ?></h2>
+					<h2><span class="dashicons dashicons-admin-settings"></span> <?php esc_html_e( 'Settings Reference', 'small-seo-engine-smart-toc' ); ?></h2>
 					
-					<h3><?php esc_html_e( 'General Settings', 'smart-table-of-contents' ); ?></h3>
+					<h3><?php esc_html_e( 'General Settings', 'small-seo-engine-smart-toc' ); ?></h3>
 					<table class="smart-toc-docs-table">
 						<tr>
-							<td><strong><?php esc_html_e( 'Enable TOC', 'smart-table-of-contents' ); ?></strong></td>
-							<td><?php esc_html_e( 'Master switch to enable/disable TOC globally', 'smart-table-of-contents' ); ?></td>
+							<td><strong><?php esc_html_e( 'Enable TOC', 'small-seo-engine-smart-toc' ); ?></strong></td>
+							<td><?php esc_html_e( 'Master switch to enable/disable TOC globally', 'small-seo-engine-smart-toc' ); ?></td>
 						</tr>
 						<tr>
-							<td><strong><?php esc_html_e( 'Post Types', 'smart-table-of-contents' ); ?></strong></td>
-							<td><?php esc_html_e( 'Select which post types display the TOC', 'smart-table-of-contents' ); ?></td>
+							<td><strong><?php esc_html_e( 'Post Types', 'small-seo-engine-smart-toc' ); ?></strong></td>
+							<td><?php esc_html_e( 'Select which post types display the TOC', 'small-seo-engine-smart-toc' ); ?></td>
 						</tr>
 						<tr>
-							<td><strong><?php esc_html_e( 'Minimum Headings', 'smart-table-of-contents' ); ?></strong></td>
-							<td><?php esc_html_e( 'Minimum headings required for TOC to appear (default: 2)', 'smart-table-of-contents' ); ?></td>
+							<td><strong><?php esc_html_e( 'Minimum Headings', 'small-seo-engine-smart-toc' ); ?></strong></td>
+							<td><?php esc_html_e( 'Minimum headings required for TOC to appear (default: 2)', 'small-seo-engine-smart-toc' ); ?></td>
 						</tr>
 						<tr>
-							<td><strong><?php esc_html_e( 'Heading Levels', 'smart-table-of-contents' ); ?></strong></td>
-							<td><?php esc_html_e( 'Choose which heading levels (H2-H6) to include', 'smart-table-of-contents' ); ?></td>
+							<td><strong><?php esc_html_e( 'Heading Levels', 'small-seo-engine-smart-toc' ); ?></strong></td>
+							<td><?php esc_html_e( 'Choose which heading levels (H2-H6) to include', 'small-seo-engine-smart-toc' ); ?></td>
 						</tr>
 					</table>
 
-					<h3><?php esc_html_e( 'Display Settings', 'smart-table-of-contents' ); ?></h3>
+					<h3><?php esc_html_e( 'Display Settings', 'small-seo-engine-smart-toc' ); ?></h3>
 					<table class="smart-toc-docs-table">
 						<tr>
-							<td><strong><?php esc_html_e( 'TOC Title', 'smart-table-of-contents' ); ?></strong></td>
-							<td><?php esc_html_e( 'The heading text displayed at the top of the TOC', 'smart-table-of-contents' ); ?></td>
+							<td><strong><?php esc_html_e( 'TOC Title', 'small-seo-engine-smart-toc' ); ?></strong></td>
+							<td><?php esc_html_e( 'The heading text displayed at the top of the TOC', 'small-seo-engine-smart-toc' ); ?></td>
 						</tr>
 						<tr>
-							<td><strong><?php esc_html_e( 'Position', 'smart-table-of-contents' ); ?></strong></td>
-							<td><?php esc_html_e( 'Before Content, After First Paragraph, or Manual (Shortcode)', 'smart-table-of-contents' ); ?></td>
+							<td><strong><?php esc_html_e( 'Position', 'small-seo-engine-smart-toc' ); ?></strong></td>
+							<td><?php esc_html_e( 'Before Content, After First Paragraph, or Manual (Shortcode)', 'small-seo-engine-smart-toc' ); ?></td>
 						</tr>
 						<tr>
-							<td><strong><?php esc_html_e( 'Default State', 'smart-table-of-contents' ); ?></strong></td>
-							<td><?php esc_html_e( 'Whether TOC starts expanded or collapsed', 'smart-table-of-contents' ); ?></td>
+							<td><strong><?php esc_html_e( 'Default State', 'small-seo-engine-smart-toc' ); ?></strong></td>
+							<td><?php esc_html_e( 'Whether TOC starts expanded or collapsed', 'small-seo-engine-smart-toc' ); ?></td>
 						</tr>
 						<tr>
-							<td><strong><?php esc_html_e( 'Show Numbers', 'smart-table-of-contents' ); ?></strong></td>
-							<td><?php esc_html_e( 'Display sequential numbers before each item', 'smart-table-of-contents' ); ?></td>
+							<td><strong><?php esc_html_e( 'Show Numbers', 'small-seo-engine-smart-toc' ); ?></strong></td>
+							<td><?php esc_html_e( 'Display sequential numbers before each item', 'small-seo-engine-smart-toc' ); ?></td>
 						</tr>
 						<tr>
-							<td><strong><?php esc_html_e( 'Theme Color', 'smart-table-of-contents' ); ?></strong></td>
-							<td><?php esc_html_e( 'Primary color for links and active states', 'smart-table-of-contents' ); ?></td>
+							<td><strong><?php esc_html_e( 'Theme Color', 'small-seo-engine-smart-toc' ); ?></strong></td>
+							<td><?php esc_html_e( 'Primary color for links and active states', 'small-seo-engine-smart-toc' ); ?></td>
 						</tr>
 					</table>
 
-					<h3><?php esc_html_e( 'Behavior Settings', 'smart-table-of-contents' ); ?></h3>
+					<h3><?php esc_html_e( 'Behavior Settings', 'small-seo-engine-smart-toc' ); ?></h3>
 					<table class="smart-toc-docs-table">
 						<tr>
-							<td><strong><?php esc_html_e( 'Smooth Scroll', 'smart-table-of-contents' ); ?></strong></td>
-							<td><?php esc_html_e( 'Animated scrolling when clicking TOC links', 'smart-table-of-contents' ); ?></td>
+							<td><strong><?php esc_html_e( 'Smooth Scroll', 'small-seo-engine-smart-toc' ); ?></strong></td>
+							<td><?php esc_html_e( 'Animated scrolling when clicking TOC links', 'small-seo-engine-smart-toc' ); ?></td>
 						</tr>
 						<tr>
-							<td><strong><?php esc_html_e( 'Highlight Active', 'smart-table-of-contents' ); ?></strong></td>
-							<td><?php esc_html_e( 'Highlights current section as users scroll', 'smart-table-of-contents' ); ?></td>
+							<td><strong><?php esc_html_e( 'Highlight Active', 'small-seo-engine-smart-toc' ); ?></strong></td>
+							<td><?php esc_html_e( 'Highlights current section as users scroll', 'small-seo-engine-smart-toc' ); ?></td>
 						</tr>
 						<tr>
-							<td><strong><?php esc_html_e( 'Scroll Offset', 'smart-table-of-contents' ); ?></strong></td>
-							<td><?php esc_html_e( 'Offset for fixed headers (0-200px)', 'smart-table-of-contents' ); ?></td>
+							<td><strong><?php esc_html_e( 'Scroll Offset', 'small-seo-engine-smart-toc' ); ?></strong></td>
+							<td><?php esc_html_e( 'Offset for fixed headers (0-200px)', 'small-seo-engine-smart-toc' ); ?></td>
 						</tr>
 					</table>
 				</div>
 
 				<!-- Shortcode Usage -->
 				<div class="smart-toc-card smart-toc-docs-card">
-					<h2><span class="dashicons dashicons-shortcode"></span> <?php esc_html_e( 'Shortcode Usage', 'smart-table-of-contents' ); ?></h2>
+					<h2><span class="dashicons dashicons-shortcode"></span> <?php esc_html_e( 'Shortcode Usage', 'small-seo-engine-smart-toc' ); ?></h2>
 					
-					<p><?php esc_html_e( 'Use the shortcode for manual TOC placement:', 'smart-table-of-contents' ); ?></p>
+					<p><?php esc_html_e( 'Use the shortcode for manual TOC placement:', 'small-seo-engine-smart-toc' ); ?></p>
 					
-					<h3><?php esc_html_e( 'Basic Usage', 'smart-table-of-contents' ); ?></h3>
+					<h3><?php esc_html_e( 'Basic Usage', 'small-seo-engine-smart-toc' ); ?></h3>
 					<div class="smart-toc-code-block">
 						<code>[smart_toc]</code>
 					</div>
 					
-					<h3><?php esc_html_e( 'Custom Title', 'smart-table-of-contents' ); ?></h3>
+					<h3><?php esc_html_e( 'Custom Title', 'small-seo-engine-smart-toc' ); ?></h3>
 					<div class="smart-toc-code-block">
 						<code>[smart_toc title="In This Article"]</code>
 					</div>
 					
-					<h3><?php esc_html_e( 'Collapsed by Default', 'smart-table-of-contents' ); ?></h3>
+					<h3><?php esc_html_e( 'Collapsed by Default', 'small-seo-engine-smart-toc' ); ?></h3>
 					<div class="smart-toc-code-block">
 						<code>[smart_toc collapsed="true"]</code>
 					</div>
 					
-					<h3><?php esc_html_e( 'Combined Attributes', 'smart-table-of-contents' ); ?></h3>
+					<h3><?php esc_html_e( 'Combined Attributes', 'small-seo-engine-smart-toc' ); ?></h3>
 					<div class="smart-toc-code-block">
 						<code>[smart_toc title="Quick Navigation" collapsed="false"]</code>
 					</div>
 
 					<div class="smart-toc-docs-tip">
-						<strong>💡 <?php esc_html_e( 'Tip:', 'smart-table-of-contents' ); ?></strong>
-						<?php esc_html_e( 'Set Position to "Manual (Shortcode Only)" in settings to prevent automatic insertion.', 'smart-table-of-contents' ); ?>
+						<strong>💡 <?php esc_html_e( 'Tip:', 'small-seo-engine-smart-toc' ); ?></strong>
+						<?php esc_html_e( 'Set Position to "Manual (Shortcode Only)" in settings to prevent automatic insertion.', 'small-seo-engine-smart-toc' ); ?>
 					</div>
 				</div>
 			</div>
@@ -521,70 +521,70 @@ class Smart_TOC_Admin {
 			<div class="smart-toc-docs-grid">
 				<!-- Per-Post Controls -->
 				<div class="smart-toc-card smart-toc-docs-card">
-					<h2><span class="dashicons dashicons-admin-post"></span> <?php esc_html_e( 'Per-Post Controls', 'smart-table-of-contents' ); ?></h2>
-					<p><?php esc_html_e( 'Disable TOC on individual posts/pages:', 'smart-table-of-contents' ); ?></p>
+					<h2><span class="dashicons dashicons-admin-post"></span> <?php esc_html_e( 'Per-Post Controls', 'small-seo-engine-smart-toc' ); ?></h2>
+					<p><?php esc_html_e( 'Disable TOC on individual posts/pages:', 'small-seo-engine-smart-toc' ); ?></p>
 					<ol class="smart-toc-docs-list">
-						<li><?php esc_html_e( 'Edit the post/page in WordPress admin', 'smart-table-of-contents' ); ?></li>
-						<li><?php esc_html_e( 'Find the "Smart TOC" meta box in the sidebar', 'smart-table-of-contents' ); ?></li>
-						<li><?php esc_html_e( 'Check "Disable TOC for this post"', 'smart-table-of-contents' ); ?></li>
-						<li><?php esc_html_e( 'Save/Update the post', 'smart-table-of-contents' ); ?></li>
+						<li><?php esc_html_e( 'Edit the post/page in WordPress admin', 'small-seo-engine-smart-toc' ); ?></li>
+						<li><?php esc_html_e( 'Find the "Smart TOC" meta box in the sidebar', 'small-seo-engine-smart-toc' ); ?></li>
+						<li><?php esc_html_e( 'Check "Disable TOC for this post"', 'small-seo-engine-smart-toc' ); ?></li>
+						<li><?php esc_html_e( 'Save/Update the post', 'small-seo-engine-smart-toc' ); ?></li>
 					</ol>
-					<p><em><?php esc_html_e( 'Useful for landing pages, short posts, or custom layouts.', 'smart-table-of-contents' ); ?></em></p>
+					<p><em><?php esc_html_e( 'Useful for landing pages, short posts, or custom layouts.', 'small-seo-engine-smart-toc' ); ?></em></p>
 				</div>
 
 				<!-- Excluding Headings -->
 				<div class="smart-toc-card smart-toc-docs-card">
-					<h2><span class="dashicons dashicons-hidden"></span> <?php esc_html_e( 'Excluding Headings', 'smart-table-of-contents' ); ?></h2>
-					<p><?php esc_html_e( 'Add the "no-toc" CSS class to exclude specific headings:', 'smart-table-of-contents' ); ?></p>
+					<h2><span class="dashicons dashicons-hidden"></span> <?php esc_html_e( 'Excluding Headings', 'small-seo-engine-smart-toc' ); ?></h2>
+					<p><?php esc_html_e( 'Add the "no-toc" CSS class to exclude specific headings:', 'small-seo-engine-smart-toc' ); ?></p>
 					
-					<h3><?php esc_html_e( 'Block Editor (Gutenberg)', 'smart-table-of-contents' ); ?></h3>
+					<h3><?php esc_html_e( 'Block Editor (Gutenberg)', 'small-seo-engine-smart-toc' ); ?></h3>
 					<ol class="smart-toc-docs-list">
-						<li><?php esc_html_e( 'Select the heading block', 'smart-table-of-contents' ); ?></li>
-						<li><?php esc_html_e( 'Open Block Settings (right sidebar)', 'smart-table-of-contents' ); ?></li>
-						<li><?php esc_html_e( 'Expand "Advanced" section', 'smart-table-of-contents' ); ?></li>
-						<li><?php esc_html_e( 'Add "no-toc" to Additional CSS class(es)', 'smart-table-of-contents' ); ?></li>
+						<li><?php esc_html_e( 'Select the heading block', 'small-seo-engine-smart-toc' ); ?></li>
+						<li><?php esc_html_e( 'Open Block Settings (right sidebar)', 'small-seo-engine-smart-toc' ); ?></li>
+						<li><?php esc_html_e( 'Expand "Advanced" section', 'small-seo-engine-smart-toc' ); ?></li>
+						<li><?php esc_html_e( 'Add "no-toc" to Additional CSS class(es)', 'small-seo-engine-smart-toc' ); ?></li>
 					</ol>
 					
-					<h3><?php esc_html_e( 'Classic Editor (HTML)', 'smart-table-of-contents' ); ?></h3>
+					<h3><?php esc_html_e( 'Classic Editor (HTML)', 'small-seo-engine-smart-toc' ); ?></h3>
 					<div class="smart-toc-code-block">
-						<code>&lt;h2 class="no-toc"&gt;<?php esc_html_e( 'Hidden Heading', 'smart-table-of-contents' ); ?>&lt;/h2&gt;</code>
+						<code>&lt;h2 class="no-toc"&gt;<?php esc_html_e( 'Hidden Heading', 'small-seo-engine-smart-toc' ); ?>&lt;/h2&gt;</code>
 					</div>
 				</div>
 			</div>
 
 			<!-- Troubleshooting -->
 			<div class="smart-toc-card smart-toc-docs-card">
-				<h2><span class="dashicons dashicons-sos"></span> <?php esc_html_e( 'Troubleshooting', 'smart-table-of-contents' ); ?></h2>
+				<h2><span class="dashicons dashicons-sos"></span> <?php esc_html_e( 'Troubleshooting', 'small-seo-engine-smart-toc' ); ?></h2>
 				
 				<div class="smart-toc-docs-grid smart-toc-troubleshoot-grid">
 					<div class="smart-toc-troubleshoot-item">
-						<h3><?php esc_html_e( 'TOC Not Appearing', 'smart-table-of-contents' ); ?></h3>
+						<h3><?php esc_html_e( 'TOC Not Appearing', 'small-seo-engine-smart-toc' ); ?></h3>
 						<ul>
-							<li><?php esc_html_e( 'Check minimum headings requirement', 'smart-table-of-contents' ); ?></li>
-							<li><?php esc_html_e( 'Verify post type is enabled', 'smart-table-of-contents' ); ?></li>
-							<li><?php esc_html_e( 'Check per-post disable setting', 'smart-table-of-contents' ); ?></li>
-							<li><?php esc_html_e( 'Confirm global toggle is enabled', 'smart-table-of-contents' ); ?></li>
-							<li><?php esc_html_e( 'TOC is disabled on front/home pages', 'smart-table-of-contents' ); ?></li>
+							<li><?php esc_html_e( 'Check minimum headings requirement', 'small-seo-engine-smart-toc' ); ?></li>
+							<li><?php esc_html_e( 'Verify post type is enabled', 'small-seo-engine-smart-toc' ); ?></li>
+							<li><?php esc_html_e( 'Check per-post disable setting', 'small-seo-engine-smart-toc' ); ?></li>
+							<li><?php esc_html_e( 'Confirm global toggle is enabled', 'small-seo-engine-smart-toc' ); ?></li>
+							<li><?php esc_html_e( 'TOC is disabled on front/home pages', 'small-seo-engine-smart-toc' ); ?></li>
 						</ul>
 					</div>
 					<div class="smart-toc-troubleshoot-item">
-						<h3><?php esc_html_e( 'Headings Hidden Behind Header', 'smart-table-of-contents' ); ?></h3>
-						<p><?php esc_html_e( 'Increase the Scroll Offset value in Behavior Settings to match your fixed header height.', 'smart-table-of-contents' ); ?></p>
+						<h3><?php esc_html_e( 'Headings Hidden Behind Header', 'small-seo-engine-smart-toc' ); ?></h3>
+						<p><?php esc_html_e( 'Increase the Scroll Offset value in Behavior Settings to match your fixed header height.', 'small-seo-engine-smart-toc' ); ?></p>
 					</div>
 					<div class="smart-toc-troubleshoot-item">
-						<h3><?php esc_html_e( 'Smooth Scroll Not Working', 'smart-table-of-contents' ); ?></h3>
+						<h3><?php esc_html_e( 'Smooth Scroll Not Working', 'small-seo-engine-smart-toc' ); ?></h3>
 						<ul>
-							<li><?php esc_html_e( 'Check for plugin/theme conflicts', 'smart-table-of-contents' ); ?></li>
-							<li><?php esc_html_e( 'Verify Smooth Scroll is enabled', 'smart-table-of-contents' ); ?></li>
-							<li><?php esc_html_e( 'Check browser console for errors', 'smart-table-of-contents' ); ?></li>
+							<li><?php esc_html_e( 'Check for plugin/theme conflicts', 'small-seo-engine-smart-toc' ); ?></li>
+							<li><?php esc_html_e( 'Verify Smooth Scroll is enabled', 'small-seo-engine-smart-toc' ); ?></li>
+							<li><?php esc_html_e( 'Check browser console for errors', 'small-seo-engine-smart-toc' ); ?></li>
 						</ul>
 					</div>
 					<div class="smart-toc-troubleshoot-item">
-						<h3><?php esc_html_e( 'Active Highlight Not Updating', 'smart-table-of-contents' ); ?></h3>
+						<h3><?php esc_html_e( 'Active Highlight Not Updating', 'small-seo-engine-smart-toc' ); ?></h3>
 						<ul>
-							<li><?php esc_html_e( 'Ensure Highlight Active is enabled', 'smart-table-of-contents' ); ?></li>
-							<li><?php esc_html_e( 'Check for JavaScript conflicts', 'smart-table-of-contents' ); ?></li>
-							<li><?php esc_html_e( 'Try scrolling slowly through content', 'smart-table-of-contents' ); ?></li>
+							<li><?php esc_html_e( 'Ensure Highlight Active is enabled', 'small-seo-engine-smart-toc' ); ?></li>
+							<li><?php esc_html_e( 'Check for JavaScript conflicts', 'small-seo-engine-smart-toc' ); ?></li>
+							<li><?php esc_html_e( 'Try scrolling slowly through content', 'small-seo-engine-smart-toc' ); ?></li>
 						</ul>
 					</div>
 				</div>
@@ -592,54 +592,54 @@ class Smart_TOC_Admin {
 
 			<!-- CSS Customization -->
 			<div class="smart-toc-card smart-toc-docs-card">
-				<h2><span class="dashicons dashicons-art"></span> <?php esc_html_e( 'CSS Customization', 'smart-table-of-contents' ); ?></h2>
-				<p><?php esc_html_e( 'Add custom CSS via Appearance → Customize → Additional CSS:', 'smart-table-of-contents' ); ?></p>
+				<h2><span class="dashicons dashicons-art"></span> <?php esc_html_e( 'CSS Customization', 'small-seo-engine-smart-toc' ); ?></h2>
+				<p><?php esc_html_e( 'Add custom CSS via Appearance → Customize → Additional CSS:', 'small-seo-engine-smart-toc' ); ?></p>
 				
-				<h3><?php esc_html_e( 'CSS Classes Reference', 'smart-table-of-contents' ); ?></h3>
+				<h3><?php esc_html_e( 'CSS Classes Reference', 'small-seo-engine-smart-toc' ); ?></h3>
 				<table class="smart-toc-docs-table">
 					<thead>
 						<tr>
-							<th><?php esc_html_e( 'Class', 'smart-table-of-contents' ); ?></th>
-							<th><?php esc_html_e( 'Element', 'smart-table-of-contents' ); ?></th>
+							<th><?php esc_html_e( 'Class', 'small-seo-engine-smart-toc' ); ?></th>
+							<th><?php esc_html_e( 'Element', 'small-seo-engine-smart-toc' ); ?></th>
 						</tr>
 					</thead>
 					<tbody>
-						<tr><td><code>.smart-toc</code></td><td><?php esc_html_e( 'Main container', 'smart-table-of-contents' ); ?></td></tr>
-						<tr><td><code>.smart-toc-header</code></td><td><?php esc_html_e( 'Header with title and toggle', 'smart-table-of-contents' ); ?></td></tr>
-						<tr><td><code>.smart-toc-title</code></td><td><?php esc_html_e( 'Title text', 'smart-table-of-contents' ); ?></td></tr>
-						<tr><td><code>.smart-toc-toggle</code></td><td><?php esc_html_e( 'Collapse/expand button', 'smart-table-of-contents' ); ?></td></tr>
-						<tr><td><code>.smart-toc-body</code></td><td><?php esc_html_e( 'Content area', 'smart-table-of-contents' ); ?></td></tr>
-						<tr><td><code>.smart-toc-list</code></td><td><?php esc_html_e( 'The &lt;ul&gt; list', 'smart-table-of-contents' ); ?></td></tr>
-						<tr><td><code>.toc-item</code></td><td><?php esc_html_e( 'Each &lt;li&gt; item', 'smart-table-of-contents' ); ?></td></tr>
-						<tr><td><code>.toc-level-2</code> to <code>.toc-level-6</code></td><td><?php esc_html_e( 'Heading level classes', 'smart-table-of-contents' ); ?></td></tr>
-						<tr><td><code>.collapsed</code></td><td><?php esc_html_e( 'Applied when TOC is collapsed', 'smart-table-of-contents' ); ?></td></tr>
-						<tr><td><code>.active</code></td><td><?php esc_html_e( 'Applied to current section link', 'smart-table-of-contents' ); ?></td></tr>
+						<tr><td><code>.smart-toc</code></td><td><?php esc_html_e( 'Main container', 'small-seo-engine-smart-toc' ); ?></td></tr>
+						<tr><td><code>.smart-toc-header</code></td><td><?php esc_html_e( 'Header with title and toggle', 'small-seo-engine-smart-toc' ); ?></td></tr>
+						<tr><td><code>.smart-toc-title</code></td><td><?php esc_html_e( 'Title text', 'small-seo-engine-smart-toc' ); ?></td></tr>
+						<tr><td><code>.smart-toc-toggle</code></td><td><?php esc_html_e( 'Collapse/expand button', 'small-seo-engine-smart-toc' ); ?></td></tr>
+						<tr><td><code>.smart-toc-body</code></td><td><?php esc_html_e( 'Content area', 'small-seo-engine-smart-toc' ); ?></td></tr>
+						<tr><td><code>.smart-toc-list</code></td><td><?php esc_html_e( 'The &lt;ul&gt; list', 'small-seo-engine-smart-toc' ); ?></td></tr>
+						<tr><td><code>.toc-item</code></td><td><?php esc_html_e( 'Each &lt;li&gt; item', 'small-seo-engine-smart-toc' ); ?></td></tr>
+						<tr><td><code>.toc-level-2</code> to <code>.toc-level-6</code></td><td><?php esc_html_e( 'Heading level classes', 'small-seo-engine-smart-toc' ); ?></td></tr>
+						<tr><td><code>.collapsed</code></td><td><?php esc_html_e( 'Applied when TOC is collapsed', 'small-seo-engine-smart-toc' ); ?></td></tr>
+						<tr><td><code>.active</code></td><td><?php esc_html_e( 'Applied to current section link', 'small-seo-engine-smart-toc' ); ?></td></tr>
 					</tbody>
 				</table>
 			</div>
 
 			<!-- FAQ -->
 			<div class="smart-toc-card smart-toc-docs-card">
-				<h2><span class="dashicons dashicons-editor-help"></span> <?php esc_html_e( 'Frequently Asked Questions', 'smart-table-of-contents' ); ?></h2>
+				<h2><span class="dashicons dashicons-editor-help"></span> <?php esc_html_e( 'Frequently Asked Questions', 'small-seo-engine-smart-toc' ); ?></h2>
 				
 				<div class="smart-toc-faq-item">
-					<h3><?php esc_html_e( 'Does it work with page builders?', 'smart-table-of-contents' ); ?></h3>
-					<p><?php esc_html_e( 'Yes! The TOC parses final rendered content, so it works with Elementor, Divi, Beaver Builder, and most page builders.', 'smart-table-of-contents' ); ?></p>
+					<h3><?php esc_html_e( 'Does it work with page builders?', 'small-seo-engine-smart-toc' ); ?></h3>
+					<p><?php esc_html_e( 'Yes! The TOC parses final rendered content, so it works with Elementor, Divi, Beaver Builder, and most page builders.', 'small-seo-engine-smart-toc' ); ?></p>
 				</div>
 				
 				<div class="smart-toc-faq-item">
-					<h3><?php esc_html_e( 'Is it SEO-friendly?', 'smart-table-of-contents' ); ?></h3>
-					<p><?php esc_html_e( 'Yes! Uses semantic HTML with proper ARIA labels. Search engines can index TOC anchor links.', 'smart-table-of-contents' ); ?></p>
+					<h3><?php esc_html_e( 'Is it SEO-friendly?', 'small-seo-engine-smart-toc' ); ?></h3>
+					<p><?php esc_html_e( 'Yes! Uses semantic HTML with proper ARIA labels. Search engines can index TOC anchor links.', 'small-seo-engine-smart-toc' ); ?></p>
 				</div>
 				
 				<div class="smart-toc-faq-item">
-					<h3><?php esc_html_e( 'Can I translate it?', 'smart-table-of-contents' ); ?></h3>
-					<p><?php esc_html_e( 'Yes, fully translatable. Use Loco Translate, WPML, or add translations to /languages/ folder. Text domain: smart-table-of-contents', 'smart-table-of-contents' ); ?></p>
+					<h3><?php esc_html_e( 'Can I translate it?', 'small-seo-engine-smart-toc' ); ?></h3>
+					<p><?php esc_html_e( 'Yes, fully translatable. Use Loco Translate, WPML, or add translations to /languages/ folder. Text domain: small-seo-engine-smart-toc', 'small-seo-engine-smart-toc' ); ?></p>
 				</div>
 				
 				<div class="smart-toc-faq-item">
-					<h3><?php esc_html_e( 'Can I have multiple TOCs on one page?', 'smart-table-of-contents' ); ?></h3>
-					<p><?php esc_html_e( 'Yes, using the shortcode. However, this is generally not recommended for user experience.', 'smart-table-of-contents' ); ?></p>
+					<h3><?php esc_html_e( 'Can I have multiple TOCs on one page?', 'small-seo-engine-smart-toc' ); ?></h3>
+					<p><?php esc_html_e( 'Yes, using the shortcode. However, this is generally not recommended for user experience.', 'small-seo-engine-smart-toc' ); ?></p>
 				</div>
 			</div>
 		</div>
@@ -655,7 +655,7 @@ class Smart_TOC_Admin {
 		foreach ( $post_types as $post_type ) {
 			add_meta_box(
 				'smart_toc_meta_box',
-				__( 'Smart TOC', 'smart-table-of-contents' ),
+				__( 'Smart TOC', 'small-seo-engine-smart-toc' ),
 				array( $this, 'render_meta_box' ),
 				$post_type,
 				'side',
@@ -674,7 +674,7 @@ class Smart_TOC_Admin {
 		?>
 		<label>
 			<input type="checkbox" name="smart_toc_disable" value="1" <?php checked( $disabled ); ?>>
-			<?php esc_html_e( 'Disable TOC for this post', 'smart-table-of-contents' ); ?>
+			<?php esc_html_e( 'Disable TOC for this post', 'small-seo-engine-smart-toc' ); ?>
 		</label>
 		<?php
 	}
@@ -710,7 +710,7 @@ class Smart_TOC_Admin {
 	public function add_dashboard_widget() {
 		wp_add_dashboard_widget(
 			'smart_toc_dashboard_widget',
-			__( '📑 Smart Table of Contents', 'smart-table-of-contents' ),
+			__( '📑 Small SEO Engine Smart TOC', 'small-seo-engine-smart-toc' ),
 			array( $this, 'render_dashboard_widget' )
 		);
 	}
@@ -750,44 +750,44 @@ class Smart_TOC_Admin {
 			}
 		}
 
-		$toc_enabled  = $settings['enabled'] ? __( 'Active', 'smart-table-of-contents' ) : __( 'Inactive', 'smart-table-of-contents' );
+		$toc_enabled  = $settings['enabled'] ? __( 'Active', 'small-seo-engine-smart-toc' ) : __( 'Inactive', 'small-seo-engine-smart-toc' );
 		$status_class = $settings['enabled'] ? 'active' : 'inactive';
 		?>
 		<div class="smart-toc-widget">
 			<div class="smart-toc-widget-stats">
 				<div class="stat-item">
 					<span class="stat-number"><?php echo esc_html( $posts_with_toc ); ?></span>
-					<span class="stat-label"><?php esc_html_e( 'Posts with TOC', 'smart-table-of-contents' ); ?></span>
+					<span class="stat-label"><?php esc_html_e( 'Posts with TOC', 'small-seo-engine-smart-toc' ); ?></span>
 				</div>
 				<div class="stat-item">
 					<span class="stat-number"><?php echo esc_html( $total_posts ); ?></span>
-					<span class="stat-label"><?php esc_html_e( 'Total Posts', 'smart-table-of-contents' ); ?></span>
+					<span class="stat-label"><?php esc_html_e( 'Total Posts', 'small-seo-engine-smart-toc' ); ?></span>
 				</div>
 				<div class="stat-item">
 					<span class="stat-number stat-status <?php echo esc_attr( $status_class ); ?>"><?php echo esc_html( $toc_enabled ); ?></span>
-					<span class="stat-label"><?php esc_html_e( 'Status', 'smart-table-of-contents' ); ?></span>
+					<span class="stat-label"><?php esc_html_e( 'Status', 'small-seo-engine-smart-toc' ); ?></span>
 				</div>
 			</div>
 
 			<div class="smart-toc-widget-actions">
 				<a href="<?php echo esc_url( admin_url( 'options-general.php?page=smart-toc-free' ) ); ?>" class="button">
-					<?php esc_html_e( 'Settings', 'smart-table-of-contents' ); ?>
+					<?php esc_html_e( 'Settings', 'small-seo-engine-smart-toc' ); ?>
 				</a>
 				<a href="<?php echo esc_url( admin_url( 'options-general.php?page=smart-toc-free&tab=documentation' ) ); ?>" class="button">
-					<?php esc_html_e( 'Documentation', 'smart-table-of-contents' ); ?>
+					<?php esc_html_e( 'Documentation', 'small-seo-engine-smart-toc' ); ?>
 				</a>
 			</div>
 
 			<div class="smart-toc-widget-pro">
-				<h4>🚀 <?php esc_html_e( 'Unlock Pro Features', 'smart-table-of-contents' ); ?></h4>
+				<h4>🚀 <?php esc_html_e( 'Unlock Pro Features', 'small-seo-engine-smart-toc' ); ?></h4>
 				<ul>
-					<li>📌 <?php esc_html_e( 'Sticky/Floating TOC', 'smart-table-of-contents' ); ?></li>
-					<li>📊 <?php esc_html_e( 'Reading Progress Bar', 'smart-table-of-contents' ); ?></li>
-					<li>⏱️ <?php esc_html_e( 'Reading Time Display', 'smart-table-of-contents' ); ?></li>
-					<li>🎨 <?php esc_html_e( '5+ Theme Presets', 'smart-table-of-contents' ); ?></li>
+					<li>📌 <?php esc_html_e( 'Sticky/Floating TOC', 'small-seo-engine-smart-toc' ); ?></li>
+					<li>📊 <?php esc_html_e( 'Reading Progress Bar', 'small-seo-engine-smart-toc' ); ?></li>
+					<li>⏱️ <?php esc_html_e( 'Reading Time Display', 'small-seo-engine-smart-toc' ); ?></li>
+					<li>🎨 <?php esc_html_e( '5+ Theme Presets', 'small-seo-engine-smart-toc' ); ?></li>
 				</ul>
 				<a href="https://smallseoengine.com/plugins/smart-table-of-content/" target="_blank" class="button button-primary">
-					<?php esc_html_e( 'Get Pro Version', 'smart-table-of-contents' ); ?>
+					<?php esc_html_e( 'Get Pro Version', 'small-seo-engine-smart-toc' ); ?>
 				</a>
 			</div>
 		</div>
@@ -902,18 +902,18 @@ class Smart_TOC_Admin {
 				<div class="smart-toc-review-icon">⭐</div>
 				<div class="smart-toc-review-text">
 					<p>
-						<strong><?php esc_html_e( 'Enjoying Smart Table of Contents?', 'smart-table-of-contents' ); ?></strong>
-						<?php esc_html_e( "We'd love to hear your feedback! Please take a moment to leave a review on WordPress.org. Your support helps us improve and reach more users.", 'smart-table-of-contents' ); ?>
+						<strong><?php esc_html_e( 'Enjoying Small SEO Engine Smart TOC?', 'small-seo-engine-smart-toc' ); ?></strong>
+						<?php esc_html_e( "We'd love to hear your feedback! Please take a moment to leave a review on WordPress.org. Your support helps us improve and reach more users.", 'small-seo-engine-smart-toc' ); ?>
 					</p>
 					<p class="smart-toc-review-actions">
-						<a href="https://wordpress.org/support/plugin/smart-table-of-contents/reviews/#new-post" target="_blank" class="button button-primary smart-toc-review-btn" data-action="reviewed">
-							⭐ <?php esc_html_e( 'Leave a Review', 'smart-table-of-contents' ); ?>
+						<a href="https://wordpress.org/support/plugin/small-seo-engine-smart-toc/reviews/#new-post" target="_blank" class="button button-primary smart-toc-review-btn" data-action="reviewed">
+							⭐ <?php esc_html_e( 'Leave a Review', 'small-seo-engine-smart-toc' ); ?>
 						</a>
 						<a href="#" class="button smart-toc-review-btn" data-action="later">
-							🕐 <?php esc_html_e( 'Maybe Later', 'smart-table-of-contents' ); ?>
+							🕐 <?php esc_html_e( 'Maybe Later', 'small-seo-engine-smart-toc' ); ?>
 						</a>
 						<a href="#" class="button smart-toc-review-btn" data-action="dismiss">
-							✕ <?php esc_html_e( 'Already Did', 'smart-table-of-contents' ); ?>
+							✕ <?php esc_html_e( 'Already Did', 'small-seo-engine-smart-toc' ); ?>
 						</a>
 					</p>
 				</div>

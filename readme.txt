@@ -1,10 +1,10 @@
-=== Smart Table of Contents ===
+=== Small SEO Engine Smart TOC ===
 Contributors: anikchowdhury
 Donate link: https://smallseoengine.com
 Tags: table of contents, toc, seo, navigation, headings
 Requires at least: 5.0
 Tested up to: 6.9
-Stable tag: 1.0.5
+Stable tag: 1.0.7
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -13,7 +13,7 @@ A lightweight, SEO-friendly Table of Contents plugin that automatically generate
 
 == Description ==
 
-**Smart Table of Contents** is the ultimate lightweight, SEO-friendly Table of Contents plugin for WordPress. It automatically generates a beautiful, clickable TOC from your post and page headings — helping visitors navigate long-form content effortlessly while boosting your site's SEO with structured, crawlable anchor links.
+**Small SEO Engine Smart TOC** is the ultimate lightweight, SEO-friendly Table of Contents plugin for WordPress. It automatically generates a beautiful, clickable TOC from your post and page headings — helping visitors navigate long-form content effortlessly while boosting your site's SEO with structured, crawlable anchor links.
 
 🚀 **[Upgrade to Smart TOC Pro](https://smallseoengine.com/plugins/smart-table-of-content/)** for Sticky TOC, Reading Progress Bar, Gutenberg Block, and more!
 
@@ -83,12 +83,12 @@ Take your table of contents to the next level with **[Smart TOC Pro](https://sma
 
 = 🐛 Bug Reports =
 
-Found a bug? Please report it on our [GitHub Issues](https://github.com/wordpress-plugins-project/smart-table-of-content-free-plugin/issues) page.
+Found a bug? Please report it on our [GitHub Issues](https://github.com/wordpress-plugins-project/small-seo-engine-smart-toc/issues) page.
 
 = 💬 Support & Help =
 
-* **Documentation**: [Smart TOC Documentation](https://smallseoengine.com/plugins/smart-table-of-contents/docs)
-* **Support Forum**: [WordPress.org Support](https://wordpress.org/support/plugin/smart-table-of-contents/)
+* **Documentation**: [Small SEO Engine Smart TOC Documentation](https://smallseoengine.com/plugins/small-seo-engine-smart-toc/docs)
+* **Support Forum**: [WordPress.org Support](https://wordpress.org/support/plugin/small-seo-engine-smart-toc/)
 * **Contact**: [Contact](https://smallseoengine.com/contact/)
 * **Pro Support**: [Priority Support for Pro Users](https://smallseoengine.com/plugins/smart-table-of-content/)
 
@@ -101,11 +101,11 @@ We're constantly improving Smart TOC! Upcoming features:
 * Additional shortcode attributes
 * Performance optimizations
 
-Have a feature request? [Submit it on GitHub](https://github.com/wordpress-plugins-project/smart-table-of-content-free-plugin/issues)!
+Have a feature request? [Submit it on GitHub](https://github.com/wordpress-plugins-project/small-seo-engine-smart-toc/issues)!
 
 == Installation ==
 
-1. Upload the `smart-table-of-contents` folder to the `/wp-content/plugins/` directory
+1. Upload the `small-seo-engine-smart-toc` folder to the `/wp-content/plugins/` directory
 2. Activate the plugin through the 'Plugins' menu in WordPress
 3. Go to Settings → Smart TOC Lite to configure the plugin
 4. That's it! TOC will automatically appear on your posts and pages
@@ -191,6 +191,13 @@ Go to Settings → Smart TOC Lite → Display Settings and check "Show Numbers" 
 
 == Changelog ==
 
+= 1.0.7 =
+* Renamed plugin from "Smart Table of Contents" to "Small SEO Engine Smart TOC" for distinctive branding
+* Updated text domain from `smart-table-of-contents` to `small-seo-engine-smart-toc`
+* Updated all plugin references, URLs, and documentation to reflect new name
+* Renamed main plugin file to `small-seo-engine-smart-toc.php`
+* Updated translation template (.pot file) with new text domain
+
 = 1.0.5 =
 * Fixed text domain mismatch for proper internationalization
 * Renamed admin menu to "Smart TOC Lite" for clear branding
@@ -208,7 +215,7 @@ Go to Settings → Smart TOC Lite → Display Settings and check "Show Numbers" 
 * Added review request notice after 7 days of usage
 
 = 1.0.3 =
-* Renamed the translation text domain to `smart-table-of-contents` to align with the plugin slug and silence Plugin Checker warnings
+* Renamed the translation text domain to `small-seo-engine-smart-toc` to align with the plugin slug and silence Plugin Checker warnings
 * Updated the included POT file and text-domain references throughout the admin UI for consistent localization behavior
 
 = 1.0.2 =
@@ -235,6 +242,9 @@ Go to Settings → Smart TOC Lite → Display Settings and check "Show Numbers" 
 
 == Upgrade Notice ==
 
+= 1.0.7 =
+Plugin renamed to "Small SEO Engine Smart TOC" with new text domain `small-seo-engine-smart-toc` for distinctive branding per WordPress.org guidelines.
+
 = 1.0.5 =
 Code quality update with WordPress coding standards compliance, text domain fix, and PHP 7.4 minimum requirement.
 
@@ -251,4 +261,4 @@ Recommended update for additional security hardening and WordPress.org review co
 Includes improved scrolling, numbering, and admin assets—update to keep frontend behavior consistent.
 
 = 1.0.0 =
-Initial release of Smart Table of Contents.
+Initial release of Small SEO Engine Smart TOC.

@@ -1,12 +1,12 @@
 <?php
 /**
- * Plugin Name: Smart Table of Contents
- * Plugin URI:  https://smallseoengine.com/plugins/smart-table-of-contents/
- * Description: A lightweight Table of Contents plugin that automatically generates a TOC from post headings with smooth scrolling and optional collapsible sections.
- * Version:     1.0.5
+ * Plugin Name: Small SEO Engine Smart TOC
+ * Plugin URI:  https://smallseoengine.com/plugins/small-seo-engine-smart-toc/
+ * Description: A lightweight, SEO-friendly Table of Contents plugin that automatically generates TOC from your headings with smooth scroll and collapsible features.
+ * Version:     1.0.7
  * Author:      Anik Chowdhury
  * Author URI:  https://smallseoengine.com
- * Text Domain: smart-table-of-contents
+ * Text Domain: small-seo-engine-smart-toc
  * Domain Path: /languages
  * License:     GPL v2 or later
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -21,7 +21,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 // Plugin constants
-define( 'SMART_TOC_VERSION', '1.0.5' );
+define( 'SMART_TOC_VERSION', '1.0.7' );
 define( 'SMART_TOC_PATH', plugin_dir_path( __FILE__ ) );
 define( 'SMART_TOC_URL', plugin_dir_url( __FILE__ ) );
 define( 'SMART_TOC_BASENAME', plugin_basename( __FILE__ ) );
@@ -40,7 +40,7 @@ function smart_toc_activate() {
 			'position'          => 'before_content',
 			'smooth_scroll'     => true,
 			'highlight_active'  => true,
-			'title'             => __( 'Table of Contents', 'smart-table-of-contents' ),
+			'title'             => __( 'Table of Contents', 'small-seo-engine-smart-toc' ),
 			'theme_color'       => '#0073aa',
 			'scroll_offset'     => 80,
 			'show_numbers'      => true,
