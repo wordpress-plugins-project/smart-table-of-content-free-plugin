@@ -86,7 +86,7 @@ class Smart_TOC_Settings {
 	 * @return string
 	 */
 	public function get_title() {
-		return $this->get( 'title', __( 'Table of Contents', 'small-seo-engine-smart-toc' ) );
+		return $this->get( 'title', __( 'Table of Contents', 'anik-smart-table-of-contents' ) );
 	}
 
 	/**

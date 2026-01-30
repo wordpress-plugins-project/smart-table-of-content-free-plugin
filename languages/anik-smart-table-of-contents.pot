@@ -2,8 +2,8 @@
 # This file is distributed under the GPL v2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Small SEO Engine Smart TOC 1.0.7\n"
-"Report-Msgid-Bugs-To: https://github.com/wordpress-plugins-project/small-seo-engine-smart-toc/issues\n"
+"Project-Id-Version: Anik Smart Table of Contents 1.0.7\n"
+"Report-Msgid-Bugs-To: https://github.com/wordpress-plugins-project/anik-smart-table-of-contents/issues\n"
 "POT-Creation-Date: 2026-01-25T00:00:00+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -14,9 +14,9 @@ msgstr ""
 "Language: en\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: WP-CLI\n"
-"X-Domain: small-seo-engine-smart-toc\n"
+"X-Domain: anik-smart-table-of-contents\n"
 
-#: small-seo-engine-smart-toc.php:43 includes/class-settings.php:41
+#: anik-smart-table-of-contents.php:43 includes/class-settings.php:41
 msgid "Table of Contents"
 msgstr ""
 
@@ -153,11 +153,11 @@ msgid "Save Settings"
 msgstr ""
 
 #: includes/class-admin.php:714
-msgid "Small SEO Engine Smart TOC"
+msgid "Anik Smart Table of Contents"
 msgstr ""
 
 #: includes/class-admin.php:905
-msgid "Enjoying Small SEO Engine Smart TOC?"
+msgid "Enjoying Anik Smart Table of Contents?"
 msgstr ""
 
 #: includes/class-admin.php:906

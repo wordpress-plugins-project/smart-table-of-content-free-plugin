@@ -1,12 +1,12 @@
 <?php
 /**
- * Plugin Name: Small SEO Engine - Smart TOC
- * Plugin URI:  https://smallseoengine.com/plugins/small-seo-engine-smart-toc/
+ * Plugin Name: Anik Smart Table of Contents
+ * Plugin URI:  https://smallseoengine.com/plugins/anik-smart-table-of-contents/
  * Description: A lightweight, SEO-friendly Table of Contents plugin that automatically generates TOC from your headings with smooth scroll and collapsible features.
- * Version:     1.0.7
+ * Version:     1.0.8
  * Author:      Anik Chowdhury
  * Author URI:  https://smallseoengine.com
- * Text Domain: small-seo-engine-smart-toc
+ * Text Domain: anik-smart-table-of-contents
  * Domain Path: /languages
  * License:     GPL v2 or later
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -21,7 +21,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 // Plugin constants
-define( 'SMART_TOC_VERSION', '1.0.7' );
+define( 'SMART_TOC_VERSION', '1.0.8' );
 define( 'SMART_TOC_PATH', plugin_dir_path( __FILE__ ) );
 define( 'SMART_TOC_URL', plugin_dir_url( __FILE__ ) );
 define( 'SMART_TOC_BASENAME', plugin_basename( __FILE__ ) );
@@ -40,7 +40,7 @@ function smart_toc_activate() {
 			'position'          => 'before_content',
 			'smooth_scroll'     => true,
 			'highlight_active'  => true,
-			'title'             => __( 'Table of Contents', 'small-seo-engine-smart-toc' ),
+			'title'             => __( 'Table of Contents', 'anik-smart-table-of-contents' ),
 			'theme_color'       => '#0073aa',
 			'scroll_offset'     => 80,
 			'show_numbers'      => true,

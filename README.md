@@ -1,14 +1,21 @@
-# Small SEO Engine Smart TOC
+# Anik Smart Table of Contents
 
-[![WordPress Plugin Version](https://img.shields.io/badge/version-1.0.7-blue)](https://wordpress.org/plugins/small-seo-engine-smart-toc/)
-[![WordPress Tested](https://img.shields.io/badge/WordPress-6.9%20tested-brightgreen)](https://wordpress.org/plugins/small-seo-engine-smart-toc/)
+[![WordPress Plugin Version](https://img.shields.io/badge/version-1.0.7-blue)](https://wordpress.org/plugins/anik-smart-table-of-contents/)
+[![WordPress Tested](https://img.shields.io/badge/WordPress-6.9%20tested-brightgreen)](https://wordpress.org/plugins/anik-smart-table-of-contents/)
 [![PHP Version](https://img.shields.io/badge/PHP-7.4%2B-purple)](https://www.php.net/)
 [![License](https://img.shields.io/badge/license-GPLv2-orange)](https://www.gnu.org/licenses/gpl-2.0.html)
 [![Buy Me a Coffee](https://img.shields.io/badge/Donate-Buy%20Me%20a%20Coffee-yellow?logo=buymeacoffee)](https://buymeacoffee.com/anikchowdhury)
 
 > A lightweight, SEO-friendly Table of Contents plugin for WordPress that automatically generates navigation from your headings with smooth scroll and collapsible features.
 
-![Smart TOC Preview](https://via.placeholder.com/800x400?text=Smart+Table+of+Contents+Preview)
+## 📸 Screenshots
+
+### Frontend TOC
+![Smart TOC Preview](screenshots/frontend-toc.png)
+
+### Admin Settings Page
+![Admin Settings](screenshots/admin-settings.png)
+
 
 ## 🚀 Features
 
@@ -35,7 +42,7 @@
 ### From WordPress Admin
 
 1. Go to **Plugins → Add New**
-2. Search for "Small SEO Engine Smart TOC"
+2. Search for "Anik Smart Table of Contents"
 3. Click **Install Now** and then **Activate**
 
 ### Manual Installation
@@ -49,7 +56,7 @@
 
 ```bash
 cd wp-content/plugins/
-git clone https://github.com/wordpress-plugins-project/small-seo-engine-smart-toc.git smart-toc
+git clone https://github.com/wordpress-plugins-project/anik-smart-table-of-contents.git smart-toc
 ```
 
 ## ⚙️ Configuration
@@ -105,8 +112,8 @@ Add the `no-toc` class to any heading you want to exclude:
 ## 📁 File Structure
 
 ```text
-small-seo-engine-smart-toc/
-├── small-seo-engine-smart-toc.php       # Main plugin file
+anik-smart-table-of-contents/
+├── anik-smart-table-of-contents.php       # Main plugin file
 ├── uninstall.php                # Cleanup on uninstall
 ├── index.php                    # Security index
 ├── readme.txt                   # WordPress.org readme
@@ -123,7 +130,7 @@ small-seo-engine-smart-toc/
 │   ├── class-render.php         # TOC rendering
 │   └── class-shortcode.php      # Shortcode handler
 └── languages/
-    └── small-seo-engine-smart-toc.pot      # Translation template
+    └── anik-smart-table-of-contents.pot      # Translation template
 ```
 
 ## 🔌 Compatibility
@@ -137,7 +144,7 @@ Smart TOC works seamlessly with:
 
 ## 🚀 Looking for More Features?
 
-**[Smart TOC Pro](https://smallseoengine.com/plugins/smart-table-of-content/)** extends this plugin with advanced features:
+**[Smart TOC Pro](https://smallseoengine.com/plugins/smart-table-of-contents/)** extends this plugin with advanced features:
 
 - 📌 Sticky/Floating TOC
 - 📊 Reading Progress Bar  
@@ -151,7 +158,7 @@ Smart TOC works seamlessly with:
 - 🧱 Gutenberg Block & Sidebar Widget
 - 🌟 Priority Support
 
-[Learn More →](https://smallseoengine.com/plugins/smart-table-of-content/)
+[Learn More →](https://smallseoengine.com/plugins/smart-table-of-contents/)
 
 ## 🤝 Contributing
 
@@ -169,19 +176,19 @@ This project is licensed under the GPL v2 or later - see the [LICENSE](https://w
 
 ## 📞 Support
 
-- **Documentation**: [Read Documentation](https://github.com/wordpress-plugins-project/small-seo-engine-smart-toc#readme)
-- **WordPress.org**: [Support Forum](https://wordpress.org/support/plugin/small-seo-engine-smart-toc/)
-- **Issues**: [GitHub Issues](https://github.com/wordpress-plugins-project/small-seo-engine-smart-toc/issues)
+- **Documentation**: [Read Documentation](https://github.com/wordpress-plugins-project/anik-smart-table-of-contents#readme)
+- **WordPress.org**: [Support Forum](https://wordpress.org/support/plugin/anik-smart-table-of-contents/)
+- **Issues**: [GitHub Issues](https://github.com/wordpress-plugins-project/anik-smart-table-of-contents/issues)
 - **Website**: [Small SEO Engine](https://smallseoengine.com)
 - **Buy Me a Coffee**: [Support Development](https://buymeacoffee.com/anikchowdhury)
 
 ## 📝 Changelog
 
 ### 1.0.7
-- Renamed plugin from "Smart Table of Contents" to "Small SEO Engine Smart TOC" for distinctive branding
-- Updated text domain from `smart-table-of-contents` to `small-seo-engine-smart-toc`
+- Renamed plugin from "Smart Table of Contents" to "Anik Smart Table of Contents" for distinctive branding
+- Updated text domain from `smart-table-of-contents` to `anik-smart-table-of-contents`
 - Updated all plugin references, URLs, and documentation to reflect new name
-- Renamed main plugin file to `small-seo-engine-smart-toc.php`
+- Renamed main plugin file to `anik-smart-table-of-contents.php`
 - Updated translation template (.pot file) with new text domain
 
 ### 1.0.5
@@ -200,7 +207,7 @@ This project is licensed under the GPL v2 or later - see the [LICENSE](https://w
 - Renamed main plugin file to match WordPress.org slug
 
 ### 1.0.3
-- Renamed the translation text domain to `small-seo-engine-smart-toc` to align with the plugin slug
+- Renamed the translation text domain to `anik-smart-table-of-contents` to align with the plugin slug
 - Updated POT file and text-domain references throughout the admin UI
 
 ### 1.0.2
@@ -231,5 +238,5 @@ This project is licensed under the GPL v2 or later - see the [LICENSE](https://w
 
 If you find this plugin helpful, please consider:
 - ⭐ Giving it a star on GitHub
-- 📝 Leaving a review on [WordPress.org](https://wordpress.org/plugins/small-seo-engine-smart-toc/)
+- 📝 Leaving a review on [WordPress.org](https://wordpress.org/plugins/anik-smart-table-of-contents/)
 - ☕ [Buy me a coffee](https://buymeacoffee.com/anikchowdhury)

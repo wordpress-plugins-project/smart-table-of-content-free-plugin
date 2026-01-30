@@ -56,7 +56,16 @@
     background: rgba(0, 0, 0, 0.05);
 }
 
+.smart-toc-toggle:hover .toggle-icon {
+    border-top-color: #0073aa;
+}
+
 .smart-toc-toggle:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+.smart-toc-toggle:focus-visible {
     outline: 2px solid #0073aa;
     outline-offset: 2px;
 }
@@ -67,7 +76,7 @@
     border-left: 6px solid transparent;
     border-right: 6px solid transparent;
     border-top: 8px solid #555;
-    transition: transform 0.3s ease;
+    transition: transform 0.3s ease, border-top-color 0.2s ease;
 }
 
 .smart-toc.collapsed .toggle-icon {

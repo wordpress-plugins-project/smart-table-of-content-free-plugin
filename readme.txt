@@ -1,10 +1,10 @@
-=== Small SEO Engine - Smart TOC ===
+=== Anik Smart Table of Contents ===
 Contributors: anikchowdhury
 Donate link: https://smallseoengine.com
 Tags: table of contents, toc, seo, navigation, headings
 Requires at least: 5.0
 Tested up to: 6.9
-Stable tag: 1.0.7
+Stable tag: 1.0.8
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -13,9 +13,9 @@ A lightweight, SEO-friendly Table of Contents plugin that automatically generate
 
 == Description ==
 
-**Small SEO Engine Smart TOC** is the ultimate lightweight, SEO-friendly Table of Contents plugin for WordPress. It automatically generates a beautiful, clickable TOC from your post and page headings — helping visitors navigate long-form content effortlessly while boosting your site's SEO with structured, crawlable anchor links.
+**Anik Smart Table of Contents** is the ultimate lightweight, SEO-friendly Table of Contents plugin for WordPress. It automatically generates a beautiful, clickable TOC from your post and page headings — helping visitors navigate long-form content effortlessly while boosting your site's SEO with structured, crawlable anchor links.
 
-🚀 **[Upgrade to Smart TOC Pro](https://smallseoengine.com/plugins/smart-table-of-content/)** for Sticky TOC, Reading Progress Bar, Gutenberg Block, and more!
+🚀 **[Upgrade to Smart TOC Pro](https://smallseoengine.com/plugins/smart-table-of-contents/)** for Sticky TOC, Reading Progress Bar, Gutenberg Block, and more!
 
 = 🎯 Perfect For =
 
@@ -45,7 +45,7 @@ A lightweight, SEO-friendly Table of Contents plugin that automatically generate
 
 = 🚀 Smart TOC Pro Features =
 
-Take your table of contents to the next level with **[Smart TOC Pro](https://smallseoengine.com/plugins/smart-table-of-content/)**:
+Take your table of contents to the next level with **[Smart TOC Pro](https://smallseoengine.com/plugins/smart-table-of-contents/)**:
 
 * **📌 Sticky/Floating TOC** - Always-visible TOC that follows users as they scroll
 * **📊 Reading Progress Bar** - Visual indicator showing reading progress
@@ -61,7 +61,7 @@ Take your table of contents to the next level with **[Smart TOC Pro](https://sma
 * **� SEO Schema Markup** - JSON-LD structured data for Google "Jump to" links
 * **�🔒 Priority Support** - Fast, dedicated customer support
 
-👉 **[Get Smart TOC Pro Now](https://smallseoengine.com/plugins/smart-table-of-content/)**
+👉 **[Get Smart TOC Pro Now](https://smallseoengine.com/plugins/smart-table-of-contents/)**
 
 = How It Works =
 
@@ -83,14 +83,14 @@ Take your table of contents to the next level with **[Smart TOC Pro](https://sma
 
 = 🐛 Bug Reports =
 
-Found a bug? Please report it on our [GitHub Issues](https://github.com/wordpress-plugins-project/small-seo-engine-smart-toc/issues) page.
+Found a bug? Please report it on our [GitHub Issues](https://github.com/wordpress-plugins-project/smart-table-of-content-free-plugin/issues) page.
 
 = 💬 Support & Help =
 
-* **Documentation**: [Small SEO Engine Smart TOC Documentation](https://smallseoengine.com/plugins/small-seo-engine-smart-toc/docs)
-* **Support Forum**: [WordPress.org Support](https://wordpress.org/support/plugin/small-seo-engine-smart-toc/)
+* **Documentation**: [Anik Smart Table of Contents Documentation](https://smallseoengine.com/plugins/anik-smart-table-of-contents/docs)
+* **Support Forum**: [WordPress.org Support](https://wordpress.org/support/plugin/anik-smart-table-of-contents/)
 * **Contact**: [Contact](https://smallseoengine.com/contact/)
-* **Pro Support**: [Priority Support for Pro Users](https://smallseoengine.com/plugins/smart-table-of-content/)
+* **Pro Support**: [Priority Support for Pro Users](https://smallseoengine.com/plugins/smart-table-of-contents/)
 
 = 🗺️ Roadmap =
 
@@ -101,11 +101,11 @@ We're constantly improving Smart TOC! Upcoming features:
 * Additional shortcode attributes
 * Performance optimizations
 
-Have a feature request? [Submit it on GitHub](https://github.com/wordpress-plugins-project/small-seo-engine-smart-toc/issues)!
+Have a feature request? [Submit it on GitHub](https://github.com/wordpress-plugins-project/smart-table-of-content-free-plugin/issues)!
 
 == Installation ==
 
-1. Upload the `small-seo-engine-smart-toc` folder to the `/wp-content/plugins/` directory
+1. Upload the `anik-smart-table-of-contents` folder to the `/wp-content/plugins/` directory
 2. Activate the plugin through the 'Plugins' menu in WordPress
 3. Go to Settings → Smart TOC to configure the plugin
 4. That's it! TOC will automatically appear on your posts and pages
@@ -191,14 +191,16 @@ Go to Settings → Smart TOC → Display Settings and check "Show Numbers" optio
 
 == Changelog ==
 
-= 1.0.7 =
-* Renamed plugin from "Smart Table of Contents" to "Small SEO Engine Smart TOC" for distinctive branding
-* Updated text domain from `smart-table-of-contents` to `small-seo-engine-smart-toc`
-* Updated all plugin references, URLs, and documentation to reflect new name
-* Renamed main plugin file to `small-seo-engine-smart-toc.php`
-* Updated translation template (.pot file) with new text domain
+= 1.0.8 =
+* Added Help & Support tab with quick links to support forum, bug reports, and contact
+* Added System Information section for easier troubleshooting
+* Improved toggle button focus states for better accessibility
+* Enhanced keyboard navigation support
+* Fixed toggle button hover/focus color issues
+* Performance optimizations for TOC rendering
+* Updated all Pro links to correct URL
 
-= 1.0.5 =
+= 1.0.7 =
 * Fixed text domain mismatch for proper internationalization
 * Renamed admin menu to "Smart TOC" for clear branding
 * Added PHPCS with WordPress Coding Standards configuration
@@ -207,18 +209,19 @@ Go to Settings → Smart TOC → Display Settings and check "Show Numbers" optio
 * Updated minimum PHP requirement to 7.4
 * Code quality improvements and cleanup
 
-= 1.0.4 =
+= 1.0.6 =
 * Added Documentation tab in admin settings panel with comprehensive user guide
 * Includes Quick Start guide, Settings Reference, Shortcode Usage, Troubleshooting, and FAQ sections
 * Improved admin UI with tabbed navigation
 * Added Dashboard widget with TOC stats and quick access to settings
 * Added review request notice after 7 days of usage
 
-= 1.0.3 =
-* Renamed the translation text domain to `small-seo-engine-smart-toc` to align with the plugin slug and silence Plugin Checker warnings
-* Updated the included POT file and text-domain references throughout the admin UI for consistent localization behavior
+= 1.0.5 =
+* Updated translation template (.pot file) for localization
+* Fixed minor CSS issues on mobile devices
+* Improved scroll offset calculation
 
-= 1.0.2 =
+= 1.0.4 =
 * Added missing `ABSPATH` checks and normalized line endings for Plugin Check compliance
 * Bumped internal version constants to ensure cache busting for assets
 * Minor documentation updates for WordPress.org submission
@@ -242,11 +245,17 @@ Go to Settings → Smart TOC → Display Settings and check "Show Numbers" optio
 
 == Upgrade Notice ==
 
+= 1.0.8 =
+New Help & Support tab, improved accessibility, and toggle button fixes.
+
 = 1.0.7 =
-Plugin renamed to "Small SEO Engine Smart TOC" with new text domain `small-seo-engine-smart-toc` for distinctive branding per WordPress.org guidelines.
+Code quality update with WordPress coding standards compliance and PHP 7.4 minimum requirement.
+
+= 1.0.6 =
+New Documentation tab with comprehensive help guide and Dashboard widget.
 
 = 1.0.5 =
-Code quality update with WordPress coding standards compliance, text domain fix, and PHP 7.4 minimum requirement.
+Translation updates and mobile CSS fixes.
 
 = 1.0.4 =
 Adds in-admin Documentation tab with comprehensive help guide, troubleshooting, and FAQ.
@@ -261,4 +270,4 @@ Recommended update for additional security hardening and WordPress.org review co
 Includes improved scrolling, numbering, and admin assets—update to keep frontend behavior consistent.
 
 = 1.0.0 =
-Initial release of Small SEO Engine Smart TOC.
+Initial release of Anik Smart Table of Contents.
