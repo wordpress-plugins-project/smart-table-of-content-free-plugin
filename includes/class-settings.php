@@ -44,6 +44,10 @@ class Aniksmta_Settings {
 		'exclude_class'     => 'no-toc',
 		'scroll_offset'     => 80,
 		'show_numbers'      => true,
+		'counter_format'    => 'decimal',
+		'toc_theme'         => 'default',
+		'exclude_headings'  => '',
+		'schema_enabled'    => true,
 	);
 
 	/**

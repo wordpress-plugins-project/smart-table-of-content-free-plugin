@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Banner 772x250</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #1a1a2e;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            gap: 40px;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        .label {
+            color: #888;
+            font-size: 14px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        /* ===== BANNER 772x250 ===== */
+        .banner {
+            width: 772px;
+            height: 250px;
+            background: linear-gradient(135deg, #0a1628 0%, #0d2137 30%, #0f2b4a 60%, #0073aa 100%);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+        }
+
+        /* Subtle grid pattern */
+        .banner::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+
+        /* Glow accent */
+        .banner::after {
+            content: '';
+            position: absolute;
+            right: -60px;
+            top: -60px;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(0, 115, 170, 0.35) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .banner-left {
+            flex: 0 0 58%;
+            padding: 30px 20px 30px 40px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .banner-right {
+            flex: 0 0 42%;
+            position: relative;
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding-right: 30px;
+        }
+
+        /* Plugin icon */
+        .plugin-icon {
+            width: 42px;
+            height: 42px;
+            background: linear-gradient(135deg, #0073aa, #00a0d2);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 12px;
+            box-shadow: 0 4px 15px rgba(0, 115, 170, 0.4);
+        }
+
+        .plugin-icon svg {
+            width: 24px;
+            height: 24px;
+            fill: #fff;
+        }
+
+        .plugin-name {
+            font-size: 28px;
+            font-weight: 700;
+            color: #ffffff;
+            line-height: 1.15;
+            letter-spacing: -0.5px;
+            margin-bottom: 8px;
+        }
+
+        .plugin-name span {
+            color: #5bc0eb;
+        }
+
+        .tagline {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.65);
+            line-height: 1.5;
+            margin-bottom: 16px;
+            max-width: 340px;
+        }
+
+        .features {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            white-space: nowrap;
+        }
+
+        .feature-pill {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: rgba(255, 255, 255, 0.85);
+            font-size: 11px;
+            font-weight: 500;
+            padding: 4px 12px;
+            border-radius: 20px;
+            letter-spacing: 0.3px;
+            backdrop-filter: blur(4px);
+        }
+
+        .feature-pill .emoji {
+            margin-right: 3px;
+        }
+
+        /* TOC Mockup */
+        .toc-mockup {
+            width: 240px;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 16px 18px;
+            backdrop-filter: blur(8px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        .toc-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .toc-title {
+            font-size: 11px;
+            font-weight: 600;
+            color: #5bc0eb;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+        }
+
+        .toc-toggle {
+            font-size: 10px;
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        .toc-item {
+            display: flex;
+            align-items: center;
+            padding: 5px 0;
+            font-size: 11.5px;
+            color: rgba(255, 255, 255, 0.55);
+            gap: 8px;
+        }
+
+        .toc-item.active {
+            color: #5bc0eb;
+        }
+
+        .toc-num {
+            font-weight: 700;
+            font-size: 10px;
+            min-width: 16px;
+            color: inherit;
+            opacity: 0.7;
+        }
+
+        .toc-item.active .toc-num {
+            opacity: 1;
+        }
+
+        .toc-item.active::before {
+            content: '';
+            position: absolute;
+            left: 16px;
+            width: 3px;
+            height: 16px;
+            background: #5bc0eb;
+            border-radius: 2px;
+        }
+
+        /* Sub-items */
+        .toc-item.sub {
+            padding-left: 18px;
+            font-size: 10.5px;
+            color: rgba(255, 255, 255, 0.35);
+        }
+
+        /* ===== HIDPI BANNER 1544x500 ===== */
+        .banner-2x {
+            width: 1544px;
+            height: 500px;
+        }
+
+        .banner-2x .banner-left {
+            padding: 60px 40px 60px 80px;
+        }
+
+        .banner-2x .banner-right {
+            padding-right: 60px;
+        }
+
+        .banner-2x .plugin-icon {
+            width: 84px;
+            height: 84px;
+            border-radius: 20px;
+            margin-bottom: 24px;
+        }
+
+        .banner-2x .plugin-icon svg {
+            width: 48px;
+            height: 48px;
+        }
+
+        .banner-2x .plugin-name {
+            font-size: 56px;
+            margin-bottom: 16px;
+            letter-spacing: -1px;
+        }
+
+        .banner-2x .tagline {
+            font-size: 28px;
+            margin-bottom: 32px;
+            max-width: 680px;
+        }
+
+        .banner-2x .feature-pill {
+            font-size: 22px;
+            padding: 8px 24px;
+            border-radius: 40px;
+        }
+
+        .banner-2x .features {
+            gap: 16px;
+        }
+
+        .banner-2x .toc-mockup {
+            width: 480px;
+            padding: 32px 36px;
+            border-radius: 24px;
+        }
+
+        .banner-2x .toc-header {
+            margin-bottom: 24px;
+            padding-bottom: 16px;
+        }
+
+        .banner-2x .toc-title {
+            font-size: 22px;
+        }
+
+        .banner-2x .toc-toggle {
+            font-size: 20px;
+        }
+
+        .banner-2x .toc-item {
+            padding: 10px 0;
+            font-size: 23px;
+            gap: 16px;
+        }
+
+        .banner-2x .toc-num {
+            font-size: 20px;
+            min-width: 32px;
+        }
+
+        .banner-2x .toc-item.sub {
+            padding-left: 36px;
+            font-size: 21px;
+        }
+
+        .banner-2x::after {
+            right: -120px;
+            top: -120px;
+            width: 600px;
+            height: 600px;
+        }
+
+        /* ===== ICON 256x256 ===== */
+        .icon-wrap {
+            display: flex;
+            gap: 40px;
+            align-items: flex-end;
+        }
+
+        .plugin-icon-large {
+            width: 256px;
+            height: 256px;
+            background: linear-gradient(135deg, #0a1628 0%, #0073aa 100%);
+            border-radius: 48px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 40px rgba(0, 115, 170, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .plugin-icon-large::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+
+        .plugin-icon-large svg {
+            width: 90px;
+            height: 90px;
+            fill: #fff;
+            position: relative;
+            z-index: 1;
+            margin-bottom: 12px;
+        }
+
+        .icon-text-main {
+            font-size: 25px;
+            font-weight: 700;
+            color: #fff;
+            position: relative;
+            z-index: 1;
+            letter-spacing: -0.3px;
+        }
+
+        .icon-text-sub {
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.5);
+            position: relative;
+            z-index: 1;
+            margin-top: 2px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+
+        .plugin-icon-small {
+            width: 128px;
+            height: 128px;
+            background: linear-gradient(135deg, #0a1628 0%, #0073aa 100%);
+            border-radius: 24px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 20px rgba(0, 115, 170, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .plugin-icon-small::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 12px 12px;
+        }
+
+        .plugin-icon-small svg {
+            width: 45px;
+            height: 45px;
+            fill: #fff;
+            position: relative;
+            z-index: 1;
+            margin-bottom: 6px;
+        }
+
+        .plugin-icon-small .icon-text-main {
+            font-size: 16px;
+        }
+
+        .plugin-icon-small .icon-text-sub {
+            font-size: 9px;
+            letter-spacing: 1px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ============ BANNER 772x250 ============ -->
+    <div class="label">Banner — 772 × 250 (screenshot this)</div>
+    <div class="banner">
+        <div class="banner-left">
+            <div class="plugin-icon">
+                <svg viewBox="0 0 24 24">
+                    <path d="M3 5h18v2H3V5zm0 4h12v2H3V9zm0 4h18v2H3v-2zm0 4h12v2H3v-2z" />
+                </svg>
+            </div>
+            <div class="plugin-name">Anik Smart<br><span>Table of Contents</span></div>
+            <div class="tagline">Auto-generate SEO-friendly TOC from your headings with smooth scroll navigation</div>
+            <div class="features">
+                <span class="feature-pill"><span class="emoji">🎯</span> SEO Ready</span>
+                <span class="feature-pill"><span class="emoji">🔄</span> Smooth Scroll</span>
+                <span class="feature-pill"><span class="emoji">📱</span> Responsive</span>
+            </div>
+        </div>
+        <div class="banner-right">
+            <div class="toc-mockup">
+                <div class="toc-header">
+                    <span class="toc-title">Table of Contents</span>
+                    <span class="toc-toggle">▼</span>
+                </div>
+                <div class="toc-item"><span class="toc-num">1.</span> Getting Started</div>
+                <div class="toc-item active"><span class="toc-num">2.</span> Installation Guide</div>
+                <div class="toc-item sub"><span class="toc-num">2.1</span> Requirements</div>
+                <div class="toc-item"><span class="toc-num">3.</span> Configuration</div>
+                <div class="toc-item"><span class="toc-num">4.</span> Advanced Usage</div>
+                <div class="toc-item"><span class="toc-num">5.</span> FAQ & Support</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============ BANNER 1544x500 (HiDPI) ============ -->
+    <div class="label" style="margin-top: 30px;">Banner HiDPI — 1544 × 500 (optional, same design at 2×)</div>
+    <div class="banner banner-2x">
+        <div class="banner-left">
+            <div class="plugin-icon">
+                <svg viewBox="0 0 24 24">
+                    <path d="M3 5h18v2H3V5zm0 4h12v2H3V9zm0 4h18v2H3v-2zm0 4h12v2H3v-2z" />
+                </svg>
+            </div>
+            <div class="plugin-name">Anik Smart<br><span>Table of Contents</span></div>
+            <div class="tagline">Auto-generate SEO-friendly TOC from your headings with smooth scroll navigation</div>
+            <div class="features">
+                <span class="feature-pill"><span class="emoji">🎯</span> SEO Ready</span>
+                <span class="feature-pill"><span class="emoji">🔄</span> Smooth Scroll</span>
+                <span class="feature-pill"><span class="emoji">📱</span> Responsive</span>
+            </div>
+        </div>
+        <div class="banner-right">
+            <div class="toc-mockup">
+                <div class="toc-header">
+                    <span class="toc-title">Table of Contents</span>
+                    <span class="toc-toggle">▼</span>
+                </div>
+                <div class="toc-item"><span class="toc-num">1.</span> Getting Started</div>
+                <div class="toc-item active"><span class="toc-num">2.</span> Installation Guide</div>
+                <div class="toc-item sub"><span class="toc-num">2.1</span> Requirements</div>
+                <div class="toc-item"><span class="toc-num">3.</span> Configuration</div>
+                <div class="toc-item"><span class="toc-num">4.</span> Advanced Usage</div>
+                <div class="toc-item"><span class="toc-num">5.</span> FAQ & Support</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============ ICONS ============ -->
+    <div class="label" style="margin-top: 30px;">Icons — 256×256 and 128×128</div>
+    <div class="icon-wrap">
+        <div class="plugin-icon-large">
+            <svg viewBox="0 0 24 24">
+                <path d="M3 5h18v2H3V5zm0 4h12v2H3V9zm0 4h18v2H3v-2zm0 4h12v2H3v-2z" />
+            </svg>
+            <span class="icon-text-main">Anik Smart TOC</span>
+            <span class="icon-text-sub">Table of Contents</span>
+        </div>
+        <div class="plugin-icon-small">
+            <svg viewBox="0 0 24 24">
+                <path d="M3 5h18v2H3V5zm0 4h12v2H3V9zm0 4h18v2H3v-2zm0 4h12v2H3v-2z" />
+            </svg>
+            <span class="icon-text-main">Anik Smart TOC</span>
+            <span class="icon-text-sub">Table of Contents</span>
+        </div>
+    </div>
+
+    <div style="height: 60px;"></div>
+</body>
+
+</html>

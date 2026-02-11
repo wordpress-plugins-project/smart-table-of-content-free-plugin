@@ -1,10 +1,10 @@
 === Anik Smart Table of Contents ===
 Contributors: anikchowdhury
 Donate link: https://smallseoengine.com
-Tags: table of contents, toc, seo, navigation, headings
+Tags: table of contents, toc, seo, anchor links, content navigation
 Requires at least: 5.0
 Tested up to: 6.9
-Stable tag: 1.0.9
+Stable tag: 1.1.0
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -34,17 +34,19 @@ A lightweight, SEO-friendly Table of Contents plugin that automatically generate
 * **Active Heading Highlight** - Highlights the current section as users scroll
 * **Shortcode Support** - Use `[aniksmta_toc]` to place TOC anywhere in your content
 * **Customizable Heading Levels** - Choose which headings to include (H2-H6)
-* **Numbered Lists** - Optional sequential numbering for TOC items
+* **Counter Formats** - Choose decimal numbers, Roman numerals, or no counters
+* **Theme Presets** - Light, Dark, and Minimal theme presets plus default style
 * **Theme Color Picker** - Match your site's branding with custom accent color
+* **SEO Schema Markup** - SiteNavigation JSON-LD structured data for search engines
 * **SEO Optimized** - Clean HTML markup with proper anchor links for search engines
 * **Ultra Lightweight** - Under 15KB, zero jQuery dependency
 * **Translation Ready** - Fully internationalized with POT file included
 * **Per-Post Control** - Enable/disable TOC for individual posts or pages
+* **Per-Post Heading Override** - Override global heading levels on individual posts
+* **Global Heading Exclusion** - Exclude headings by text across the entire site
+* **Exclude Headings by CSS Class** - Skip specific headings using the `no-toc` class
 * **Multiple Positions** - Before content, after first paragraph, or manual placement
-* **Exclude Headings** - Skip specific headings using CSS class
-* **Per-Post Control** - Enable/disable TOC for individual posts or pages
 * **Dashboard Widget** - Quick TOC stats and access from your WordPress dashboard
-* **Multiple Positions** - Before content, after first paragraph, or manual placement
 
 Take your table of contents to the next level with **[Smart TOC Pro](https://smallseoengine.com/plugins/smart-table-of-contents/)**:
 
@@ -53,14 +55,12 @@ Take your table of contents to the next level with **[Smart TOC Pro](https://sma
 * **⏱️ Estimated Reading Time** - Display how long it takes to read the article
 * **⬆️ Back to Top Button** - Quick scroll-to-top functionality
 * **⌨️ Keyboard Navigation** - Navigate TOC with keyboard shortcuts
-* **🎨 Multiple Theme Presets** - Beautiful pre-designed TOC styles
 * **💻 Custom CSS Support** - Full styling control with custom CSS
 * **📱 Mobile-Specific Options** - Optimized settings for mobile devices
-* **🔢 Advanced Numbering** - Hierarchical numbering (1.1, 1.2, 2.1...)
+* **🔢 Hierarchical Numbering** - Advanced numbering like 1.1, 1.2, 2.1...
 * **🧱 Gutenberg Block** - Native block editor support
 * **📦 Sidebar Widget** - Display TOC in any widget area
-* **� SEO Schema Markup** - JSON-LD structured data for Google "Jump to" links
-* **�🔒 Priority Support** - Fast, dedicated customer support
+* **🔒 Priority Support** - Fast, dedicated customer support
 
 👉 **[Get Smart TOC Pro Now](https://smallseoengine.com/plugins/smart-table-of-contents/)**
 
@@ -97,10 +97,10 @@ Found a bug? Please report it on our [GitHub Issues](https://github.com/wordpres
 
 We're constantly improving Smart TOC! Upcoming features:
 
-* More theme presets
-* Advanced styling options
 * Additional shortcode attributes
+* Advanced styling options
 * Performance optimizations
+* More counter format options
 
 Have a feature request? [Submit it on GitHub](https://github.com/wordpress-plugins-project/smart-table-of-content-free-plugin/issues)!
 
@@ -192,6 +192,15 @@ Go to Settings → Anik Smart TOC → Display Settings and check "Show Numbers" 
 
 == Changelog ==
 
+= 1.1.0 =
+* Added counter format setting: choose Decimal, Roman numerals, or None
+* Added TOC theme presets: Default, Light, Dark, and Minimal styles
+* Added per-post heading level override via the Smart TOC meta box
+* Added global heading exclusion by text (comma-separated list in settings)
+* Added SiteNavigation Schema JSON-LD output for SEO
+* Updated Free Features list and Pro Features list
+* Code quality improvements
+
 = 1.0.9 =
 * Version bump for WordPress.org resubmission
 * All changes from 1.0.8 included
@@ -267,6 +276,9 @@ Go to Settings → Anik Smart TOC → Display Settings and check "Show Numbers" 
 * Multi-language ready
 
 == Upgrade Notice ==
+
+= 1.1.0 =
+New features: counter formats (decimal/roman/none), TOC theme presets, per-post heading override, global heading exclusion, and SiteNavigation Schema for SEO.
 
 = 1.0.9 =
 Resubmission with all 1.0.8 improvements: WordPress.org compliance, bug fixes, and performance enhancements.

@@ -164,6 +164,12 @@ class Aniksmta_Render {
 		$this->toc_rendered  = true;
 		$this->generated_toc = $toc_data['toc'];
 
+		// Build schema JSON-LD if enabled.
+		$schema_html = '';
+		if ( $this->settings->get( 'schema_enabled' ) ) {
+			$schema_html = $this->build_schema( $toc_data['items'] );
+		}
+
 		// Insert TOC based on position
 		switch ( $position ) {
 			case 'after_first_paragraph':
@@ -175,7 +181,7 @@ class Aniksmta_Render {
 				break;
 		}
 
-		return $content;
+		return $content . $schema_html;
 	}
 
 	/**
@@ -201,6 +207,15 @@ class Aniksmta_Render {
 		$min_headings   = $this->settings->get( 'min_headings' );
 		$exclude_class  = $this->settings->get( 'exclude_class' );
 
+		// Per-post heading level override.
+		if ( is_singular() ) {
+			$post_id       = get_the_ID();
+			$custom_levels = get_post_meta( $post_id, '_aniksmta_heading_levels', true );
+			if ( ! empty( $custom_levels ) && is_array( $custom_levels ) ) {
+				$heading_levels = $custom_levels;
+			}
+		}
+
 		// Bail early if no heading levels are configured.
 		if ( empty( $heading_levels ) ) {
 			return array(
@@ -215,12 +230,34 @@ class Aniksmta_Render {
 
 		preg_match_all( $pattern, $content, $matches, PREG_SET_ORDER );
 
+		// Get exclude headings by text.
+		$exclude_headings_text = $this->settings->get( 'exclude_headings', '' );
+		$exclude_texts         = array();
+		if ( ! empty( $exclude_headings_text ) ) {
+			$exclude_texts = array_map( 'trim', explode( ',', $exclude_headings_text ) );
+			$exclude_texts = array_filter( $exclude_texts );
+		}
+
 		// Filter out excluded headings
 		$headings = array();
 		foreach ( $matches as $match ) {
 			if ( ! empty( $exclude_class ) && false !== strpos( $match[2], $exclude_class ) ) {
 				continue;
 			}
+
+			// Exclude by heading text.
+			$clean_heading_text = wp_strip_all_tags( $match[3] );
+			$is_excluded        = false;
+			foreach ( $exclude_texts as $exclude_text ) {
+				if ( false !== stripos( $clean_heading_text, $exclude_text ) ) {
+					$is_excluded = true;
+					break;
+				}
+			}
+			if ( $is_excluded ) {
+				continue;
+			}
+
 			$headings[] = $match;
 		}
 
@@ -280,6 +317,7 @@ class Aniksmta_Render {
 		return array(
 			'toc'     => $toc_html,
 			'content' => $processed_content,
+			'items'   => $toc_items,
 		);
 	}
 
@@ -326,7 +364,11 @@ class Aniksmta_Render {
 		$collapsed_class = $collapsed ? ' collapsed' : '';
 		$aria_expanded   = $collapsed ? 'false' : 'true';
 
-		$html  = '<nav class="smart-toc' . esc_attr( $collapsed_class ) . '" aria-label="' . esc_attr__( 'Table of Contents', 'anik-smart-table-of-contents' ) . '">';
+		// TOC theme class.
+		$toc_theme   = $this->settings->get( 'toc_theme', 'default' );
+		$theme_class = 'default' !== $toc_theme ? ' toc-theme-' . sanitize_html_class( $toc_theme ) : '';
+
+		$html  = '<nav class="smart-toc' . esc_attr( $collapsed_class . $theme_class ) . '" aria-label="' . esc_attr__( 'Table of Contents', 'anik-smart-table-of-contents' ) . '">';
 		$html .= '<div class="smart-toc-header">';
 		$html .= '<span class="smart-toc-title">' . esc_html( $title ) . '</span>';
 		$html .= '<button class="smart-toc-toggle" aria-expanded="' . esc_attr( $aria_expanded ) . '" aria-label="' . esc_attr__( 'Toggle Table of Contents', 'anik-smart-table-of-contents' ) . '">';
@@ -353,22 +395,117 @@ class Aniksmta_Render {
 			return '';
 		}
 
-		$show_numbers = (bool) $this->settings->get( 'show_numbers', false );
-		$html         = '<ul class="smart-toc-list">';
-		$counter      = 1;
+		$show_numbers   = (bool) $this->settings->get( 'show_numbers', false );
+		$counter_format = $this->settings->get( 'counter_format', 'decimal' );
+
+		// If counter format is 'none', disable numbers regardless.
+		if ( 'none' === $counter_format ) {
+			$show_numbers = false;
+		}
+
+		$html    = '<ul class="smart-toc-list">';
+		$counter = 1;
 
 		foreach ( $items as $item ) {
 			$indent_class = 'toc-level-' . $item['level'];
-			$number_html  = $show_numbers ? '<span class="toc-number">' . esc_html( $counter ) . '.</span> ' : '';
-			$html        .= '<li class="toc-item ' . esc_attr( $indent_class ) . '">';
-			$html        .= '<a href="#' . esc_attr( $item['id'] ) . '">' . $number_html . esc_html( $item['text'] ) . '</a>';
-			$html        .= '</li>';
+			$number_html  = '';
+
+			if ( $show_numbers ) {
+				$formatted_number = $this->format_counter( $counter, $counter_format );
+				$number_html      = '<span class="toc-number">' . esc_html( $formatted_number ) . '.</span> ';
+			}
+
+			$html .= '<li class="toc-item ' . esc_attr( $indent_class ) . '">';
+			$html .= '<a href="#' . esc_attr( $item['id'] ) . '">' . $number_html . esc_html( $item['text'] ) . '</a>';
+			$html .= '</li>';
 			++$counter;
 		}
 
 		$html .= '</ul>';
 
 		return $html;
+	}
+
+	/**
+	 * Format counter number based on format type
+	 *
+	 * @param int    $number Counter number.
+	 * @param string $format Format type (decimal, roman).
+	 * @return string
+	 */
+	private function format_counter( $number, $format ) {
+		if ( 'roman' === $format ) {
+			return $this->to_roman( $number );
+		}
+
+		return (string) $number;
+	}
+
+	/**
+	 * Convert integer to Roman numeral
+	 *
+	 * @param int $number Number to convert.
+	 * @return string
+	 */
+	private function to_roman( $number ) {
+		$map = array(
+			'M'  => 1000,
+			'CM' => 900,
+			'D'  => 500,
+			'CD' => 400,
+			'C'  => 100,
+			'XC' => 90,
+			'L'  => 50,
+			'XL' => 40,
+			'X'  => 10,
+			'IX' => 9,
+			'V'  => 5,
+			'IV' => 4,
+			'I'  => 1,
+		);
+
+		$result = '';
+		foreach ( $map as $roman => $value ) {
+			while ( $number >= $value ) {
+				$result .= $roman;
+				$number -= $value;
+			}
+		}
+
+		return $result;
+	}
+
+	/**
+	 * Build SiteNavigationElement JSON-LD schema
+	 *
+	 * @param array $items TOC items.
+	 * @return string
+	 */
+	private function build_schema( $items ) {
+		if ( empty( $items ) ) {
+			return '';
+		}
+
+		$permalink = get_permalink();
+		if ( ! $permalink ) {
+			return '';
+		}
+
+		$elements = array();
+		foreach ( $items as $item ) {
+			$elements[] = array(
+				'@type' => 'SiteNavigationElement',
+				'name'  => $item['text'],
+				'url'   => $permalink . '#' . $item['id'],
+			);
+		}
+
+		$schema = array(
+			'@context' => 'https://schema.org',
+			'@graph'   => $elements,
+		);
+
+		return '<script type="application/ld+json">' . wp_json_encode( $schema, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE ) . '</script>';
 	}
 
 	/**
