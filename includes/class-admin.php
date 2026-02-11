@@ -177,6 +177,26 @@ class Aniksmta_Admin {
 
 		$sanitized['show_numbers'] = ! empty( $input['show_numbers'] );
 
+		// Counter format.
+		$allowed_formats             = array( 'decimal', 'roman', 'none' );
+		$sanitized['counter_format'] = isset( $input['counter_format'] ) && in_array( $input['counter_format'], $allowed_formats, true )
+			? $input['counter_format']
+			: 'decimal';
+
+		// TOC theme.
+		$allowed_themes         = array( 'default', 'light', 'dark', 'minimal' );
+		$sanitized['toc_theme'] = isset( $input['toc_theme'] ) && in_array( $input['toc_theme'], $allowed_themes, true )
+			? $input['toc_theme']
+			: 'default';
+
+		// Exclude headings by text (comma-separated).
+		$sanitized['exclude_headings'] = isset( $input['exclude_headings'] )
+			? sanitize_textarea_field( $input['exclude_headings'] )
+			: '';
+
+		// Schema enabled.
+		$sanitized['schema_enabled'] = ! empty( $input['schema_enabled'] );
+
 		// Preserve exclude_class (not in the form, but used by the renderer).
 		$sanitized['exclude_class'] = isset( $input['exclude_class'] )
 			? sanitize_html_class( $input['exclude_class'] )
@@ -200,7 +220,7 @@ class Aniksmta_Admin {
 			<div class="smart-toc-pro-banner">
 				<div class="pro-banner-content">
 					<h3>🚀 <?php esc_html_e( 'Upgrade to Smart TOC Pro', 'anik-smart-table-of-contents' ); ?></h3>
-					<p><?php esc_html_e( 'Get advanced features like Sticky TOC, Reading Progress Bar, Gutenberg Block, Theme Presets, and more!', 'anik-smart-table-of-contents' ); ?></p>
+					<p><?php esc_html_e( 'Get advanced features like Sticky TOC, Reading Progress Bar, Gutenberg Block, Sidebar Widget, and more!', 'anik-smart-table-of-contents' ); ?></p>
 					<a href="https://smallseoengine.com/plugins/smart-table-of-contents/" target="_blank" class="button button-primary"><?php esc_html_e( 'Get Pro Version', 'anik-smart-table-of-contents' ); ?></a>
 				</div>
 			</div>
@@ -286,6 +306,13 @@ class Aniksmta_Admin {
 									<?php endfor; ?>
 								</td>
 							</tr>
+							<tr>
+								<th scope="row"><?php esc_html_e( 'Exclude Headings', 'anik-smart-table-of-contents' ); ?></th>
+								<td>
+									<textarea name="aniksmta_settings[exclude_headings]" rows="3" class="large-text" placeholder="<?php esc_attr_e( 'Introduction, References, Comments', 'anik-smart-table-of-contents' ); ?>"><?php echo esc_textarea( $settings['exclude_headings'] ); ?></textarea>
+									<p class="description"><?php esc_html_e( 'Enter heading texts to exclude from TOC, separated by commas. Partial matches are supported.', 'anik-smart-table-of-contents' ); ?></p>
+								</td>
+							</tr>
 						</table>
 					</div>
 
@@ -338,6 +365,42 @@ class Aniksmta_Admin {
 								</td>
 							</tr>
 							<tr>
+								<th scope="row"><?php esc_html_e( 'Counter Format', 'anik-smart-table-of-contents' ); ?></th>
+								<td>
+									<select name="aniksmta_settings[counter_format]">
+										<option value="decimal" <?php selected( $settings['counter_format'], 'decimal' ); ?>>
+											<?php esc_html_e( 'Decimal (1, 2, 3...)', 'anik-smart-table-of-contents' ); ?>
+										</option>
+										<option value="roman" <?php selected( $settings['counter_format'], 'roman' ); ?>>
+											<?php esc_html_e( 'Roman (I, II, III...)', 'anik-smart-table-of-contents' ); ?>
+										</option>
+										<option value="none" <?php selected( $settings['counter_format'], 'none' ); ?>>
+											<?php esc_html_e( 'No Numbers', 'anik-smart-table-of-contents' ); ?>
+										</option>
+									</select>
+									<p class="description"><?php esc_html_e( 'Format for TOC item numbering (only applies when Show Numbers is enabled)', 'anik-smart-table-of-contents' ); ?></p>
+								</td>
+							</tr>
+							<tr>
+								<th scope="row"><?php esc_html_e( 'TOC Theme', 'anik-smart-table-of-contents' ); ?></th>
+								<td>
+									<select name="aniksmta_settings[toc_theme]">
+										<option value="default" <?php selected( $settings['toc_theme'], 'default' ); ?>>
+											<?php esc_html_e( 'Default (Gray)', 'anik-smart-table-of-contents' ); ?>
+										</option>
+										<option value="light" <?php selected( $settings['toc_theme'], 'light' ); ?>>
+											<?php esc_html_e( 'Light (White)', 'anik-smart-table-of-contents' ); ?>
+										</option>
+										<option value="dark" <?php selected( $settings['toc_theme'], 'dark' ); ?>>
+											<?php esc_html_e( 'Dark', 'anik-smart-table-of-contents' ); ?>
+										</option>
+										<option value="minimal" <?php selected( $settings['toc_theme'], 'minimal' ); ?>>
+											<?php esc_html_e( 'Minimal (Borderless)', 'anik-smart-table-of-contents' ); ?>
+										</option>
+									</select>
+								</td>
+							</tr>
+							<tr>
 								<th scope="row"><?php esc_html_e( 'Theme Color', 'anik-smart-table-of-contents' ); ?></th>
 								<td>
 									<input type="text" 
@@ -384,6 +447,16 @@ class Aniksmta_Admin {
 									<p class="description"><?php esc_html_e( 'Offset from top when scrolling (useful for fixed headers)', 'anik-smart-table-of-contents' ); ?></p>
 								</td>
 							</tr>
+							<tr>
+								<th scope="row"><?php esc_html_e( 'SEO Schema', 'anik-smart-table-of-contents' ); ?></th>
+								<td>
+									<label>
+										<input type="checkbox" name="aniksmta_settings[schema_enabled]" value="1" <?php checked( $settings['schema_enabled'] ); ?>>
+										<?php esc_html_e( 'Output SiteNavigationElement JSON-LD schema for search engines', 'anik-smart-table-of-contents' ); ?>
+									</label>
+									<p class="description"><?php esc_html_e( 'Helps search engines understand your page structure and may enable "Jump to" links in results.', 'anik-smart-table-of-contents' ); ?></p>
+								</td>
+							</tr>
 						</table>
 					</div>
 
@@ -396,7 +469,7 @@ class Aniksmta_Admin {
 							<li>🔒 <?php esc_html_e( 'Estimated Reading Time', 'anik-smart-table-of-contents' ); ?></li>
 							<li>🔒 <?php esc_html_e( 'Back to Top Button', 'anik-smart-table-of-contents' ); ?></li>
 							<li>🔒 <?php esc_html_e( 'Keyboard Navigation', 'anik-smart-table-of-contents' ); ?></li>
-							<li>🔒 <?php esc_html_e( 'Multiple Theme Presets', 'anik-smart-table-of-contents' ); ?></li>
+							<li>🔒 <?php esc_html_e( '10+ Premium Theme Presets', 'anik-smart-table-of-contents' ); ?></li>
 							<li>🔒 <?php esc_html_e( 'Custom CSS Support', 'anik-smart-table-of-contents' ); ?></li>
 							<li>🔒 <?php esc_html_e( 'Mobile-specific Options', 'anik-smart-table-of-contents' ); ?></li>
 							<li>🔒 <?php esc_html_e( 'Gutenberg Block', 'anik-smart-table-of-contents' ); ?></li>
@@ -476,6 +549,10 @@ class Aniksmta_Admin {
 							<td><strong><?php esc_html_e( 'Heading Levels', 'anik-smart-table-of-contents' ); ?></strong></td>
 							<td><?php esc_html_e( 'Choose which heading levels (H2-H6) to include', 'anik-smart-table-of-contents' ); ?></td>
 						</tr>
+						<tr>
+							<td><strong><?php esc_html_e( 'Exclude Headings', 'anik-smart-table-of-contents' ); ?></strong></td>
+							<td><?php esc_html_e( 'Comma-separated heading texts to exclude globally (partial match)', 'anik-smart-table-of-contents' ); ?></td>
+						</tr>
 					</table>
 
 					<h3><?php esc_html_e( 'Display Settings', 'anik-smart-table-of-contents' ); ?></h3>
@@ -497,6 +574,14 @@ class Aniksmta_Admin {
 							<td><?php esc_html_e( 'Display sequential numbers before each item', 'anik-smart-table-of-contents' ); ?></td>
 						</tr>
 						<tr>
+							<td><strong><?php esc_html_e( 'Counter Format', 'anik-smart-table-of-contents' ); ?></strong></td>
+							<td><?php esc_html_e( 'Decimal (1, 2, 3), Roman (I, II, III), or None', 'anik-smart-table-of-contents' ); ?></td>
+						</tr>
+						<tr>
+							<td><strong><?php esc_html_e( 'TOC Theme', 'anik-smart-table-of-contents' ); ?></strong></td>
+							<td><?php esc_html_e( 'Choose Default (Gray), Light (White), Dark, or Minimal (Borderless)', 'anik-smart-table-of-contents' ); ?></td>
+						</tr>
+						<tr>
 							<td><strong><?php esc_html_e( 'Theme Color', 'anik-smart-table-of-contents' ); ?></strong></td>
 							<td><?php esc_html_e( 'Primary color for links and active states', 'anik-smart-table-of-contents' ); ?></td>
 						</tr>
@@ -515,6 +600,10 @@ class Aniksmta_Admin {
 						<tr>
 							<td><strong><?php esc_html_e( 'Scroll Offset', 'anik-smart-table-of-contents' ); ?></strong></td>
 							<td><?php esc_html_e( 'Offset for fixed headers (0-200px)', 'anik-smart-table-of-contents' ); ?></td>
+						</tr>
+						<tr>
+							<td><strong><?php esc_html_e( 'SEO Schema', 'anik-smart-table-of-contents' ); ?></strong></td>
+							<td><?php esc_html_e( 'Output SiteNavigationElement JSON-LD schema for search engines', 'anik-smart-table-of-contents' ); ?></td>
 						</tr>
 					</table>
 				</div>
@@ -556,30 +645,36 @@ class Aniksmta_Admin {
 				<!-- Per-Post Controls -->
 				<div class="smart-toc-card smart-toc-docs-card">
 					<h2><span class="dashicons dashicons-admin-post"></span> <?php esc_html_e( 'Per-Post Controls', 'anik-smart-table-of-contents' ); ?></h2>
-					<p><?php esc_html_e( 'Disable TOC on individual posts/pages:', 'anik-smart-table-of-contents' ); ?></p>
+					<p><?php esc_html_e( 'Control TOC on individual posts/pages via the "Smart TOC" meta box:', 'anik-smart-table-of-contents' ); ?></p>
 					<ol class="smart-toc-docs-list">
 						<li><?php esc_html_e( 'Edit the post/page in WordPress admin', 'anik-smart-table-of-contents' ); ?></li>
 						<li><?php esc_html_e( 'Find the "Smart TOC" meta box in the sidebar', 'anik-smart-table-of-contents' ); ?></li>
-						<li><?php esc_html_e( 'Check "Disable TOC for this post"', 'anik-smart-table-of-contents' ); ?></li>
+						<li><?php esc_html_e( 'Check "Disable TOC" to hide the TOC on this post', 'anik-smart-table-of-contents' ); ?></li>
+						<li><?php esc_html_e( 'Use "Heading Levels Override" to choose which headings appear in the TOC for this post only', 'anik-smart-table-of-contents' ); ?></li>
 						<li><?php esc_html_e( 'Save/Update the post', 'anik-smart-table-of-contents' ); ?></li>
 					</ol>
-					<p><em><?php esc_html_e( 'Useful for landing pages, short posts, or custom layouts.', 'anik-smart-table-of-contents' ); ?></em></p>
+					<p><em><?php esc_html_e( 'Useful for landing pages, short posts, or custom layouts. Leave heading checkboxes unchecked to use global settings.', 'anik-smart-table-of-contents' ); ?></em></p>
 				</div>
 
 				<!-- Excluding Headings -->
 				<div class="smart-toc-card smart-toc-docs-card">
 					<h2><span class="dashicons dashicons-hidden"></span> <?php esc_html_e( 'Excluding Headings', 'anik-smart-table-of-contents' ); ?></h2>
+
+					<h3><?php esc_html_e( 'Method 1: Global Exclusion by Text', 'anik-smart-table-of-contents' ); ?></h3>
+					<p><?php esc_html_e( 'Go to Settings → Anik Smart TOC → General Settings → Exclude Headings. Enter a comma-separated list of heading texts to exclude. Partial matches are supported (e.g., "Related" will exclude "Related Posts" and "Related Articles").', 'anik-smart-table-of-contents' ); ?></p>
+
+					<h3><?php esc_html_e( 'Method 2: CSS Class per Heading', 'anik-smart-table-of-contents' ); ?></h3>
 					<p><?php esc_html_e( 'Add the "no-toc" CSS class to exclude specific headings:', 'anik-smart-table-of-contents' ); ?></p>
-					
-					<h3><?php esc_html_e( 'Block Editor (Gutenberg)', 'anik-smart-table-of-contents' ); ?></h3>
+
+					<h4><?php esc_html_e( 'Block Editor (Gutenberg)', 'anik-smart-table-of-contents' ); ?></h4>
 					<ol class="smart-toc-docs-list">
 						<li><?php esc_html_e( 'Select the heading block', 'anik-smart-table-of-contents' ); ?></li>
 						<li><?php esc_html_e( 'Open Block Settings (right sidebar)', 'anik-smart-table-of-contents' ); ?></li>
 						<li><?php esc_html_e( 'Expand "Advanced" section', 'anik-smart-table-of-contents' ); ?></li>
 						<li><?php esc_html_e( 'Add "no-toc" to Additional CSS class(es)', 'anik-smart-table-of-contents' ); ?></li>
 					</ol>
-					
-					<h3><?php esc_html_e( 'Classic Editor (HTML)', 'anik-smart-table-of-contents' ); ?></h3>
+
+					<h4><?php esc_html_e( 'Classic Editor (HTML)', 'anik-smart-table-of-contents' ); ?></h4>
 					<div class="smart-toc-code-block">
 						<code>&lt;h2 class="no-toc"&gt;<?php esc_html_e( 'Hidden Heading', 'anik-smart-table-of-contents' ); ?>&lt;/h2&gt;</code>
 					</div>
@@ -648,6 +743,9 @@ class Aniksmta_Admin {
 						<tr><td><code>.toc-level-2</code> to <code>.toc-level-6</code></td><td><?php esc_html_e( 'Heading level classes', 'anik-smart-table-of-contents' ); ?></td></tr>
 						<tr><td><code>.collapsed</code></td><td><?php esc_html_e( 'Applied when TOC is collapsed', 'anik-smart-table-of-contents' ); ?></td></tr>
 						<tr><td><code>.active</code></td><td><?php esc_html_e( 'Applied to current section link', 'anik-smart-table-of-contents' ); ?></td></tr>
+						<tr><td><code>.toc-theme-light</code></td><td><?php esc_html_e( 'Light theme preset', 'anik-smart-table-of-contents' ); ?></td></tr>
+						<tr><td><code>.toc-theme-dark</code></td><td><?php esc_html_e( 'Dark theme preset', 'anik-smart-table-of-contents' ); ?></td></tr>
+						<tr><td><code>.toc-theme-minimal</code></td><td><?php esc_html_e( 'Minimal theme preset', 'anik-smart-table-of-contents' ); ?></td></tr>
 					</tbody>
 				</table>
 			</div>
@@ -663,7 +761,7 @@ class Aniksmta_Admin {
 				
 				<div class="smart-toc-faq-item">
 					<h3><?php esc_html_e( 'Is it SEO-friendly?', 'anik-smart-table-of-contents' ); ?></h3>
-					<p><?php esc_html_e( 'Yes! Uses semantic HTML with proper ARIA labels. Search engines can index TOC anchor links.', 'anik-smart-table-of-contents' ); ?></p>
+					<p><?php esc_html_e( 'Yes! Uses semantic HTML with proper ARIA labels, and optionally outputs SiteNavigationElement JSON-LD schema. Enable SEO Schema in Behavior Settings to help search engines understand your page structure.', 'anik-smart-table-of-contents' ); ?></p>
 				</div>
 				
 				<div class="smart-toc-faq-item">
@@ -810,12 +908,26 @@ class Aniksmta_Admin {
 	public function render_meta_box( $post ) {
 		wp_nonce_field( 'aniksmta_meta_box', 'aniksmta_meta_box_nonce' );
 
-		$disabled = get_post_meta( $post->ID, '_aniksmta_disable', true );
+		$disabled       = get_post_meta( $post->ID, '_aniksmta_disable', true );
+		$heading_levels = get_post_meta( $post->ID, '_aniksmta_heading_levels', true );
 		?>
 		<label>
 			<input type="checkbox" name="aniksmta_disable" value="1" <?php checked( $disabled ); ?>>
 			<?php esc_html_e( 'Disable TOC for this post', 'anik-smart-table-of-contents' ); ?>
 		</label>
+
+		<hr style="margin: 12px 0;">
+		<p style="margin-bottom: 6px;"><strong><?php esc_html_e( 'Heading Levels Override', 'anik-smart-table-of-contents' ); ?></strong></p>
+		<p class="description" style="margin-bottom: 8px;"><?php esc_html_e( 'Leave unchecked to use global settings.', 'anik-smart-table-of-contents' ); ?></p>
+		<?php for ( $i = 2; $i <= 6; $i++ ) : ?>
+			<label style="display: inline-block; margin-right: 10px;">
+				<input type="checkbox"
+						name="aniksmta_heading_levels[]"
+						value="<?php echo esc_attr( $i ); ?>"
+						<?php checked( is_array( $heading_levels ) && in_array( $i, $heading_levels, true ) ); ?>>
+				H<?php echo esc_html( $i ); ?>
+			</label>
+		<?php endfor; ?>
 		<?php
 	}
 
@@ -845,6 +957,20 @@ class Aniksmta_Admin {
 			update_post_meta( $post_id, '_aniksmta_disable', '1' );
 		} else {
 			delete_post_meta( $post_id, '_aniksmta_disable' );
+		}
+
+		// Save per-post heading levels.
+		if ( ! empty( $_POST['aniksmta_heading_levels'] ) && is_array( $_POST['aniksmta_heading_levels'] ) ) {
+			$levels = array_map( 'absint', $_POST['aniksmta_heading_levels'] );
+			$levels = array_filter(
+				$levels,
+				function ( $level ) {
+					return $level >= 2 && $level <= 6;
+				}
+			);
+			update_post_meta( $post_id, '_aniksmta_heading_levels', array_values( $levels ) );
+		} else {
+			delete_post_meta( $post_id, '_aniksmta_heading_levels' );
 		}
 	}
 

@@ -1,9 +1,9 @@
 <?php
 /**
  * Plugin Name: Anik Smart Table of Contents
- * Plugin URI: https://smallseoengine.com/plugins/anik-smart-table-of-contents/
+ * Plugin URI: https://wordpress.org/plugins/anik-smart-table-of-contents/
  * Description: A lightweight, SEO-friendly Table of Contents plugin that automatically generates TOC from your headings with smooth scroll and collapsible features.
- * Version: 1.0.9
+ * Version: 1.1.0
  * Author: Anik Chowdhury
  * Author URI: https://smallseoengine.com
  * Text Domain: anik-smart-table-of-contents
@@ -21,7 +21,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 // Plugin constants
-define( 'ANIKSMTA_VERSION', '1.0.9' );
+define( 'ANIKSMTA_VERSION', '1.1.0' );
 define( 'ANIKSMTA_PATH', plugin_dir_path( __FILE__ ) );
 define( 'ANIKSMTA_URL', plugin_dir_url( __FILE__ ) );
 define( 'ANIKSMTA_BASENAME', plugin_basename( __FILE__ ) );
@@ -45,6 +45,10 @@ function aniksmta_activate() {
 			'exclude_class'     => 'no-toc',
 			'scroll_offset'     => 80,
 			'show_numbers'      => true,
+			'counter_format'    => 'decimal',
+			'toc_theme'         => 'default',
+			'exclude_headings'  => '',
+			'schema_enabled'    => true,
 		);
 		update_option( 'aniksmta_settings', $defaults );
 	}
