@@ -4,7 +4,7 @@ Donate link: https://smallseoengine.com
 Tags: table of contents, toc, seo, navigation, headings
 Requires at least: 5.0
 Tested up to: 6.9
-Stable tag: 1.0.8
+Stable tag: 1.0.9
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -192,6 +192,10 @@ Go to Settings → Anik Smart TOC → Display Settings and check "Show Numbers" 
 
 == Changelog ==
 
+= 1.0.9 =
+* Version bump for WordPress.org resubmission
+* All changes from 1.0.8 included
+
 = 1.0.8 =
 * Moved all inline CSS and JavaScript to properly enqueued files (WordPress.org compliance)
 * Renamed all generic prefixes from smart_toc to unique aniksmta prefix
@@ -263,6 +267,9 @@ Go to Settings → Anik Smart TOC → Display Settings and check "Show Numbers" 
 * Multi-language ready
 
 == Upgrade Notice ==
+
+= 1.0.9 =
+Resubmission with all 1.0.8 improvements: WordPress.org compliance, bug fixes, and performance enhancements.
 
 = 1.0.8 =
 Major update with WordPress.org compliance fixes, critical bug fixes, and improved performance. Recommended for all users.

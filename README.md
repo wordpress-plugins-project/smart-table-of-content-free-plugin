@@ -1,6 +1,6 @@
 # Anik Smart Table of Contents
 
-[![WordPress Plugin Version](https://img.shields.io/badge/version-1.0.8-blue)](https://wordpress.org/plugins/anik-smart-table-of-contents/)
+[![WordPress Plugin Version](https://img.shields.io/badge/version-1.0.9-blue)](https://wordpress.org/plugins/anik-smart-table-of-contents/)
 [![WordPress Tested](https://img.shields.io/badge/WordPress-6.9%20tested-brightgreen)](https://wordpress.org/plugins/anik-smart-table-of-contents/)
 [![PHP Version](https://img.shields.io/badge/PHP-7.4%2B-purple)](https://www.php.net/)
 [![License](https://img.shields.io/badge/license-GPLv2-orange)](https://www.gnu.org/licenses/gpl-2.0.html)
@@ -190,6 +190,11 @@ This project is licensed under the GPL v2 or later - see the [LICENSE](https://w
 - **Buy Me a Coffee**: [Support Development](https://buymeacoffee.com/anikchowdhury)
 
 ## 📝 Changelog
+
+### 1.0.9
+
+- Version bump for WordPress.org resubmission
+- All changes from 1.0.8 included
 
 ### 1.0.8
 

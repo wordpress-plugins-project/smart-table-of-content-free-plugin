@@ -2,7 +2,7 @@
 # This file is distributed under the GPL v2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Anik Smart Table of Contents 1.0.8\n"
+"Project-Id-Version: Anik Smart Table of Contents 1.0.9\n"
 "Report-Msgid-Bugs-To: https://github.com/wordpress-plugins-project/smart-table-of-content-free-plugin/issues\n"
 "POT-Creation-Date: 2026-02-11T00:00:00+00:00\n"
 "MIME-Version: 1.0\n"
