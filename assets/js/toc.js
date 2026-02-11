@@ -1,14 +1,14 @@
 /**
  * Smart TOC - Frontend JavaScript
  *
- * @package Smart_TOC
+ * @package Anik_Smart_TOC
  */
 
 (function() {
     'use strict';
 
     // Get settings from WordPress
-    const settings = window.smartTocSettings || {
+    const settings = window.aniksmtaSettings || {
         smoothScroll: true,
         highlightActive: true,
         scrollOffset: 80

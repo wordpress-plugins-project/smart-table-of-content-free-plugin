@@ -6,17 +6,17 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Settings Handler
  *
- * @package Smart_TOC
+ * @package Anik_Smart_TOC
  */
 
-class Smart_TOC_Settings {
+class Aniksmta_Settings {
 
 	/**
 	 * Option name
 	 *
 	 * @var string
 	 */
-	private $option_name = 'smart_toc_settings';
+	private $option_name = 'aniksmta_settings';
 
 	/**
 	 * Cached settings
@@ -128,7 +128,7 @@ class Smart_TOC_Settings {
 
 		// Check per-post disable
 		$post_id = get_the_ID();
-		if ( get_post_meta( $post_id, '_smart_toc_disable', true ) ) {
+		if ( get_post_meta( $post_id, '_aniksmta_disable', true ) ) {
 			return false;
 		}
 

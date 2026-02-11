@@ -53,9 +53,9 @@
     <rule ref="WordPress.NamingConventions.PrefixAllGlobals">
         <properties>
             <property name="prefixes" type="array">
-                <element value="smart_toc"/>
-                <element value="Smart_TOC"/>
-                <element value="SMART_TOC"/>
+                <element value="aniksmta"/>
+                <element value="Aniksmta"/>
+                <element value="ANIKSMTA"/>
             </property>
         </properties>
     </rule>

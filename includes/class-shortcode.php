@@ -6,27 +6,27 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Shortcode Handler
  *
- * @package Smart_TOC
+ * @package Anik_Smart_TOC
  */
 
-class Smart_TOC_Shortcode {
+class Aniksmta_Shortcode {
 
 	/**
 	 * Settings instance
 	 *
-	 * @var Smart_TOC_Settings
+	 * @var Aniksmta_Settings
 	 */
 	private $settings;
 
 	/**
 	 * Constructor
 	 *
-	 * @param Smart_TOC_Settings $settings Settings instance.
+	 * @param Aniksmta_Settings $settings Settings instance.
 	 */
 	public function __construct( $settings ) {
 		$this->settings = $settings;
 
-		add_shortcode( 'smart_toc', array( $this, 'render_shortcode' ) );
+		add_shortcode( 'aniksmta_toc', array( $this, 'render_shortcode' ) );
 	}
 
 	/**
@@ -42,7 +42,7 @@ class Smart_TOC_Shortcode {
 				'collapsed' => '',
 			),
 			$atts,
-			'smart_toc'
+			'aniksmta_toc'
 		);
 
 		// Check if we're on a singular page
@@ -71,15 +71,15 @@ class Smart_TOC_Shortcode {
 		$content = $post->post_content;
 
 		// Remove our shortcode from content to prevent infinite loop
-		$content = preg_replace( '/\[smart_toc[^\]]*\]/', '', $content );
+		$content = preg_replace( '/\[aniksmta_toc[^\]]*\]/', '', $content );
 
-		// Process shortcodes and basic formatting without triggering the_content filter
-		$content = do_shortcode( $content );
+		// Process content formatting in correct WordPress order.
 		$content = wptexturize( $content );
 		$content = wpautop( $content );
+		$content = do_shortcode( $content );
 
-		// Generate TOC
-		$render   = new Smart_TOC_Render( $this->settings );
+		// Generate TOC using a standalone generator to avoid duplicate hooks.
+		$render   = new Aniksmta_Render( $this->settings, true );
 		$toc_html = $render->generate_toc_html( $content, $overrides );
 
 		return $toc_html;

@@ -21,16 +21,16 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 // Plugin constants
-define( 'SMART_TOC_VERSION', '1.0.8' );
-define( 'SMART_TOC_PATH', plugin_dir_path( __FILE__ ) );
-define( 'SMART_TOC_URL', plugin_dir_url( __FILE__ ) );
-define( 'SMART_TOC_BASENAME', plugin_basename( __FILE__ ) );
+define( 'ANIKSMTA_VERSION', '1.0.8' );
+define( 'ANIKSMTA_PATH', plugin_dir_path( __FILE__ ) );
+define( 'ANIKSMTA_URL', plugin_dir_url( __FILE__ ) );
+define( 'ANIKSMTA_BASENAME', plugin_basename( __FILE__ ) );
 
 // Activation hook
-register_activation_hook( __FILE__, 'smart_toc_activate' );
-function smart_toc_activate() {
+register_activation_hook( __FILE__, 'aniksmta_activate' );
+function aniksmta_activate() {
 	// Set default options on activation
-	if ( ! get_option( 'smart_toc_settings' ) ) {
+	if ( ! get_option( 'aniksmta_settings' ) ) {
 		$defaults = array(
 			'enabled'           => true,
 			'post_types'        => array( 'post', 'page' ),
@@ -42,20 +42,21 @@ function smart_toc_activate() {
 			'highlight_active'  => true,
 			'title'             => __( 'Table of Contents', 'anik-smart-table-of-contents' ),
 			'theme_color'       => '#0073aa',
+			'exclude_class'     => 'no-toc',
 			'scroll_offset'     => 80,
 			'show_numbers'      => true,
 		);
-		update_option( 'smart_toc_settings', $defaults );
+		update_option( 'aniksmta_settings', $defaults );
 	}
 }
 
 // Deactivation hook
-register_deactivation_hook( __FILE__, 'smart_toc_deactivate' );
-function smart_toc_deactivate() {
+register_deactivation_hook( __FILE__, 'aniksmta_deactivate' );
+function aniksmta_deactivate() {
 	// Cleanup transients if any
-	delete_transient( 'smart_toc_cache' );
+	delete_transient( 'aniksmta_cache' );
 }
 
 // Initialize plugin
-require_once SMART_TOC_PATH . 'includes/class-core.php';
-Smart_TOC_Core::instance();
+require_once ANIKSMTA_PATH . 'includes/class-core.php';
+Aniksmta_Core::instance();

@@ -1,7 +1,7 @@
 /**
  * Smart TOC - Admin Styles
  *
- * @package Smart_TOC
+ * @package Anik_Smart_TOC
  */
 
 /* Admin Wrapper */
@@ -162,12 +162,12 @@
 }
 
 /* Meta Box Styles */
-#smart_toc_meta_box label {
+#aniksmta_meta_box label {
     display: block;
     padding: 5px 0;
 }
 
-#smart_toc_meta_box input[type="checkbox"] {
+#aniksmta_meta_box input[type="checkbox"] {
     margin-right: 8px;
 }
 
@@ -383,5 +383,242 @@
     font-size: 13px;
     color: #50575e;
     line-height: 1.6;
+}
+
+/* ========================================
+   Support Page Styles
+   ======================================== */
+.smart-toc-support-container {
+    margin-top: 20px;
+}
+
+.smart-toc-support-card {
+    text-align: center;
+    padding: 25px 20px;
+}
+
+.smart-toc-support-card .support-icon {
+    font-size: 40px;
+    margin-bottom: 10px;
+}
+
+.smart-toc-support-card h3 {
+    margin: 0 0 10px;
+}
+
+.smart-toc-support-card p {
+    color: #666;
+    margin-bottom: 15px;
+}
+
+.smart-toc-rate-card {
+    background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+    border: none;
+}
+
+.smart-toc-rate-card .rate-content {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.smart-toc-rate-card .rate-icon {
+    font-size: 50px;
+}
+
+.smart-toc-rate-card .rate-text {
+    flex: 1;
+    min-width: 200px;
+}
+
+.smart-toc-rate-card .rate-text h3 {
+    margin: 0 0 5px;
+    color: #333;
+}
+
+.smart-toc-rate-card .rate-text p {
+    margin: 0;
+    color: #555;
+}
+
+.smart-toc-upgrade-card {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: #fff;
+}
+
+.smart-toc-upgrade-card h3,
+.smart-toc-upgrade-card p,
+.smart-toc-upgrade-card li {
+    color: #fff;
+}
+
+.smart-toc-upgrade-card .pro-features-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 10px;
+    list-style: none;
+    padding: 0;
+    margin: 15px 0 20px;
+}
+
+.smart-toc-upgrade-card .pro-features-list li {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 8px 12px;
+    border-radius: 4px;
+}
+
+.smart-toc-upgrade-card .button-hero {
+    font-size: 16px;
+    padding: 10px 30px;
+    height: auto;
+}
+
+.smart-toc-system-info {
+    background: #f8f9fa;
+}
+
+.smart-toc-system-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 15px 0;
+}
+
+.smart-toc-system-table td {
+    padding: 8px 12px;
+    border-bottom: 1px solid #e2e4e7;
+}
+
+.smart-toc-system-table tr:last-child td {
+    border-bottom: none;
+}
+
+.smart-toc-system-table td:first-child {
+    width: 40%;
+    background: #fff;
+}
+
+.smart-toc-copy-info {
+    margin-top: 10px;
+}
+
+/* ========================================
+   Dashboard Widget Styles
+   ======================================== */
+.smart-toc-widget-stats {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 6px;
+}
+
+.smart-toc-widget-stats .stat-item {
+    text-align: center;
+}
+
+.smart-toc-widget-stats .stat-number {
+    display: block;
+    font-size: 24px;
+    font-weight: 700;
+    color: #1d2327;
+}
+
+.smart-toc-widget-stats .stat-number.stat-status {
+    font-size: 14px;
+    padding: 4px 10px;
+    border-radius: 4px;
+}
+
+.smart-toc-widget-stats .stat-number.active {
+    background: #d4edda;
+    color: #155724;
+}
+
+.smart-toc-widget-stats .stat-number.inactive {
+    background: #f8d7da;
+    color: #721c24;
+}
+
+.smart-toc-widget-stats .stat-label {
+    font-size: 12px;
+    color: #666;
+    margin-top: 4px;
+    display: block;
+}
+
+.smart-toc-widget-actions {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.smart-toc-widget-pro {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    padding: 15px;
+    border-radius: 6px;
+    color: #fff;
+}
+
+.smart-toc-widget-pro h4 {
+    margin: 0 0 10px;
+    color: #fff;
+}
+
+.smart-toc-widget-pro ul {
+    margin: 0 0 12px;
+    padding-left: 5px;
+    list-style: none;
+}
+
+.smart-toc-widget-pro li {
+    margin-bottom: 4px;
+    font-size: 13px;
+}
+
+.smart-toc-widget-pro .button-primary {
+    background: #fff;
+    color: #667eea;
+    border: none;
+}
+
+.smart-toc-widget-pro .button-primary:hover {
+    background: #f0f0f0;
+    color: #5a67d8;
+}
+
+/* ========================================
+   Review Notice Styles
+   ======================================== */
+.smart-toc-review-notice {
+    padding: 15px;
+}
+
+.smart-toc-review-content {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+}
+
+.smart-toc-review-icon {
+    font-size: 32px;
+    line-height: 1;
+}
+
+.smart-toc-review-text p {
+    margin: 0 0 10px;
+}
+
+.smart-toc-review-actions {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.smart-toc-review-actions .button {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
 }
 

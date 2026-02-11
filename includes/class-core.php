@@ -6,29 +6,29 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Core Plugin Class
  *
- * @package Smart_TOC
+ * @package Anik_Smart_TOC
  */
 
-class Smart_TOC_Core {
+class Aniksmta_Core {
 
 	/**
 	 * Single instance
 	 *
-	 * @var Smart_TOC_Core
+	 * @var Aniksmta_Core
 	 */
 	private static $instance = null;
 
 	/**
 	 * Settings instance
 	 *
-	 * @var Smart_TOC_Settings
+	 * @var Aniksmta_Settings
 	 */
 	public $settings;
 
 	/**
 	 * Get instance
 	 *
-	 * @return Smart_TOC_Core
+	 * @return Aniksmta_Core
 	 */
 	public static function instance() {
 		if ( null === self::$instance ) {
@@ -49,25 +49,25 @@ class Smart_TOC_Core {
 	 * Load required files
 	 */
 	private function load_dependencies() {
-		require_once SMART_TOC_PATH . 'includes/class-settings.php';
-		require_once SMART_TOC_PATH . 'includes/class-render.php';
-		require_once SMART_TOC_PATH . 'includes/class-shortcode.php';
-		require_once SMART_TOC_PATH . 'includes/class-admin.php';
+		require_once ANIKSMTA_PATH . 'includes/class-settings.php';
+		require_once ANIKSMTA_PATH . 'includes/class-render.php';
+		require_once ANIKSMTA_PATH . 'includes/class-shortcode.php';
+		require_once ANIKSMTA_PATH . 'includes/class-admin.php';
 	}
 
 	/**
 	 * Initialize components
 	 */
 	private function init() {
-		$this->settings = new Smart_TOC_Settings();
+		$this->settings = new Aniksmta_Settings();
 
 		// Initialize components
-		new Smart_TOC_Render( $this->settings );
-		new Smart_TOC_Shortcode( $this->settings );
+		new Aniksmta_Render( $this->settings );
+		new Aniksmta_Shortcode( $this->settings );
 
 		// Admin only
 		if ( is_admin() ) {
-			new Smart_TOC_Admin();
+			new Aniksmta_Admin();
 		}
 	}
 }

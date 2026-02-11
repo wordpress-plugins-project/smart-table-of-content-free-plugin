@@ -2,13 +2,13 @@
 # This file is distributed under the GPL v2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Anik Smart Table of Contents 1.0.7\n"
-"Report-Msgid-Bugs-To: https://github.com/wordpress-plugins-project/anik-smart-table-of-contents/issues\n"
-"POT-Creation-Date: 2026-01-25T00:00:00+00:00\n"
+"Project-Id-Version: Anik Smart Table of Contents 1.0.8\n"
+"Report-Msgid-Bugs-To: https://github.com/wordpress-plugins-project/smart-table-of-content-free-plugin/issues\n"
+"POT-Creation-Date: 2026-02-11T00:00:00+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2026-01-25T00:00:00+00:00\n"
+"PO-Revision-Date: 2026-02-11T00:00:00+00:00\n"
 "Last-Translator: Anik Chowdhury\n"
 "Language-Team: Anik Chowdhury\n"
 "Language: en\n"
@@ -16,218 +16,710 @@ msgstr ""
 "X-Generator: WP-CLI\n"
 "X-Domain: anik-smart-table-of-contents\n"
 
-#: anik-smart-table-of-contents.php:43 includes/class-settings.php:41
+#: anik-smart-table-of-contents.php:51 includes/class-settings.php:89
+#: includes/class-render.php:329 includes/class-admin.php:168
 msgid "Table of Contents"
 msgstr ""
 
-#: includes/class-admin.php:41
-msgid "Settings"
-msgstr ""
-
-#: includes/class-admin.php:42
-msgid "Get Pro"
-msgstr ""
-
-#: includes/class-admin.php:52
-msgid "Smart TOC Settings"
-msgstr ""
-
-#: includes/class-admin.php:53
-msgid "Smart TOC"
-msgstr ""
-
-#: includes/class-admin.php:153
-msgid "Upgrade to Smart TOC Pro"
-msgstr ""
-
-#: includes/class-admin.php:154
-msgid "Get advanced features like Sticky TOC, Reading Progress Bar, Gutenberg Block, Theme Presets, and more!"
-msgstr ""
-
-#: includes/class-admin.php:155
-msgid "Get Pro Version"
-msgstr ""
-
-#: includes/class-admin.php:163
-msgid "General Settings"
-msgstr ""
-
-#: includes/class-admin.php:167
-msgid "Enable TOC"
-msgstr ""
-
-#: includes/class-admin.php:171
-msgid "Enable Table of Contents globally"
-msgstr ""
-
-#: includes/class-admin.php:175
-msgid "Post Types"
-msgstr ""
-
-#: includes/class-admin.php:193
-msgid "Minimum Headings"
-msgstr ""
-
-#: includes/class-admin.php:202
-msgid "Minimum number of headings required to display TOC"
-msgstr ""
-
-#: includes/class-admin.php:206
-msgid "Heading Levels"
-msgstr ""
-
-#: includes/class-admin.php:223
-msgid "Display Settings"
-msgstr ""
-
-#: includes/class-admin.php:227
-msgid "TOC Title"
-msgstr ""
-
-#: includes/class-admin.php:235
-msgid "Position"
-msgstr ""
-
-#: includes/class-admin.php:238
-msgid "Before Content"
-msgstr ""
-
-#: includes/class-admin.php:241
-msgid "After First Paragraph"
-msgstr ""
-
-#: includes/class-admin.php:244
-msgid "Manual (Shortcode Only)"
-msgstr ""
-
-#: includes/class-admin.php:250
-msgid "Default State"
-msgstr ""
-
-#: includes/class-admin.php:254
-msgid "Collapsed by default"
-msgstr ""
-
-#: includes/class-admin.php:259
-msgid "Show Numbers"
-msgstr ""
-
-#: includes/class-admin.php:263
-msgid "Display numbers before TOC items"
-msgstr ""
-
-#: includes/class-admin.php:268
-msgid "Behavior Settings"
-msgstr ""
-
-#: includes/class-admin.php:272
-msgid "Smooth Scroll"
-msgstr ""
-
-#: includes/class-admin.php:276
-msgid "Enable smooth scrolling to headings"
-msgstr ""
-
-#: includes/class-admin.php:281
-msgid "Highlight Active"
-msgstr ""
-
-#: includes/class-admin.php:285
-msgid "Highlight current heading in TOC while scrolling"
-msgstr ""
-
-#: includes/class-admin.php:290
-msgid "Scroll Offset"
-msgstr ""
-
-#: includes/class-admin.php:298
-msgid "Offset in pixels for fixed headers"
-msgstr ""
-
-#: includes/class-admin.php:303
-msgid "Theme Color"
-msgstr ""
-
-#: includes/class-admin.php:313
-msgid "Save Settings"
-msgstr ""
-
-#: includes/class-admin.php:714
-msgid "Anik Smart Table of Contents"
-msgstr ""
-
-#: includes/class-admin.php:905
-msgid "Enjoying Anik Smart Table of Contents?"
-msgstr ""
-
-#: includes/class-admin.php:906
-msgid "We'd love to hear your feedback! Please take a moment to leave a review on WordPress.org. Your support helps us improve and reach more users."
-msgstr ""
-
-#: includes/class-admin.php:908
-msgid "Leave a Review"
-msgstr ""
-
-#: includes/class-admin.php:911
-msgid "Maybe Later"
-msgstr ""
-
-#: includes/class-admin.php:914
-msgid "Already Did"
-msgstr ""
-
-#: includes/class-render.php:324
+#: includes/class-render.php:332
 msgid "Toggle Table of Contents"
 msgstr ""
 
-#: includes/class-admin.php:751
-msgid "Active"
+#: includes/class-admin.php:60 includes/class-admin.php:211
+#: includes/class-admin.php:931
+msgid "Settings"
 msgstr ""
 
-#: includes/class-admin.php:751
-msgid "Inactive"
+#: includes/class-admin.php:61
+msgid "Get Pro"
 msgstr ""
 
-#: includes/class-admin.php:767
-msgid "Posts with TOC"
+#: includes/class-admin.php:72
+msgid "Anik Smart TOC Settings"
 msgstr ""
 
-#: includes/class-admin.php:771
-msgid "Total Posts"
+#: includes/class-admin.php:73
+msgid "Anik Smart TOC"
 msgstr ""
 
-#: includes/class-admin.php:776
-msgid "Status"
+#: includes/class-admin.php:111
+msgid "System info copied to clipboard!"
 msgstr ""
 
-#: includes/class-admin.php:784
+#: includes/class-admin.php:197
+msgid "Anik Smart Table of Contents"
+msgstr ""
+
+#: includes/class-admin.php:202
+msgid "Upgrade to Smart TOC Pro"
+msgstr ""
+
+#: includes/class-admin.php:203
+msgid "Get advanced features like Sticky TOC, Reading Progress Bar, Gutenberg Block, Theme Presets, and more!"
+msgstr ""
+
+#: includes/class-admin.php:204 includes/class-admin.php:947
+msgid "Get Pro Version"
+msgstr ""
+
+#: includes/class-admin.php:214 includes/class-admin.php:934
 msgid "Documentation"
 msgstr ""
 
-#: includes/class-admin.php:790
-msgid "Unlock Pro Features"
+#: includes/class-admin.php:217
+msgid "Help & Support"
 msgstr ""
 
-#: includes/class-admin.php:793
+#: includes/class-admin.php:228 includes/class-admin.php:461
+msgid "General Settings"
+msgstr ""
+
+#: includes/class-admin.php:232 includes/class-admin.php:464
+msgid "Enable TOC"
+msgstr ""
+
+#: includes/class-admin.php:236
+msgid "Enable Table of Contents globally"
+msgstr ""
+
+#: includes/class-admin.php:241 includes/class-admin.php:468
+msgid "Post Types"
+msgstr ""
+
+#: includes/class-admin.php:264 includes/class-admin.php:472
+msgid "Minimum Headings"
+msgstr ""
+
+#: includes/class-admin.php:272
+msgid "Minimum number of headings required to display TOC"
+msgstr ""
+
+#: includes/class-admin.php:276 includes/class-admin.php:476
+msgid "Heading Levels"
+msgstr ""
+
+#: includes/class-admin.php:294 includes/class-admin.php:481
+msgid "Display Settings"
+msgstr ""
+
+#: includes/class-admin.php:298 includes/class-admin.php:484
+msgid "TOC Title"
+msgstr ""
+
+#: includes/class-admin.php:307 includes/class-admin.php:488
+msgid "Position"
+msgstr ""
+
+#: includes/class-admin.php:311
+msgid "Before Content"
+msgstr ""
+
+#: includes/class-admin.php:314
+msgid "After First Paragraph"
+msgstr ""
+
+#: includes/class-admin.php:317
+msgid "Manual (Shortcode Only)"
+msgstr ""
+
+#: includes/class-admin.php:323 includes/class-admin.php:492
+msgid "Default State"
+msgstr ""
+
+#: includes/class-admin.php:327
+msgid "Collapsed by default"
+msgstr ""
+
+#: includes/class-admin.php:332 includes/class-admin.php:496
+msgid "Show Numbers"
+msgstr ""
+
+#: includes/class-admin.php:336
+msgid "Display numbers before TOC items (1, 2, 3...)"
+msgstr ""
+
+#: includes/class-admin.php:341 includes/class-admin.php:500
+msgid "Theme Color"
+msgstr ""
+
+#: includes/class-admin.php:354 includes/class-admin.php:505
+msgid "Behavior Settings"
+msgstr ""
+
+#: includes/class-admin.php:358 includes/class-admin.php:508
+msgid "Smooth Scroll"
+msgstr ""
+
+#: includes/class-admin.php:362
+msgid "Enable smooth scrolling to headings"
+msgstr ""
+
+#: includes/class-admin.php:367 includes/class-admin.php:512
+msgid "Highlight Active"
+msgstr ""
+
+#: includes/class-admin.php:371
+msgid "Highlight current section in TOC"
+msgstr ""
+
+#: includes/class-admin.php:376 includes/class-admin.php:516
+msgid "Scroll Offset"
+msgstr ""
+
+#: includes/class-admin.php:384
+msgid "Offset from top when scrolling (useful for fixed headers)"
+msgstr ""
+
+#: includes/class-admin.php:392
+msgid "Pro Features"
+msgstr ""
+
+#: includes/class-admin.php:394 includes/class-admin.php:739
+#: includes/class-admin.php:941
 msgid "Sticky/Floating TOC"
 msgstr ""
 
-#: includes/class-admin.php:794
+#: includes/class-admin.php:395 includes/class-admin.php:740
+#: includes/class-admin.php:942
 msgid "Reading Progress Bar"
 msgstr ""
 
-#: includes/class-admin.php:795
+#: includes/class-admin.php:396 includes/class-admin.php:741
+msgid "Estimated Reading Time"
+msgstr ""
+
+#: includes/class-admin.php:397
+msgid "Back to Top Button"
+msgstr ""
+
+#: includes/class-admin.php:398
+msgid "Keyboard Navigation"
+msgstr ""
+
+#: includes/class-admin.php:399 includes/class-admin.php:743
+msgid "Multiple Theme Presets"
+msgstr ""
+
+#: includes/class-admin.php:400
+msgid "Custom CSS Support"
+msgstr ""
+
+#: includes/class-admin.php:401
+msgid "Mobile-specific Options"
+msgstr ""
+
+#: includes/class-admin.php:402 includes/class-admin.php:742
+msgid "Gutenberg Block"
+msgstr ""
+
+#: includes/class-admin.php:403
+msgid "Sidebar Widget"
+msgstr ""
+
+#: includes/class-admin.php:405
+msgid "Unlock All Features"
+msgstr ""
+
+#: includes/class-admin.php:414 includes/class-admin.php:524
+msgid "Shortcode Usage"
+msgstr ""
+
+#: includes/class-admin.php:415
+msgid "Use the following shortcode to manually place the TOC:"
+msgstr ""
+
+#: includes/class-admin.php:417
+msgid "With custom title:"
+msgstr ""
+
+#: includes/class-admin.php:419
+msgid "Collapsed by default:"
+msgstr ""
+
+#: includes/class-admin.php:447
+msgid "Quick Start"
+msgstr ""
+
+#: includes/class-admin.php:449
+msgid "Activate the plugin - TOC is enabled by default"
+msgstr ""
+
+#: includes/class-admin.php:450
+msgid "Create or edit a post/page with at least 2 headings (H2-H6)"
+msgstr ""
+
+#: includes/class-admin.php:451
+msgid "View your post - The TOC appears automatically before your content"
+msgstr ""
+
+#: includes/class-admin.php:452
+msgid "Customize via Settings tab as needed"
+msgstr ""
+
+#: includes/class-admin.php:459
+msgid "Settings Reference"
+msgstr ""
+
+#: includes/class-admin.php:465
+msgid "Master switch to enable/disable TOC globally"
+msgstr ""
+
+#: includes/class-admin.php:469
+msgid "Select which post types display the TOC"
+msgstr ""
+
+#: includes/class-admin.php:473
+msgid "Minimum headings required for TOC to appear (default: 2)"
+msgstr ""
+
+#: includes/class-admin.php:477
+msgid "Choose which heading levels (H2-H6) to include"
+msgstr ""
+
+#: includes/class-admin.php:485
+msgid "The heading text displayed at the top of the TOC"
+msgstr ""
+
+#: includes/class-admin.php:489
+msgid "Before Content, After First Paragraph, or Manual (Shortcode)"
+msgstr ""
+
+#: includes/class-admin.php:493
+msgid "Whether TOC starts expanded or collapsed"
+msgstr ""
+
+#: includes/class-admin.php:497
+msgid "Display sequential numbers before each item"
+msgstr ""
+
+#: includes/class-admin.php:501
+msgid "Primary color for links and active states"
+msgstr ""
+
+#: includes/class-admin.php:509
+msgid "Animated scrolling when clicking TOC links"
+msgstr ""
+
+#: includes/class-admin.php:513
+msgid "Highlights current section as users scroll"
+msgstr ""
+
+#: includes/class-admin.php:517
+msgid "Offset for fixed headers (0-200px)"
+msgstr ""
+
+#: includes/class-admin.php:526
+msgid "Use the shortcode for manual TOC placement:"
+msgstr ""
+
+#: includes/class-admin.php:528
+msgid "Basic Usage"
+msgstr ""
+
+#: includes/class-admin.php:533
+msgid "Custom Title"
+msgstr ""
+
+#: includes/class-admin.php:538
+msgid "Collapsed by Default"
+msgstr ""
+
+#: includes/class-admin.php:543
+msgid "Combined Attributes"
+msgstr ""
+
+#: includes/class-admin.php:549
+msgid "Tip:"
+msgstr ""
+
+#: includes/class-admin.php:550
+msgid "Set Position to \"Manual (Shortcode Only)\" in settings to prevent automatic insertion."
+msgstr ""
+
+#: includes/class-admin.php:558
+msgid "Per-Post Controls"
+msgstr ""
+
+#: includes/class-admin.php:559
+msgid "Disable TOC on individual posts/pages:"
+msgstr ""
+
+#: includes/class-admin.php:561
+msgid "Edit the post/page in WordPress admin"
+msgstr ""
+
+#: includes/class-admin.php:562
+msgid "Find the \"Smart TOC\" meta box in the sidebar"
+msgstr ""
+
+#: includes/class-admin.php:563
+msgid "Check \"Disable TOC for this post\""
+msgstr ""
+
+#: includes/class-admin.php:564
+msgid "Save/Update the post"
+msgstr ""
+
+#: includes/class-admin.php:566
+msgid "Useful for landing pages, short posts, or custom layouts."
+msgstr ""
+
+#: includes/class-admin.php:571
+msgid "Excluding Headings"
+msgstr ""
+
+#: includes/class-admin.php:572
+msgid "Add the \"no-toc\" CSS class to exclude specific headings:"
+msgstr ""
+
+#: includes/class-admin.php:574
+msgid "Block Editor (Gutenberg)"
+msgstr ""
+
+#: includes/class-admin.php:576
+msgid "Select the heading block"
+msgstr ""
+
+#: includes/class-admin.php:577
+msgid "Open Block Settings (right sidebar)"
+msgstr ""
+
+#: includes/class-admin.php:578
+msgid "Expand \"Advanced\" section"
+msgstr ""
+
+#: includes/class-admin.php:579
+msgid "Add \"no-toc\" to Additional CSS class(es)"
+msgstr ""
+
+#: includes/class-admin.php:582
+msgid "Classic Editor (HTML)"
+msgstr ""
+
+#: includes/class-admin.php:584
+msgid "Hidden Heading"
+msgstr ""
+
+#: includes/class-admin.php:591
+msgid "Troubleshooting"
+msgstr ""
+
+#: includes/class-admin.php:595
+msgid "TOC Not Appearing"
+msgstr ""
+
+#: includes/class-admin.php:597
+msgid "Check minimum headings requirement"
+msgstr ""
+
+#: includes/class-admin.php:598
+msgid "Verify post type is enabled"
+msgstr ""
+
+#: includes/class-admin.php:599
+msgid "Check per-post disable setting"
+msgstr ""
+
+#: includes/class-admin.php:600
+msgid "Confirm global toggle is enabled"
+msgstr ""
+
+#: includes/class-admin.php:601
+msgid "TOC is disabled on front/home pages"
+msgstr ""
+
+#: includes/class-admin.php:605
+msgid "Headings Hidden Behind Header"
+msgstr ""
+
+#: includes/class-admin.php:606
+msgid "Increase the Scroll Offset value in Behavior Settings to match your fixed header height."
+msgstr ""
+
+#: includes/class-admin.php:609
+msgid "Smooth Scroll Not Working"
+msgstr ""
+
+#: includes/class-admin.php:611
+msgid "Check for plugin/theme conflicts"
+msgstr ""
+
+#: includes/class-admin.php:612
+msgid "Verify Smooth Scroll is enabled"
+msgstr ""
+
+#: includes/class-admin.php:613
+msgid "Check browser console for errors"
+msgstr ""
+
+#: includes/class-admin.php:617
+msgid "Active Highlight Not Updating"
+msgstr ""
+
+#: includes/class-admin.php:619
+msgid "Ensure Highlight Active is enabled"
+msgstr ""
+
+#: includes/class-admin.php:620
+msgid "Check for JavaScript conflicts"
+msgstr ""
+
+#: includes/class-admin.php:621
+msgid "Try scrolling slowly through content"
+msgstr ""
+
+#: includes/class-admin.php:629
+msgid "CSS Customization"
+msgstr ""
+
+#: includes/class-admin.php:630
+msgid "Add custom CSS via Appearance → Customize → Additional CSS:"
+msgstr ""
+
+#: includes/class-admin.php:632
+msgid "CSS Classes Reference"
+msgstr ""
+
+#: includes/class-admin.php:636
+msgid "Class"
+msgstr ""
+
+#: includes/class-admin.php:637
+msgid "Element"
+msgstr ""
+
+#: includes/class-admin.php:641
+msgid "Main container"
+msgstr ""
+
+#: includes/class-admin.php:642
+msgid "Header with title and toggle"
+msgstr ""
+
+#: includes/class-admin.php:643
+msgid "Title text"
+msgstr ""
+
+#: includes/class-admin.php:644
+msgid "Collapse/expand button"
+msgstr ""
+
+#: includes/class-admin.php:645
+msgid "Content area"
+msgstr ""
+
+#: includes/class-admin.php:646
+msgid "The <ul> list"
+msgstr ""
+
+#: includes/class-admin.php:647
+msgid "Each <li> item"
+msgstr ""
+
+#: includes/class-admin.php:648
+msgid "Heading level classes"
+msgstr ""
+
+#: includes/class-admin.php:649
+msgid "Applied when TOC is collapsed"
+msgstr ""
+
+#: includes/class-admin.php:650
+msgid "Applied to current section link"
+msgstr ""
+
+#: includes/class-admin.php:657
+msgid "Frequently Asked Questions"
+msgstr ""
+
+#: includes/class-admin.php:660
+msgid "Does it work with page builders?"
+msgstr ""
+
+#: includes/class-admin.php:661
+msgid "Yes! The TOC parses final rendered content, so it works with Elementor, Divi, Beaver Builder, and most page builders."
+msgstr ""
+
+#: includes/class-admin.php:665
+msgid "Is it SEO-friendly?"
+msgstr ""
+
+#: includes/class-admin.php:666
+msgid "Yes! Uses semantic HTML with proper ARIA labels. Search engines can index TOC anchor links."
+msgstr ""
+
+#: includes/class-admin.php:670
+msgid "Can I translate it?"
+msgstr ""
+
+#: includes/class-admin.php:671
+msgid "Yes, fully translatable. Use Loco Translate, WPML, or add translations to /languages/ folder. Text domain: anik-smart-table-of-contents"
+msgstr ""
+
+#: includes/class-admin.php:675
+msgid "Can I have multiple TOCs on one page?"
+msgstr ""
+
+#: includes/class-admin.php:676
+msgid "Yes, using the shortcode. However, this is generally not recommended for user experience."
+msgstr ""
+
+#: includes/class-admin.php:694
+msgid "Support Forum"
+msgstr ""
+
+#: includes/class-admin.php:695
+msgid "Get help from the community and our support team on WordPress.org."
+msgstr ""
+
+#: includes/class-admin.php:697
+msgid "Visit Support Forum"
+msgstr ""
+
+#: includes/class-admin.php:703
+msgid "Report a Bug"
+msgstr ""
+
+#: includes/class-admin.php:704
+msgid "Found a bug? Report it on GitHub and help us improve the plugin."
+msgstr ""
+
+#: includes/class-admin.php:706
+msgid "Report Bug"
+msgstr ""
+
+#: includes/class-admin.php:712 includes/class-admin.php:715
+msgid "Contact Us"
+msgstr ""
+
+#: includes/class-admin.php:713
+msgid "Have questions or suggestions? We would love to hear from you."
+msgstr ""
+
+#: includes/class-admin.php:725 includes/class-admin.php:990
+msgid "Enjoying Anik Smart Table of Contents?"
+msgstr ""
+
+#: includes/class-admin.php:726
+msgid "Please consider leaving a 5-star review. Your feedback helps us improve and motivates us to add more features!"
+msgstr ""
+
+#: includes/class-admin.php:729 includes/class-admin.php:995
+msgid "Leave a Review"
+msgstr ""
+
+#: includes/class-admin.php:736
+msgid "Need More Features?"
+msgstr ""
+
+#: includes/class-admin.php:737
+msgid "Upgrade to Smart TOC Pro for advanced features and priority support:"
+msgstr ""
+
+#: includes/class-admin.php:744
+msgid "Priority Support"
+msgstr ""
+
+#: includes/class-admin.php:747
+msgid "Upgrade to Pro"
+msgstr ""
+
+#: includes/class-admin.php:753
+msgid "System Information"
+msgstr ""
+
+#: includes/class-admin.php:754
+msgid "Copy this information when requesting support."
+msgstr ""
+
+#: includes/class-admin.php:757
+msgid "Plugin Version"
+msgstr ""
+
+#: includes/class-admin.php:761
+msgid "WordPress Version"
+msgstr ""
+
+#: includes/class-admin.php:765
+msgid "PHP Version"
+msgstr ""
+
+#: includes/class-admin.php:769
+msgid "Active Theme"
+msgstr ""
+
+#: includes/class-admin.php:773
+msgid "TOC Status"
+msgstr ""
+
+#: includes/class-admin.php:774
+msgid "Enabled"
+msgstr ""
+
+#: includes/class-admin.php:774
+msgid "Disabled"
+msgstr ""
+
+#: includes/class-admin.php:777
+msgid "Enabled Post Types"
+msgstr ""
+
+#: includes/class-admin.php:782
+msgid "Copy System Info"
+msgstr ""
+
+#: includes/class-admin.php:798
+msgid "Smart TOC"
+msgstr ""
+
+#: includes/class-admin.php:817
+msgid "Disable TOC for this post"
+msgstr ""
+
+#: includes/class-admin.php:857
+msgid "\ud83d\udcd1 Anik Smart Table of Contents"
+msgstr ""
+
+#: includes/class-admin.php:910
+msgid "Active"
+msgstr ""
+
+#: includes/class-admin.php:910
+msgid "Inactive"
+msgstr ""
+
+#: includes/class-admin.php:917
+msgid "Posts with TOC"
+msgstr ""
+
+#: includes/class-admin.php:921
+msgid "Total Posts"
+msgstr ""
+
+#: includes/class-admin.php:925
+msgid "Status"
+msgstr ""
+
+#: includes/class-admin.php:939
+msgid "Unlock Pro Features"
+msgstr ""
+
+#: includes/class-admin.php:943
 msgid "Reading Time Display"
 msgstr ""
 
-#: includes/class-admin.php:796
+#: includes/class-admin.php:944
 msgid "5+ Theme Presets"
 msgstr ""
 
-#: includes/class-admin.php:682
-msgid "Disable Smart TOC"
+#: includes/class-admin.php:991
+msgid "We'd love to hear your feedback! Please take a moment to leave a review on WordPress.org. Your support helps us improve and reach more users."
 msgstr ""
 
-#: includes/class-admin.php:684
-msgid "Hide Table of Contents on this post/page"
+#: includes/class-admin.php:998
+msgid "Maybe Later"
+msgstr ""
+
+#: includes/class-admin.php:1001
+msgid "Already Did"
 msgstr ""

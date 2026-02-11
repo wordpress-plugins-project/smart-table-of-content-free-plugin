@@ -1,6 +1,6 @@
 # Anik Smart Table of Contents
 
-[![WordPress Plugin Version](https://img.shields.io/badge/version-1.0.7-blue)](https://wordpress.org/plugins/anik-smart-table-of-contents/)
+[![WordPress Plugin Version](https://img.shields.io/badge/version-1.0.8-blue)](https://wordpress.org/plugins/anik-smart-table-of-contents/)
 [![WordPress Tested](https://img.shields.io/badge/WordPress-6.9%20tested-brightgreen)](https://wordpress.org/plugins/anik-smart-table-of-contents/)
 [![PHP Version](https://img.shields.io/badge/PHP-7.4%2B-purple)](https://www.php.net/)
 [![License](https://img.shields.io/badge/license-GPLv2-orange)](https://www.gnu.org/licenses/gpl-2.0.html)
@@ -11,9 +11,11 @@
 ## 📸 Screenshots
 
 ### Frontend TOC
+
 ![Smart TOC Preview](screenshots/frontend-toc.png)
 
 ### Admin Settings Page
+
 ![Admin Settings](screenshots/admin-settings.png)
 
 
@@ -23,13 +25,15 @@
 - **Smooth Scrolling** - Elegant smooth scroll animation to sections when clicking TOC links
 - **Collapsible TOC** - Allow visitors to expand/collapse the table of contents
 - **Active Heading Highlight** - Highlights the current section as users scroll through content
-- **Shortcode Support** - Use `[smart_toc]` to place TOC anywhere in your content
+- **Shortcode Support** - Use `[aniksmta_toc]` to place TOC anywhere in your content
 - **Customizable Heading Levels** - Choose which heading levels (H2-H6) to include
+- **Exclude Headings** - Skip specific headings using `no-toc` CSS class
 - **Show Numbers** - Optional sequential numbering for TOC items (1, 2, 3...)
 - **Theme Color** - Match your site's design with custom theme color
 - **SEO Friendly** - Clean HTML markup optimized for search engines
 - **Lightweight** - Minimal footprint, fast loading with no dependencies
 - **Per-Post Control** - Enable/disable TOC for individual posts
+- **Dashboard Widget** - Quick TOC stats and access from your WordPress dashboard
 - **Translation Ready** - Fully translatable with i18n support
 
 ## 📋 Requirements
@@ -56,12 +60,12 @@
 
 ```bash
 cd wp-content/plugins/
-git clone https://github.com/wordpress-plugins-project/anik-smart-table-of-contents.git smart-toc
+git clone https://github.com/wordpress-plugins-project/smart-table-of-content-free-plugin.git anik-smart-table-of-contents
 ```
 
 ## ⚙️ Configuration
 
-After activation, go to **Settings → Smart TOC** to configure:
+After activation, go to **Settings → Anik Smart TOC** to configure:
 
 | Setting | Description |
 | ------- | ----------- |
@@ -87,18 +91,20 @@ Once configured, the TOC will automatically appear on your posts and pages based
 
 Use the shortcode for manual placement:
 
-```
-[smart_toc]
+```text
+[aniksmta_toc]
 ```
 
 **With custom title:**
-```
-[smart_toc title="In This Article"]
+
+```text
+[aniksmta_toc title="In This Article"]
 ```
 
 **Collapsed by default:**
-```
-[smart_toc collapsed="true"]
+
+```text
+[aniksmta_toc collapsed="true"]
 ```
 
 ### Excluding Headings
@@ -122,6 +128,7 @@ anik-smart-table-of-contents/
 │   │   ├── admin.css            # Admin styles
 │   │   └── toc.css              # Frontend TOC styles
 │   └── js/
+│       ├── admin.js             # Admin functionality
 │       └── toc.js               # Frontend TOC functionality
 ├── includes/
 │   ├── class-core.php           # Core plugin class
@@ -184,14 +191,43 @@ This project is licensed under the GPL v2 or later - see the [LICENSE](https://w
 
 ## 📝 Changelog
 
+### 1.0.8
+
+- Moved all inline CSS and JavaScript to properly enqueued files (WordPress.org compliance)
+- Renamed all generic prefixes from `smart_toc` to unique `aniksmta` prefix
+- Added Help & Support tab with quick links and system information
+- Added Dashboard widget with TOC stats and quick access to settings
+- Added `load_plugin_textdomain()` for proper translation loading
+- Fixed critical heading ID duplication bug when duplicate headings exist
+- Fixed empty heading levels causing invalid regex errors
+- Fixed 3-character hex color code handling in theme color processing
+- Fixed shortcode content processing order to match WordPress core
+- Improved dashboard widget performance (capped at 100-post sample)
+- Added `exclude_class` setting preservation during settings save
+- Improved meta box storage pattern using `delete_post_meta` on uncheck
+- Added review request notice after 7 days of usage
+- Improved toggle button focus states for better accessibility
+- Enhanced keyboard navigation support
+- Full PHPCS WordPress Coding Standards compliance
+
 ### 1.0.7
+
 - Renamed plugin from "Smart Table of Contents" to "Anik Smart Table of Contents" for distinctive branding
 - Updated text domain from `smart-table-of-contents` to `anik-smart-table-of-contents`
 - Updated all plugin references, URLs, and documentation to reflect new name
 - Renamed main plugin file to `anik-smart-table-of-contents.php`
 - Updated translation template (.pot file) with new text domain
 
+### 1.0.6
+
+- Added Documentation tab in admin settings panel with comprehensive user guide
+- Includes Quick Start guide, Settings Reference, Shortcode Usage, Troubleshooting, and FAQ sections
+- Improved admin UI with tabbed navigation
+- Added Dashboard widget with TOC stats and quick access to settings
+- Added review request notice after 7 days of usage
+
 ### 1.0.5
+
 - Fixed text domain mismatch for proper internationalization
 - Renamed admin menu to "Smart TOC" for clear branding
 - Added PHPCS with WordPress Coding Standards configuration
@@ -201,23 +237,26 @@ This project is licensed under the GPL v2 or later - see the [LICENSE](https://w
 - Code quality improvements and cleanup
 
 ### 1.0.4
-- Added Documentation tab in admin settings panel with comprehensive user guide
-- Includes Quick Start guide, Settings Reference, Shortcode Usage, Troubleshooting, and FAQ
-- Improved admin UI with tabbed navigation
-- Renamed main plugin file to match WordPress.org slug
+
+- Added missing `ABSPATH` checks and normalized line endings for Plugin Check compliance
+- Bumped internal version constants for asset cache busting
+- Minor documentation updates for WordPress.org submission
 
 ### 1.0.3
+
 - Renamed the translation text domain to `anik-smart-table-of-contents` to align with the plugin slug
 - Updated POT file and text-domain references throughout the admin UI
 
 ### 1.0.2
-- Added missing `ABSPATH` checks and normalized line endings for Plugin Check compliance
-- Bumped internal version constants for asset cache busting
+
+- Added additional security hardening
+- WordPress.org review compliance improvements
 
 ### 1.0.1
-- Improved scrolling behavior for last TOC items
+
+- Improved scrolling behavior for last TOC items and removed inner scrollbar
 - Added show-number option to frontend output and settings defaults
-- Updated documentation and admin asset slugs
+- Updated documentation links and admin assets to new slug
 
 ### 1.0.0
 
@@ -237,6 +276,7 @@ This project is licensed under the GPL v2 or later - see the [LICENSE](https://w
 **Made with ❤️ by [Small SEO Engine](https://smallseoengine.com) for the WordPress community**
 
 If you find this plugin helpful, please consider:
+
 - ⭐ Giving it a star on GitHub
 - 📝 Leaving a review on [WordPress.org](https://wordpress.org/plugins/anik-smart-table-of-contents/)
 - ☕ [Buy me a coffee](https://buymeacoffee.com/anikchowdhury)

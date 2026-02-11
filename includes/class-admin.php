@@ -6,15 +6,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Admin Settings Page
  *
- * @package Smart_TOC
+ * @package Anik_Smart_TOC
  */
 
-class Smart_TOC_Admin {
+class Aniksmta_Admin {
 
 	/**
 	 * Settings instance
 	 *
-	 * @var Smart_TOC_Settings
+	 * @var Aniksmta_Settings
 	 */
 	private $settings;
 
@@ -22,12 +22,12 @@ class Smart_TOC_Admin {
 	 * Constructor
 	 */
 	public function __construct() {
-		$this->settings = new Smart_TOC_Settings();
+		$this->settings = new Aniksmta_Settings();
 
 		add_action( 'admin_menu', array( $this, 'add_admin_menu' ) );
 		add_action( 'admin_init', array( $this, 'register_settings' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_assets' ) );
-		add_filter( 'plugin_action_links_' . SMART_TOC_BASENAME, array( $this, 'plugin_action_links' ) );
+		add_filter( 'plugin_action_links_' . ANIKSMTA_BASENAME, array( $this, 'plugin_action_links' ) );
 
 		// Meta box for per-post settings
 		add_action( 'add_meta_boxes', array( $this, 'add_meta_box' ) );
@@ -38,7 +38,7 @@ class Smart_TOC_Admin {
 
 		// Review request notice
 		add_action( 'admin_notices', array( $this, 'review_request_notice' ) );
-		add_action( 'wp_ajax_smart_toc_dismiss_review', array( $this, 'dismiss_review_notice' ) );
+		add_action( 'wp_ajax_aniksmta_dismiss_review', array( $this, 'dismiss_review_notice' ) );
 
 		// Track installation date
 		$this->maybe_set_install_date();
@@ -48,8 +48,8 @@ class Smart_TOC_Admin {
 	 * Set installation date if not already set
 	 */
 	private function maybe_set_install_date() {
-		if ( ! get_option( 'smart_toc_install_date' ) ) {
-			update_option( 'smart_toc_install_date', time() );
+		if ( ! get_option( 'aniksmta_install_date' ) ) {
+			update_option( 'aniksmta_install_date', time() );
 		}
 	}
 
@@ -57,7 +57,7 @@ class Smart_TOC_Admin {
 	 * Add settings link to plugins page
 	 */
 	public function plugin_action_links( $links ) {
-		$settings_link = '<a href="' . admin_url( 'options-general.php?page=smart-toc-free' ) . '">' . __( 'Settings', 'anik-smart-table-of-contents' ) . '</a>';
+		$settings_link = '<a href="' . admin_url( 'options-general.php?page=aniksmta-settings' ) . '">' . __( 'Settings', 'anik-smart-table-of-contents' ) . '</a>';
 		$pro_link      = '<a href="https://smallseoengine.com/plugins/smart-table-of-contents/" target="_blank" style="color:#00a32a;font-weight:600;">' . __( 'Get Pro', 'anik-smart-table-of-contents' ) . '</a>';
 		array_unshift( $links, $settings_link );
 		$links[] = $pro_link;
@@ -72,7 +72,7 @@ class Smart_TOC_Admin {
 			__( 'Anik Smart TOC Settings', 'anik-smart-table-of-contents' ),
 			__( 'Anik Smart TOC', 'anik-smart-table-of-contents' ),
 			'manage_options',
-			'smart-toc-free',
+			'aniksmta-settings',
 			array( $this, 'settings_page' )
 		);
 	}
@@ -81,29 +81,46 @@ class Smart_TOC_Admin {
 	 * Enqueue admin assets
 	 */
 	public function admin_assets( $hook ) {
-		if ( 'settings_page_smart-toc-free' !== $hook && 'post.php' !== $hook && 'post-new.php' !== $hook ) {
+		$settings_hook = 'settings_page_aniksmta-settings';
+
+		// Pages that need our admin CSS and JS.
+		$allowed_hooks = array( $settings_hook, 'post.php', 'post-new.php', 'index.php', 'plugins.php' );
+		if ( ! in_array( $hook, $allowed_hooks, true ) ) {
 			return;
 		}
 
 		wp_enqueue_style(
-			'smart-toc-free-admin',
-			SMART_TOC_URL . 'assets/css/admin.css',
+			'aniksmta-admin',
+			ANIKSMTA_URL . 'assets/css/admin.css',
 			array(),
-			SMART_TOC_VERSION
+			ANIKSMTA_VERSION
 		);
 
-		// Color picker
-		wp_enqueue_style( 'wp-color-picker' );
-		wp_enqueue_script( 'wp-color-picker' );
-
-		wp_add_inline_script(
-			'wp-color-picker',
-			'
-            jQuery(document).ready(function($) {
-                $(".smart-toc-color-picker").wpColorPicker();
-            });
-        '
+		wp_enqueue_script(
+			'aniksmta-admin-js',
+			ANIKSMTA_URL . 'assets/js/admin.js',
+			array( 'jquery' ),
+			ANIKSMTA_VERSION,
+			true
 		);
+
+		wp_localize_script(
+			'aniksmta-admin-js',
+			'aniksmtaAdmin',
+			array(
+				'copiedMsg' => __( 'System info copied to clipboard!', 'anik-smart-table-of-contents' ),
+			)
+		);
+
+		// Color picker only on settings page.
+		if ( $settings_hook === $hook ) {
+			wp_enqueue_style( 'wp-color-picker' );
+			wp_enqueue_script( 'wp-color-picker' );
+			wp_add_inline_script(
+				'wp-color-picker',
+				'jQuery(document).ready(function($){ $(".smart-toc-color-picker").wpColorPicker(); });'
+			);
+		}
 	}
 
 	/**
@@ -111,8 +128,8 @@ class Smart_TOC_Admin {
 	 */
 	public function register_settings() {
 		register_setting(
-			'smart_toc_settings_group',
-			'smart_toc_settings',
+			'aniksmta_settings_group',
+			'aniksmta_settings',
 			array( $this, 'sanitize_settings' )
 		);
 	}
@@ -160,6 +177,11 @@ class Smart_TOC_Admin {
 
 		$sanitized['show_numbers'] = ! empty( $input['show_numbers'] );
 
+		// Preserve exclude_class (not in the form, but used by the renderer).
+		$sanitized['exclude_class'] = isset( $input['exclude_class'] )
+			? sanitize_html_class( $input['exclude_class'] )
+			: 'no-toc';
+
 		return $sanitized;
 	}
 
@@ -185,20 +207,20 @@ class Smart_TOC_Admin {
 
 			<!-- Navigation Tabs -->
 			<nav class="nav-tab-wrapper smart-toc-tabs">
-				<a href="<?php echo esc_url( admin_url( 'options-general.php?page=smart-toc-free&tab=settings' ) ); ?>" class="nav-tab <?php echo 'settings' === $active_tab ? 'nav-tab-active' : ''; ?>">
+				<a href="<?php echo esc_url( admin_url( 'options-general.php?page=aniksmta-settings&tab=settings' ) ); ?>" class="nav-tab <?php echo 'settings' === $active_tab ? 'nav-tab-active' : ''; ?>">
 					<span class="dashicons dashicons-admin-settings"></span> <?php esc_html_e( 'Settings', 'anik-smart-table-of-contents' ); ?>
 				</a>
-				<a href="<?php echo esc_url( admin_url( 'options-general.php?page=smart-toc-free&tab=documentation' ) ); ?>" class="nav-tab <?php echo 'documentation' === $active_tab ? 'nav-tab-active' : ''; ?>">
+				<a href="<?php echo esc_url( admin_url( 'options-general.php?page=aniksmta-settings&tab=documentation' ) ); ?>" class="nav-tab <?php echo 'documentation' === $active_tab ? 'nav-tab-active' : ''; ?>">
 					<span class="dashicons dashicons-book"></span> <?php esc_html_e( 'Documentation', 'anik-smart-table-of-contents' ); ?>
 				</a>
-				<a href="<?php echo esc_url( admin_url( 'options-general.php?page=smart-toc-free&tab=support' ) ); ?>" class="nav-tab <?php echo 'support' === $active_tab ? 'nav-tab-active' : ''; ?>">
+				<a href="<?php echo esc_url( admin_url( 'options-general.php?page=aniksmta-settings&tab=support' ) ); ?>" class="nav-tab <?php echo 'support' === $active_tab ? 'nav-tab-active' : ''; ?>">
 					<span class="dashicons dashicons-sos"></span> <?php esc_html_e( 'Help & Support', 'anik-smart-table-of-contents' ); ?>
 				</a>
 			</nav>
 
 			<?php if ( 'settings' === $active_tab ) : ?>
 			<form method="post" action="options.php">
-				<?php settings_fields( 'smart_toc_settings_group' ); ?>
+				<?php settings_fields( 'aniksmta_settings_group' ); ?>
 				
 				<div class="smart-toc-settings-grid">
 					<!-- General Settings -->
@@ -210,7 +232,7 @@ class Smart_TOC_Admin {
 								<th scope="row"><?php esc_html_e( 'Enable TOC', 'anik-smart-table-of-contents' ); ?></th>
 								<td>
 									<label>
-										<input type="checkbox" name="smart_toc_settings[enabled]" value="1" <?php checked( $settings['enabled'] ); ?>>
+										<input type="checkbox" name="aniksmta_settings[enabled]" value="1" <?php checked( $settings['enabled'] ); ?>>
 										<?php esc_html_e( 'Enable Table of Contents globally', 'anik-smart-table-of-contents' ); ?>
 									</label>
 								</td>
@@ -220,14 +242,17 @@ class Smart_TOC_Admin {
 								<td>
 									<?php
 									$post_types = get_post_types( array( 'public' => true ), 'objects' );
-									foreach ( $post_types as $post_type ) :
+									foreach ( $post_types as $pt_slug => $post_type ) :
+										if ( ! ( $post_type instanceof \WP_Post_Type ) ) {
+											continue;
+										}
 										if ( 'attachment' === $post_type->name ) {
 											continue;
 										}
 										?>
 										<label style="display: block; margin-bottom: 5px;">
 											<input type="checkbox" 
-													name="smart_toc_settings[post_types][]" 
+													name="aniksmta_settings[post_types][]" 
 													value="<?php echo esc_attr( $post_type->name ); ?>"
 													<?php checked( in_array( $post_type->name, $settings['post_types'], true ) ); ?>>
 											<?php echo esc_html( $post_type->label ); ?>
@@ -239,7 +264,7 @@ class Smart_TOC_Admin {
 								<th scope="row"><?php esc_html_e( 'Minimum Headings', 'anik-smart-table-of-contents' ); ?></th>
 								<td>
 									<input type="number" 
-											name="smart_toc_settings[min_headings]" 
+											name="aniksmta_settings[min_headings]" 
 											value="<?php echo esc_attr( $settings['min_headings'] ); ?>" 
 											min="1" 
 											max="10"
@@ -253,7 +278,7 @@ class Smart_TOC_Admin {
 									<?php for ( $i = 2; $i <= 6; $i++ ) : ?>
 										<label style="margin-right: 15px;">
 											<input type="checkbox" 
-													name="smart_toc_settings[heading_levels][]" 
+													name="aniksmta_settings[heading_levels][]" 
 													value="<?php echo esc_attr( $i ); ?>"
 													<?php checked( in_array( $i, $settings['heading_levels'], true ) ); ?>>
 											H<?php echo esc_html( $i ); ?>
@@ -273,7 +298,7 @@ class Smart_TOC_Admin {
 								<th scope="row"><?php esc_html_e( 'TOC Title', 'anik-smart-table-of-contents' ); ?></th>
 								<td>
 									<input type="text" 
-											name="smart_toc_settings[title]" 
+											name="aniksmta_settings[title]" 
 											value="<?php echo esc_attr( $settings['title'] ); ?>" 
 											class="regular-text">
 								</td>
@@ -281,7 +306,7 @@ class Smart_TOC_Admin {
 							<tr>
 								<th scope="row"><?php esc_html_e( 'Position', 'anik-smart-table-of-contents' ); ?></th>
 								<td>
-									<select name="smart_toc_settings[position]">
+									<select name="aniksmta_settings[position]">
 										<option value="before_content" <?php selected( $settings['position'], 'before_content' ); ?>>
 											<?php esc_html_e( 'Before Content', 'anik-smart-table-of-contents' ); ?>
 										</option>
@@ -298,7 +323,7 @@ class Smart_TOC_Admin {
 								<th scope="row"><?php esc_html_e( 'Default State', 'anik-smart-table-of-contents' ); ?></th>
 								<td>
 									<label>
-										<input type="checkbox" name="smart_toc_settings[default_collapsed]" value="1" <?php checked( $settings['default_collapsed'] ); ?>>
+										<input type="checkbox" name="aniksmta_settings[default_collapsed]" value="1" <?php checked( $settings['default_collapsed'] ); ?>>
 										<?php esc_html_e( 'Collapsed by default', 'anik-smart-table-of-contents' ); ?>
 									</label>
 								</td>
@@ -307,7 +332,7 @@ class Smart_TOC_Admin {
 								<th scope="row"><?php esc_html_e( 'Show Numbers', 'anik-smart-table-of-contents' ); ?></th>
 								<td>
 									<label>
-										<input type="checkbox" name="smart_toc_settings[show_numbers]" value="1" <?php checked( $settings['show_numbers'] ); ?>>
+										<input type="checkbox" name="aniksmta_settings[show_numbers]" value="1" <?php checked( $settings['show_numbers'] ); ?>>
 										<?php esc_html_e( 'Display numbers before TOC items (1, 2, 3...)', 'anik-smart-table-of-contents' ); ?>
 									</label>
 								</td>
@@ -316,7 +341,7 @@ class Smart_TOC_Admin {
 								<th scope="row"><?php esc_html_e( 'Theme Color', 'anik-smart-table-of-contents' ); ?></th>
 								<td>
 									<input type="text" 
-											name="smart_toc_settings[theme_color]" 
+											name="aniksmta_settings[theme_color]" 
 											value="<?php echo esc_attr( $settings['theme_color'] ); ?>" 
 											class="smart-toc-color-picker">
 								</td>
@@ -333,7 +358,7 @@ class Smart_TOC_Admin {
 								<th scope="row"><?php esc_html_e( 'Smooth Scroll', 'anik-smart-table-of-contents' ); ?></th>
 								<td>
 									<label>
-										<input type="checkbox" name="smart_toc_settings[smooth_scroll]" value="1" <?php checked( $settings['smooth_scroll'] ); ?>>
+										<input type="checkbox" name="aniksmta_settings[smooth_scroll]" value="1" <?php checked( $settings['smooth_scroll'] ); ?>>
 										<?php esc_html_e( 'Enable smooth scrolling to headings', 'anik-smart-table-of-contents' ); ?>
 									</label>
 								</td>
@@ -342,7 +367,7 @@ class Smart_TOC_Admin {
 								<th scope="row"><?php esc_html_e( 'Highlight Active', 'anik-smart-table-of-contents' ); ?></th>
 								<td>
 									<label>
-										<input type="checkbox" name="smart_toc_settings[highlight_active]" value="1" <?php checked( $settings['highlight_active'] ); ?>>
+										<input type="checkbox" name="aniksmta_settings[highlight_active]" value="1" <?php checked( $settings['highlight_active'] ); ?>>
 										<?php esc_html_e( 'Highlight current section in TOC', 'anik-smart-table-of-contents' ); ?>
 									</label>
 								</td>
@@ -351,7 +376,7 @@ class Smart_TOC_Admin {
 								<th scope="row"><?php esc_html_e( 'Scroll Offset', 'anik-smart-table-of-contents' ); ?></th>
 								<td>
 									<input type="number" 
-											name="smart_toc_settings[scroll_offset]" 
+											name="aniksmta_settings[scroll_offset]" 
 											value="<?php echo esc_attr( $settings['scroll_offset'] ); ?>" 
 											min="0" 
 											max="200"
@@ -388,11 +413,11 @@ class Smart_TOC_Admin {
 			<div class="smart-toc-card">
 				<h2><?php esc_html_e( 'Shortcode Usage', 'anik-smart-table-of-contents' ); ?></h2>
 				<p><?php esc_html_e( 'Use the following shortcode to manually place the TOC:', 'anik-smart-table-of-contents' ); ?></p>
-				<code>[smart_toc]</code>
+				<code>[aniksmta_toc]</code>
 				<p style="margin-top: 10px;"><?php esc_html_e( 'With custom title:', 'anik-smart-table-of-contents' ); ?></p>
-				<code>[smart_toc title="In This Article"]</code>
+				<code>[aniksmta_toc title="In This Article"]</code>
 				<p style="margin-top: 10px;"><?php esc_html_e( 'Collapsed by default:', 'anik-smart-table-of-contents' ); ?></p>
-				<code>[smart_toc collapsed="true"]</code>
+				<code>[aniksmta_toc collapsed="true"]</code>
 			</div>
 
 			<?php elseif ( 'documentation' === $active_tab ) : ?>
@@ -502,22 +527,22 @@ class Smart_TOC_Admin {
 					
 					<h3><?php esc_html_e( 'Basic Usage', 'anik-smart-table-of-contents' ); ?></h3>
 					<div class="smart-toc-code-block">
-						<code>[smart_toc]</code>
+						<code>[aniksmta_toc]</code>
 					</div>
 					
 					<h3><?php esc_html_e( 'Custom Title', 'anik-smart-table-of-contents' ); ?></h3>
 					<div class="smart-toc-code-block">
-						<code>[smart_toc title="In This Article"]</code>
+						<code>[aniksmta_toc title="In This Article"]</code>
 					</div>
 					
 					<h3><?php esc_html_e( 'Collapsed by Default', 'anik-smart-table-of-contents' ); ?></h3>
 					<div class="smart-toc-code-block">
-						<code>[smart_toc collapsed="true"]</code>
+						<code>[aniksmta_toc collapsed="true"]</code>
 					</div>
 					
 					<h3><?php esc_html_e( 'Combined Attributes', 'anik-smart-table-of-contents' ); ?></h3>
 					<div class="smart-toc-code-block">
-						<code>[smart_toc title="Quick Navigation" collapsed="false"]</code>
+						<code>[aniksmta_toc title="Quick Navigation" collapsed="false"]</code>
 					</div>
 
 					<div class="smart-toc-docs-tip">
@@ -730,7 +755,7 @@ class Smart_TOC_Admin {
 				<table class="smart-toc-system-table">
 					<tr>
 						<td><strong><?php esc_html_e( 'Plugin Version', 'anik-smart-table-of-contents' ); ?></strong></td>
-						<td><?php echo esc_html( SMART_TOC_VERSION ); ?></td>
+						<td><?php echo esc_html( ANIKSMTA_VERSION ); ?></td>
 					</tr>
 					<tr>
 						<td><strong><?php esc_html_e( 'WordPress Version', 'anik-smart-table-of-contents' ); ?></strong></td>
@@ -753,122 +778,11 @@ class Smart_TOC_Admin {
 						<td><?php echo esc_html( implode( ', ', $this->settings->get( 'post_types' ) ) ); ?></td>
 					</tr>
 				</table>
-				<button type="button" class="button smart-toc-copy-info" onclick="smartTocCopySystemInfo()">
+				<button type="button" class="button smart-toc-copy-info">
 					📋 <?php esc_html_e( 'Copy System Info', 'anik-smart-table-of-contents' ); ?>
 				</button>
 			</div>
 		</div>
-
-		<style>
-			.smart-toc-support-container {
-				margin-top: 20px;
-			}
-			.smart-toc-support-card {
-				text-align: center;
-				padding: 25px 20px;
-			}
-			.smart-toc-support-card .support-icon {
-				font-size: 40px;
-				margin-bottom: 10px;
-			}
-			.smart-toc-support-card h3 {
-				margin: 0 0 10px;
-			}
-			.smart-toc-support-card p {
-				color: #666;
-				margin-bottom: 15px;
-			}
-			.smart-toc-rate-card {
-				background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
-				border: none;
-			}
-			.smart-toc-rate-card .rate-content {
-				display: flex;
-				align-items: center;
-				gap: 20px;
-				flex-wrap: wrap;
-			}
-			.smart-toc-rate-card .rate-icon {
-				font-size: 50px;
-			}
-			.smart-toc-rate-card .rate-text {
-				flex: 1;
-				min-width: 200px;
-			}
-			.smart-toc-rate-card .rate-text h3 {
-				margin: 0 0 5px;
-				color: #333;
-			}
-			.smart-toc-rate-card .rate-text p {
-				margin: 0;
-				color: #555;
-			}
-			.smart-toc-upgrade-card {
-				background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-				color: #fff;
-			}
-			.smart-toc-upgrade-card h3,
-			.smart-toc-upgrade-card p,
-			.smart-toc-upgrade-card li {
-				color: #fff;
-			}
-			.smart-toc-upgrade-card .pro-features-list {
-				display: grid;
-				grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-				gap: 10px;
-				list-style: none;
-				padding: 0;
-				margin: 15px 0 20px;
-			}
-			.smart-toc-upgrade-card .pro-features-list li {
-				background: rgba(255,255,255,0.1);
-				padding: 8px 12px;
-				border-radius: 4px;
-			}
-			.smart-toc-upgrade-card .button-hero {
-				font-size: 16px;
-				padding: 10px 30px;
-				height: auto;
-			}
-			.smart-toc-system-info {
-				background: #f8f9fa;
-			}
-			.smart-toc-system-table {
-				width: 100%;
-				border-collapse: collapse;
-				margin: 15px 0;
-			}
-			.smart-toc-system-table td {
-				padding: 8px 12px;
-				border-bottom: 1px solid #e2e4e7;
-			}
-			.smart-toc-system-table tr:last-child td {
-				border-bottom: none;
-			}
-			.smart-toc-system-table td:first-child {
-				width: 40%;
-				background: #fff;
-			}
-			.smart-toc-copy-info {
-				margin-top: 10px;
-			}
-		</style>
-
-		<script>
-			function smartTocCopySystemInfo() {
-				var info = '';
-				var rows = document.querySelectorAll('.smart-toc-system-table tr');
-				rows.forEach(function(row) {
-					var cells = row.querySelectorAll('td');
-					if (cells.length === 2) {
-						info += cells[0].innerText + ': ' + cells[1].innerText + '\n';
-					}
-				});
-				navigator.clipboard.writeText(info).then(function() {
-					alert('<?php echo esc_js( __( 'System info copied to clipboard!', 'anik-smart-table-of-contents' ) ); ?>');
-				});
-			}
-		</script>
 		<?php
 	}
 
@@ -880,7 +794,7 @@ class Smart_TOC_Admin {
 
 		foreach ( $post_types as $post_type ) {
 			add_meta_box(
-				'smart_toc_meta_box',
+				'aniksmta_meta_box',
 				__( 'Smart TOC', 'anik-smart-table-of-contents' ),
 				array( $this, 'render_meta_box' ),
 				$post_type,
@@ -894,12 +808,12 @@ class Smart_TOC_Admin {
 	 * Render meta box
 	 */
 	public function render_meta_box( $post ) {
-		wp_nonce_field( 'smart_toc_meta_box', 'smart_toc_meta_box_nonce' );
+		wp_nonce_field( 'aniksmta_meta_box', 'aniksmta_meta_box_nonce' );
 
-		$disabled = get_post_meta( $post->ID, '_smart_toc_disable', true );
+		$disabled = get_post_meta( $post->ID, '_aniksmta_disable', true );
 		?>
 		<label>
-			<input type="checkbox" name="smart_toc_disable" value="1" <?php checked( $disabled ); ?>>
+			<input type="checkbox" name="aniksmta_disable" value="1" <?php checked( $disabled ); ?>>
 			<?php esc_html_e( 'Disable TOC for this post', 'anik-smart-table-of-contents' ); ?>
 		</label>
 		<?php
@@ -909,12 +823,12 @@ class Smart_TOC_Admin {
 	 * Save meta box
 	 */
 	public function save_meta_box( $post_id ) {
-		if ( ! isset( $_POST['smart_toc_meta_box_nonce'] ) ) {
+		if ( ! isset( $_POST['aniksmta_meta_box_nonce'] ) ) {
 			return;
 		}
 
-		$nonce = sanitize_text_field( wp_unslash( $_POST['smart_toc_meta_box_nonce'] ) );
-		if ( ! wp_verify_nonce( $nonce, 'smart_toc_meta_box' ) ) {
+		$nonce = sanitize_text_field( wp_unslash( $_POST['aniksmta_meta_box_nonce'] ) );
+		if ( ! wp_verify_nonce( $nonce, 'aniksmta_meta_box' ) ) {
 			return;
 		}
 
@@ -926,8 +840,12 @@ class Smart_TOC_Admin {
 			return;
 		}
 
-		$disabled = ! empty( $_POST['smart_toc_disable'] );
-		update_post_meta( $post_id, '_smart_toc_disable', $disabled );
+		$disabled = ! empty( $_POST['aniksmta_disable'] );
+		if ( $disabled ) {
+			update_post_meta( $post_id, '_aniksmta_disable', '1' );
+		} else {
+			delete_post_meta( $post_id, '_aniksmta_disable' );
+		}
 	}
 
 	/**
@@ -935,7 +853,7 @@ class Smart_TOC_Admin {
 	 */
 	public function add_dashboard_widget() {
 		wp_add_dashboard_widget(
-			'smart_toc_dashboard_widget',
+			'aniksmta_dashboard_widget',
 			__( '📑 Anik Smart Table of Contents', 'anik-smart-table-of-contents' ),
 			array( $this, 'render_dashboard_widget' )
 		);
@@ -948,31 +866,44 @@ class Smart_TOC_Admin {
 		$settings   = $this->settings->get_all();
 		$post_types = $settings['post_types'];
 
-		// Get stats
+		// Get stats using a lightweight approach.
 		$total_posts    = 0;
 		$posts_with_toc = 0;
 
 		foreach ( $post_types as $post_type ) {
-			$args         = array(
-				'post_type'      => $post_type,
-				'post_status'    => 'publish',
-				'posts_per_page' => -1,
-				'fields'         => 'ids',
-			);
-			$posts        = get_posts( $args );
-			$total_posts += count( $posts );
+			$count        = wp_count_posts( $post_type );
+			$total_posts += isset( $count->publish ) ? $count->publish : 0;
+		}
 
-			// Count posts with enough headings for TOC
-			foreach ( $posts as $post_id ) {
-				$content  = get_post_field( 'post_content', $post_id );
-				$disabled = get_post_meta( $post_id, '_smart_toc_disable', true );
+		// Sample a limited number of recent posts to estimate TOC usage.
+		$sample_args  = array(
+			'post_type'      => $post_types,
+			'post_status'    => 'publish',
+			'posts_per_page' => 100,
+			'fields'         => 'ids',
+			'no_found_rows'  => true,
+			'orderby'        => 'date',
+			'order'          => 'DESC',
+			// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query -- Limited to 100 posts.
+			'meta_query'     => array(
+				'relation' => 'OR',
+				array(
+					'key'     => '_aniksmta_disable',
+					'compare' => 'NOT EXISTS',
+				),
+				array(
+					'key'   => '_aniksmta_disable',
+					'value' => '',
+				),
+			),
+		);
+		$sample_posts = get_posts( $sample_args );
 
-				if ( ! $disabled ) {
-					$heading_count = preg_match_all( '/<h[2-6][^>]*>/i', $content );
-					if ( $heading_count >= $settings['min_headings'] ) {
-						++$posts_with_toc;
-					}
-				}
+		foreach ( $sample_posts as $post_id ) {
+			$content       = get_post_field( 'post_content', $post_id );
+			$heading_count = preg_match_all( '/<h[2-6][^>]*>/i', $content );
+			if ( $heading_count >= $settings['min_headings'] ) {
+				++$posts_with_toc;
 			}
 		}
 
@@ -996,10 +927,10 @@ class Smart_TOC_Admin {
 			</div>
 
 			<div class="smart-toc-widget-actions">
-				<a href="<?php echo esc_url( admin_url( 'options-general.php?page=smart-toc-free' ) ); ?>" class="button">
+				<a href="<?php echo esc_url( admin_url( 'options-general.php?page=aniksmta-settings' ) ); ?>" class="button">
 					<?php esc_html_e( 'Settings', 'anik-smart-table-of-contents' ); ?>
 				</a>
-				<a href="<?php echo esc_url( admin_url( 'options-general.php?page=smart-toc-free&tab=documentation' ) ); ?>" class="button">
+				<a href="<?php echo esc_url( admin_url( 'options-general.php?page=aniksmta-settings&tab=documentation' ) ); ?>" class="button">
 					<?php esc_html_e( 'Documentation', 'anik-smart-table-of-contents' ); ?>
 				</a>
 			</div>
@@ -1017,78 +948,6 @@ class Smart_TOC_Admin {
 				</a>
 			</div>
 		</div>
-
-		<style>
-			.smart-toc-widget-stats {
-				display: flex;
-				justify-content: space-between;
-				margin-bottom: 15px;
-				padding: 15px;
-				background: #f8f9fa;
-				border-radius: 6px;
-			}
-			.smart-toc-widget-stats .stat-item {
-				text-align: center;
-			}
-			.smart-toc-widget-stats .stat-number {
-				display: block;
-				font-size: 24px;
-				font-weight: 700;
-				color: #1d2327;
-			}
-			.smart-toc-widget-stats .stat-number.stat-status {
-				font-size: 14px;
-				padding: 4px 10px;
-				border-radius: 4px;
-			}
-			.smart-toc-widget-stats .stat-number.active {
-				background: #d4edda;
-				color: #155724;
-			}
-			.smart-toc-widget-stats .stat-number.inactive {
-				background: #f8d7da;
-				color: #721c24;
-			}
-			.smart-toc-widget-stats .stat-label {
-				font-size: 12px;
-				color: #666;
-				margin-top: 4px;
-				display: block;
-			}
-			.smart-toc-widget-actions {
-				display: flex;
-				gap: 10px;
-				margin-bottom: 15px;
-			}
-			.smart-toc-widget-pro {
-				background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-				padding: 15px;
-				border-radius: 6px;
-				color: #fff;
-			}
-			.smart-toc-widget-pro h4 {
-				margin: 0 0 10px;
-				color: #fff;
-			}
-			.smart-toc-widget-pro ul {
-				margin: 0 0 12px;
-				padding-left: 5px;
-				list-style: none;
-			}
-			.smart-toc-widget-pro li {
-				margin-bottom: 4px;
-				font-size: 13px;
-			}
-			.smart-toc-widget-pro .button-primary {
-				background: #fff;
-				color: #667eea;
-				border: none;
-			}
-			.smart-toc-widget-pro .button-primary:hover {
-				background: #f0f0f0;
-				color: #5a67d8;
-			}
-		</style>
 		<?php
 	}
 
@@ -1102,28 +961,28 @@ class Smart_TOC_Admin {
 		}
 
 		// Check if already dismissed
-		if ( get_option( 'smart_toc_review_dismissed' ) ) {
+		if ( get_option( 'aniksmta_review_dismissed' ) ) {
 			return;
 		}
 
 		// Check if already reviewed
-		if ( get_option( 'smart_toc_review_done' ) ) {
+		if ( get_option( 'aniksmta_review_done' ) ) {
 			return;
 		}
 
 		// Check install date (show after 7 days)
-		$install_date = get_option( 'smart_toc_install_date' );
-		if ( ! $install_date || ( time() - $install_date ) < ( 7 * DAY_IN_SECONDS ) ) {
+		$install_date = get_option( 'aniksmta_install_date' );
+		if ( ! $install_date || ( time() - $install_date ) < ( 7 * 86400 ) ) {
 			return;
 		}
 
 		// Only show on certain admin pages
 		$screen = get_current_screen();
-		if ( ! $screen || ! in_array( $screen->id, array( 'dashboard', 'plugins', 'settings_page_smart-toc-free' ), true ) ) {
+		if ( ! $screen || ! in_array( $screen->id, array( 'dashboard', 'plugins', 'settings_page_aniksmta-settings' ), true ) ) {
 			return;
 		}
 		?>
-		<div class="notice notice-info smart-toc-review-notice is-dismissible" data-nonce="<?php echo esc_attr( wp_create_nonce( 'smart_toc_dismiss_review' ) ); ?>">
+		<div class="notice notice-info smart-toc-review-notice is-dismissible" data-nonce="<?php echo esc_attr( wp_create_nonce( 'aniksmta_dismiss_review' ) ); ?>">
 			<div class="smart-toc-review-content">
 				<div class="smart-toc-review-icon">⭐</div>
 				<div class="smart-toc-review-text">
@@ -1145,65 +1004,6 @@ class Smart_TOC_Admin {
 				</div>
 			</div>
 		</div>
-
-		<style>
-			.smart-toc-review-notice {
-				padding: 15px;
-			}
-			.smart-toc-review-content {
-				display: flex;
-				align-items: flex-start;
-				gap: 15px;
-			}
-			.smart-toc-review-icon {
-				font-size: 32px;
-				line-height: 1;
-			}
-			.smart-toc-review-text p {
-				margin: 0 0 10px;
-			}
-			.smart-toc-review-actions {
-				display: flex;
-				gap: 10px;
-				flex-wrap: wrap;
-			}
-			.smart-toc-review-actions .button {
-				display: inline-flex;
-				align-items: center;
-				gap: 5px;
-			}
-		</style>
-
-		<script>
-			jQuery(document).ready(function($) {
-				$('.smart-toc-review-btn').on('click', function(e) {
-					var action = $(this).data('action');
-					var nonce = $(this).closest('.smart-toc-review-notice').data('nonce');
-					
-					if (action !== 'reviewed') {
-						e.preventDefault();
-					}
-
-					$.post(ajaxurl, {
-						action: 'smart_toc_dismiss_review',
-						review_action: action,
-						nonce: nonce
-					});
-
-					$(this).closest('.smart-toc-review-notice').fadeOut();
-				});
-
-				// Handle the X button dismiss
-				$(document).on('click', '.smart-toc-review-notice .notice-dismiss', function() {
-					var nonce = $(this).closest('.smart-toc-review-notice').data('nonce');
-					$.post(ajaxurl, {
-						action: 'smart_toc_dismiss_review',
-						review_action: 'later',
-						nonce: nonce
-					});
-				});
-			});
-		</script>
 		<?php
 	}
 
@@ -1211,7 +1011,7 @@ class Smart_TOC_Admin {
 	 * Handle review notice dismissal
 	 */
 	public function dismiss_review_notice() {
-		check_ajax_referer( 'smart_toc_dismiss_review', 'nonce' );
+		check_ajax_referer( 'aniksmta_dismiss_review', 'nonce' );
 
 		if ( ! current_user_can( 'manage_options' ) ) {
 			wp_die();
@@ -1220,13 +1020,12 @@ class Smart_TOC_Admin {
 		$action = isset( $_POST['review_action'] ) ? sanitize_key( $_POST['review_action'] ) : 'dismiss';
 
 		if ( 'reviewed' === $action || 'dismiss' === $action ) {
-			update_option( 'smart_toc_review_done', true );
+			update_option( 'aniksmta_review_done', true );
+			update_option( 'aniksmta_review_dismissed', true );
 		} elseif ( 'later' === $action ) {
-			// Reset install date to show again in 7 days
-			update_option( 'smart_toc_install_date', time() );
+			// Reset install date to show again in 7 days.
+			update_option( 'aniksmta_install_date', time() );
 		}
-
-		update_option( 'smart_toc_review_dismissed', true );
 
 		wp_die();
 	}

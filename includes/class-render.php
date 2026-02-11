@@ -6,15 +6,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * TOC Render Class
  *
- * @package Smart_TOC
+ * @package Anik_Smart_TOC
  */
 
-class Smart_TOC_Render {
+class Aniksmta_Render {
 
 	/**
 	 * Settings instance
 	 *
-	 * @var Smart_TOC_Settings
+	 * @var Aniksmta_Settings
 	 */
 	private $settings;
 
@@ -35,14 +35,16 @@ class Smart_TOC_Render {
 	/**
 	 * Constructor
 	 *
-	 * @param Smart_TOC_Settings $settings Settings instance.
+	 * @param Aniksmta_Settings $settings   Settings instance.
+	 * @param bool              $skip_hooks Whether to skip registering hooks (used for shortcode rendering).
 	 */
-	public function __construct( $settings ) {
+	public function __construct( $settings, $skip_hooks = false ) {
 		$this->settings = $settings;
 
-		add_filter( 'the_content', array( $this, 'render' ), 20 );
-		add_action( 'wp_enqueue_scripts', array( $this, 'maybe_enqueue_assets' ) );
-		add_action( 'wp_footer', array( $this, 'output_inline_styles' ) );
+		if ( ! $skip_hooks ) {
+			add_filter( 'the_content', array( $this, 'render' ), 20 );
+			add_action( 'wp_enqueue_scripts', array( $this, 'maybe_enqueue_assets' ) );
+		}
 	}
 
 	/**
@@ -65,23 +67,35 @@ class Smart_TOC_Render {
 	 */
 	public function enqueue_assets() {
 		wp_enqueue_style(
-			'smart-toc-free',
-			SMART_TOC_URL . 'assets/css/toc.css',
+			'aniksmta-toc',
+			ANIKSMTA_URL . 'assets/css/toc.css',
 			array(),
-			SMART_TOC_VERSION
+			ANIKSMTA_VERSION
 		);
 
+		// Add dynamic theme color styles.
+		$theme_color = $this->settings->get( 'theme_color' );
+		if ( ! empty( $theme_color ) ) {
+			$hover_color = $this->adjust_brightness( $theme_color, -20 );
+			$inline_css  = '.smart-toc .toc-item > a { color: ' . esc_attr( $theme_color ) . '; }';
+			$inline_css .= '.smart-toc .toc-item > a:hover { color: ' . esc_attr( $hover_color ) . '; }';
+			$inline_css .= '.smart-toc .smart-toc-toggle { color: ' . esc_attr( $theme_color ) . '; }';
+			$inline_css .= '.smart-toc .toc-item > a.active { background: ' . esc_attr( $theme_color ) . ' !important; color: #fff !important; }';
+			$inline_css .= '.smart-toc-header { border-left-color: ' . esc_attr( $theme_color ) . '; }';
+			wp_add_inline_style( 'aniksmta-toc', $inline_css );
+		}
+
 		wp_enqueue_script(
-			'smart-toc-js',
-			SMART_TOC_URL . 'assets/js/toc.js',
+			'aniksmta-toc-js',
+			ANIKSMTA_URL . 'assets/js/toc.js',
 			array(),
-			SMART_TOC_VERSION,
+			ANIKSMTA_VERSION,
 			true
 		);
 
 		wp_localize_script(
-			'smart-toc-js',
-			'smartTocSettings',
+			'aniksmta-toc-js',
+			'aniksmtaSettings',
 			array(
 				'smoothScroll'    => $this->settings->get( 'smooth_scroll' ),
 				'highlightActive' => $this->settings->get( 'highlight_active' ),
@@ -90,33 +104,7 @@ class Smart_TOC_Render {
 		);
 	}
 
-	/**
-	 * Output inline styles for theme color
-	 */
-	public function output_inline_styles() {
-		if ( ! $this->toc_rendered ) {
-			return;
-		}
 
-		$theme_color = $this->settings->get( 'theme_color' );
-		if ( empty( $theme_color ) ) {
-			return;
-		}
-
-		$hover_color = $this->adjust_brightness( $theme_color, -20 );
-		?>
-		<style id="smart-toc-theme-styles">
-			.smart-toc .toc-item > a { color: <?php echo esc_attr( $theme_color ); ?>; }
-			.smart-toc .toc-item > a:hover { color: <?php echo esc_attr( $hover_color ); ?>; }
-			.smart-toc .smart-toc-toggle { color: <?php echo esc_attr( $theme_color ); ?>; }
-			.smart-toc .toc-item > a.active { 
-				background: <?php echo esc_attr( $theme_color ); ?> !important;
-				color: #fff !important;
-			}
-			.smart-toc-header { border-left-color: <?php echo esc_attr( $theme_color ); ?>; }
-		</style>
-		<?php
-	}
 
 	/**
 	 * Adjust color brightness
@@ -127,6 +115,11 @@ class Smart_TOC_Render {
 	 */
 	private function adjust_brightness( $hex, $steps ) {
 		$hex = ltrim( $hex, '#' );
+
+		// Expand 3-char hex to 6-char.
+		if ( 3 === strlen( $hex ) ) {
+			$hex = $hex[0] . $hex[0] . $hex[1] . $hex[1] . $hex[2] . $hex[2];
+		}
 
 		$r = hexdec( substr( $hex, 0, 2 ) );
 		$g = hexdec( substr( $hex, 2, 2 ) );
@@ -208,6 +201,14 @@ class Smart_TOC_Render {
 		$min_headings   = $this->settings->get( 'min_headings' );
 		$exclude_class  = $this->settings->get( 'exclude_class' );
 
+		// Bail early if no heading levels are configured.
+		if ( empty( $heading_levels ) ) {
+			return array(
+				'toc'     => '',
+				'content' => $content,
+			);
+		}
+
 		// Build regex pattern for heading levels
 		$levels  = implode( '', $heading_levels );
 		$pattern = '/<h([' . $levels . '])([^>]*)>(.*?)<\/h\1>/si';
@@ -242,16 +243,17 @@ class Smart_TOC_Render {
 			$text       = $heading[3];
 			$clean_text = wp_strip_all_tags( $text );
 
-			// Generate unique ID
-			$id         = $this->generate_heading_id( $clean_text, $used_ids );
-			$used_ids[] = $id;
-
-			// Check if heading already has an ID
+			// Check if heading already has an ID.
 			if ( preg_match( '/id=["\']([^"\']+)["\']/', $attrs, $id_match ) ) {
-				$id = $id_match[1];
+				$id         = $id_match[1];
+				$used_ids[] = $id;
 			} else {
-				// Add ID to heading
-				$new_heading       = sprintf(
+				// Generate unique ID.
+				$id         = $this->generate_heading_id( $clean_text, $used_ids );
+				$used_ids[] = $id;
+
+				// Add ID to heading — use positional replace to avoid duplicate heading corruption.
+				$new_heading = sprintf(
 					'<h%s id="%s"%s>%s</h%s>',
 					$level,
 					esc_attr( $id ),
@@ -259,7 +261,10 @@ class Smart_TOC_Render {
 					$text,
 					$level
 				);
-				$processed_content = str_replace( $heading[0], $new_heading, $processed_content );
+				$pos         = strpos( $processed_content, $heading[0] );
+				if ( false !== $pos ) {
+					$processed_content = substr_replace( $processed_content, $new_heading, $pos, strlen( $heading[0] ) );
+				}
 			}
 
 			$toc_items[] = array(
