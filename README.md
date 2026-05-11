@@ -1,6 +1,6 @@
-﻿# Smart Table of Contents
+﻿# Smart Table of Contents - WordPress Table of Contents Plugin
 
-A lightweight, SEO-friendly WordPress Table of Contents plugin that auto-generates a clickable TOC from post and page headings.
+Smart Table of Contents is a lightweight WordPress Table of Contents plugin that automatically generates a clickable TOC from post and page headings. It improves content navigation, internal anchor structure, and long-form reading experience.
 
 - Plugin slug: `anik-smart-table-of-contents`
 - Current version: `1.2.0`
@@ -8,99 +8,91 @@ A lightweight, SEO-friendly WordPress Table of Contents plugin that auto-generat
 - Requires PHP: `7.4+`
 - Tested up to: `6.9`
 
-## Overview
+## Quick Links
 
-Smart Table of Contents helps readers navigate long content with structured anchor links, smooth scrolling, collapsible sections, and active heading highlighting. It is designed to be fast, simple, and compatible with most themes and page builders.
+- WordPress.org plugin page: https://wordpress.org/plugins/anik-smart-table-of-contents/
+- Documentation: https://smallseoengine.com/plugins/anik-smart-table-of-contents/docs
+- Support forum: https://wordpress.org/support/plugin/anik-smart-table-of-contents/
+- Issue tracker: https://github.com/wordpress-plugins-project/smart-table-of-content-free-plugin/issues
+- Pro features: https://smallseoengine.com/plugins/smart-table-of-contents/
 
-## Free Features
+## Why Use This TOC Plugin
 
-- Automatic TOC generation from H2-H6
-- Smooth scrolling
-- Collapsible TOC
-- Active section highlight on scroll
-- Shortcode support
-- Heading level control
-- Counter format options (decimal, roman, hierarchical, none)
-- Collapsible nested sections
-- Theme presets and accent color
-- Toggle icon styles (chevron or plus/minus)
-- Optional auto dark mode
+This plugin is built for websites that publish long articles, tutorials, documentation, list posts, and evergreen SEO content. It helps visitors jump to sections quickly and helps structure headings with crawlable anchor links.
+
+Common search intents this plugin covers:
+
+- WordPress table of contents plugin
+- TOC plugin for long posts
+- Auto generate heading links in WordPress
+- Collapsible table of contents for blog posts
+- Gutenberg table of contents block
+
+## Core Free Features
+
+- Automatic TOC generation from H2-H6 headings
+- Smooth scrolling and active section highlight
+- Collapsible TOC and collapsible nested sections
+- Shortcode support: `[aniksmta_toc]`
+- Counter formats: decimal, roman, hierarchical, none
+- Theme presets, accent color, toggle icon styles
 - JSON-LD SiteNavigation schema support
-- Per-post TOC control and per-post heading override
+- Per-post enable/disable and heading-level override
 - Exclude headings by text or CSS class (`no-toc`)
-- Page exclusions (home, archive, search, 404)
-- Placement options (before content, after first paragraph, manual)
-- Basic sticky TOC
-- Basic floating desktop TOC
-- Basic mobile TOC modal
-- Copy anchor links
-- Basic reading progress bar
-- Basic reading time
-- Basic back-to-top button
-- Dynamic content refresh
-- Lazy-load TOC initialization
-- Basic Gutenberg block
-- Basic sidebar widget
-- Dashboard widget
+- Display condition controls (home, archive, search, 404)
+- Placement modes: before content, after first paragraph, manual
+- Basic sticky TOC, floating desktop TOC, and mobile TOC modal
+- Copy anchor links, basic reading progress, reading time, back-to-top
+- Dynamic content refresh and lazy-load TOC initialization
+- Basic Gutenberg block, sidebar widget, and dashboard widget
 
 ## Installation
 
-1. Upload the `anik-smart-table-of-contents` folder to `/wp-content/plugins/`.
-2. Activate the plugin from the WordPress Plugins page.
-3. Go to `Settings -> Smart TOC` and configure options.
+1. Upload `anik-smart-table-of-contents` to `/wp-content/plugins/`.
+2. Activate it from WordPress Plugins.
+3. Go to `Settings -> Smart TOC`.
+4. Choose auto placement or shortcode-only mode.
 
-## Usage
-
-### Automatic Placement
-
-Use plugin settings to show TOC automatically in supported post types.
-
-### Shortcode
-
-Use the shortcode where you want TOC to appear:
+## Shortcode Usage
 
 ```text
 [aniksmta_toc]
-```
-
-Shortcode examples:
-
-```text
 [aniksmta_toc title="In This Article"]
 [aniksmta_toc collapsed="true"]
 ```
 
-For shortcode-only mode, set TOC position to manual in plugin settings.
+For manual-only placement, set TOC position to manual in plugin settings.
 
-### Exclude Specific Headings
+## Frequently Asked Questions
 
-Add class `no-toc` to a heading:
+### Does this plugin help SEO?
+
+It helps with heading-based page navigation and cleaner internal anchor structure. It also supports SiteNavigation JSON-LD output.
+
+### Can I use this with Elementor, Gutenberg, or other builders?
+
+Yes. It works with Gutenberg and common WordPress page builders.
+
+### Can I hide the TOC on specific posts?
+
+Yes. You can disable TOC per post and control heading levels per post.
+
+### How do I exclude a heading from TOC?
+
+Use CSS class `no-toc` on the heading:
 
 ```html
-<h2 class="no-toc">This heading will be excluded</h2>
+<h2 class="no-toc">This heading is excluded</h2>
 ```
 
 ## Compatibility
 
-- Works with Gutenberg and common page builders
-- Compatible with common caching plugins
-- RTL language support
+- Gutenberg and common page builders
+- Popular caching plugins
+- RTL languages
 - Translation ready (`languages/anik-smart-table-of-contents.pot`)
 
-## Pro Version
-
-Upgrade options and premium features:
-
-- Product page: https://smallseoengine.com/plugins/smart-table-of-contents/
-
-## Support
-
-- Documentation: https://smallseoengine.com/plugins/anik-smart-table-of-contents/docs
-- WordPress support forum: https://wordpress.org/support/plugin/anik-smart-table-of-contents/
-- Contact: https://smallseoengine.com/contact/
-- Bug reports: https://github.com/wordpress-plugins-project/smart-table-of-content-free-plugin/issues
-
-## Changelog
+## Changelog (Latest)
 
 ### 1.2.0
 
@@ -113,6 +105,5 @@ Upgrade options and premium features:
 
 ## License
 
-GPLv2 or later
-
-- License URI: https://www.gnu.org/licenses/gpl-2.0.html
+GPLv2 or later  
+https://www.gnu.org/licenses/gpl-2.0.html
