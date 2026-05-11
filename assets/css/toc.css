@@ -32,11 +32,24 @@
     border-radius: 8px;
 }
 
+.smart-toc-title-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
 .smart-toc-title {
     font-weight: 600;
     font-size: 16px;
     color: #1e1e1e;
     margin: 0;
+}
+
+.smart-toc-reading-time {
+    font-size: 13px;
+    color: #666;
+    font-weight: 400;
 }
 
 /* Toggle Button */
@@ -83,6 +96,41 @@
     transform: rotate(-90deg);
 }
 
+/* Plus/Minus Override */
+.smart-toc.icon-style-plus_minus .toggle-icon {
+    width: 12px;
+    height: 12px;
+    border: none;
+    transform: none;
+    position: relative;
+}
+
+.smart-toc.icon-style-plus_minus .toggle-icon::before,
+.smart-toc.icon-style-plus_minus .toggle-icon::after {
+    content: "";
+    position: absolute;
+    background-color: #555;
+    transition: transform 0.3s ease, background-color 0.2s ease;
+}
+
+.smart-toc.icon-style-plus_minus .toggle-icon::before {
+    top: 5px;
+    left: 0;
+    width: 12px;
+    height: 2px;
+}
+
+.smart-toc.icon-style-plus_minus .toggle-icon::after {
+    top: 0;
+    left: 5px;
+    width: 2px;
+    height: 12px;
+}
+
+.smart-toc.icon-style-plus_minus:not(.collapsed) .toggle-icon::after {
+    transform: scaleY(0);
+}
+
 /* TOC Body */
 .smart-toc-body {
     padding: 15px 20px;
@@ -105,7 +153,8 @@
     padding: 0;
 }
 
-.smart-toc-list .toc-item > a {
+.smart-toc-list .toc-item > a,
+.smart-toc-list .toc-item > .toc-item-inner > a {
     display: block;
     padding: 8px 12px;
     color: #0073aa;
@@ -115,43 +164,166 @@
     border-left: 2px solid transparent;
 }
 
-.smart-toc-list .toc-item > a:hover {
+.smart-toc-list .toc-item > a:hover,
+.smart-toc-list .toc-item > .toc-item-inner > a:hover {
     background: rgba(0, 115, 170, 0.08);
     color: #005177;
 }
 
-.smart-toc-list .toc-item > a:focus {
+.smart-toc-list .toc-item > a:focus,
+.smart-toc-list .toc-item > .toc-item-inner > a:focus {
     outline: 2px solid #0073aa;
     outline-offset: -2px;
 }
 
-.smart-toc-list .toc-item > a.active {
+.smart-toc-list .toc-item > a.active,
+.smart-toc-list .toc-item > .toc-item-inner > a.active {
     background: #0073aa;
     color: #fff;
     font-weight: 500;
 }
 
+.toc-item-inner {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.smart-toc .toc-item > .toc-item-inner,
+.smart-toc-floating-panel-body .toc-item > .toc-item-inner {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.toc-item-inner > a {
+    flex: 1 1 auto;
+}
+
+.smart-toc-copy-link {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    margin-left: 6px;
+    padding: 0;
+    background: transparent;
+    border: none;
+    border-radius: 4px;
+    color: #999;
+    cursor: pointer;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.2s ease;
+    vertical-align: middle;
+    flex-shrink: 0;
+}
+
+.smart-toc-copy-link svg {
+    width: 14px;
+    height: 14px;
+}
+
+.smart-toc .toc-item > a:hover + .smart-toc-copy-link,
+.smart-toc .toc-item:hover > .smart-toc-copy-link,
+.smart-toc .toc-item > .toc-item-inner > a:hover + .smart-toc-copy-link,
+.smart-toc .toc-item > .toc-item-inner:hover > .smart-toc-copy-link,
+.smart-toc .toc-item:hover .smart-toc-copy-link,
+.smart-toc .toc-item:focus-within .smart-toc-copy-link,
+.smart-toc-copy-link:hover,
+.smart-toc-copy-link:focus {
+    opacity: 1;
+    visibility: visible;
+}
+
+.smart-toc-copy-link:hover {
+    background: rgba(0, 115, 170, 0.1);
+    color: #0073aa;
+}
+
+.smart-toc-copy-link:focus-visible {
+    outline: 2px solid #0073aa;
+    outline-offset: 1px;
+}
+
+.smart-toc-copy-link.copied {
+    color: #46b450;
+}
+
+.smart-toc-copy-link.copied:hover {
+    background: rgba(70, 180, 80, 0.1);
+}
+
+/* Copy tooltip */
+.smart-toc-copy-tooltip {
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 4px 8px;
+    background: #333;
+    color: #fff;
+    font-size: 11px;
+    font-weight: 500;
+    border-radius: 4px;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.2s ease;
+    pointer-events: none;
+    margin-bottom: 4px;
+    z-index: 10;
+}
+
+.smart-toc-copy-tooltip::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 4px solid transparent;
+    border-top-color: #333;
+}
+
+.smart-toc-copy-link:hover .smart-toc-copy-tooltip,
+.smart-toc-copy-link:focus .smart-toc-copy-tooltip,
+.smart-toc-copy-link.copied .smart-toc-copy-tooltip {
+    opacity: 1;
+    visibility: visible;
+}
+
+.smart-toc-copy-link.is-feedback {
+    color: #256a3a;
+}
+
 /* Heading Level Indentation */
-.toc-level-2 > a {
+.toc-level-2 > a,
+.toc-level-2 > .toc-item-inner > a {
     padding-left: 12px;
 }
 
-.toc-level-3 > a {
+.toc-level-3 > a,
+.toc-level-3 > .toc-item-inner > a {
     padding-left: 28px;
     font-size: 14px;
 }
 
-.toc-level-4 > a {
+.toc-level-4 > a,
+.toc-level-4 > .toc-item-inner > a {
     padding-left: 44px;
     font-size: 13px;
 }
 
-.toc-level-5 > a {
+.toc-level-5 > a,
+.toc-level-5 > .toc-item-inner > a {
     padding-left: 60px;
     font-size: 13px;
 }
 
-.toc-level-6 > a {
+.toc-level-6 > a,
+.toc-level-6 > .toc-item-inner > a {
     padding-left: 76px;
     font-size: 12px;
 }
@@ -161,6 +333,182 @@
     font-weight: 600;
     color: inherit;
     margin-right: 4px;
+}
+
+/* Basic sticky mode */
+.smart-toc.smart-toc-sticky {
+    position: sticky;
+    top: var(--aniksmta-sticky-top, 20px);
+    z-index: 10;
+}
+
+.smart-toc.smart-toc-sticky-left,
+.smart-toc.smart-toc-sticky-right {
+    position: static;
+    top: auto;
+}
+
+/* Floating sticky mode for left/right positions */
+.smart-toc.smart-toc-sticky.is-sticky {
+    position: fixed;
+    z-index: 9997;
+    max-height: calc(100vh - 40px);
+    overflow-y: auto;
+}
+
+.smart-toc.smart-toc-sticky.is-sticky .smart-toc-body {
+    max-height: calc(100vh - 120px);
+    overflow-y: auto;
+}
+
+/* Reading progress bar */
+.smart-toc-reading-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 3px;
+    background: #0073aa;
+    z-index: 99999;
+    pointer-events: none;
+}
+
+/* Back to top button */
+.smart-toc-back-to-top {
+    --btt-bg-color: #0073aa;
+    --btt-bg-hover-color: #005f8d;
+    --btt-icon-color: #ffffff;
+    position: fixed;
+    right: 24px;
+    bottom: 28px;
+    width: 48px;
+    height: 48px;
+    border: none;
+    border-radius: 50%;
+    background: var(--btt-bg-color);
+    color: var(--btt-icon-color);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(12px);
+    transition: opacity 0.25s ease, transform 0.25s ease, background 0.2s ease;
+    z-index: 9998;
+    padding: 0;
+}
+
+.smart-toc-back-to-top:hover {
+    background: var(--btt-bg-hover-color);
+}
+
+.smart-toc-back-to-top.is-visible,
+.smart-toc-back-to-top.visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.smart-toc-back-to-top .btt-icon {
+    width: 20px;
+    height: 20px;
+    color: var(--btt-icon-color);
+    fill: currentColor;
+}
+
+.smart-toc-back-to-top .progress-ring {
+    position: absolute;
+    inset: -4px;
+    width: 56px;
+    height: 56px;
+    transform: rotate(-90deg);
+    pointer-events: none;
+}
+
+.smart-toc-back-to-top .progress-ring-bg {
+    fill: none;
+    stroke: rgba(0, 0, 0, 0.12);
+    stroke-width: 3;
+}
+
+.smart-toc-back-to-top .progress-ring-fill {
+    fill: none;
+    stroke: var(--btt-bg-color);
+    stroke-width: 3;
+    stroke-linecap: round;
+    stroke-dasharray: 163;
+    stroke-dashoffset: 163;
+    transition: stroke-dashoffset 0.15s ease;
+}
+
+.smart-toc-back-to-top.smart-toc-btt-rounded {
+    border-radius: 12px;
+}
+
+.smart-toc-back-to-top.smart-toc-btt-pill {
+    width: auto;
+    min-width: 56px;
+    padding: 0 16px;
+    border-radius: 999px;
+}
+
+.smart-toc-back-to-top.smart-toc-btt-rounded .progress-ring,
+.smart-toc-back-to-top.smart-toc-btt-pill .progress-ring {
+    display: none;
+}
+
+/* Mobile TOC modal trigger */
+.smart-toc-mobile-toggle-btn,
+.smart-toc-mobile-close,
+.smart-toc-mobile-overlay {
+    display: none;
+}
+
+.smart-toc-mobile-toggle-btn {
+    border: 1px solid #d0d7de;
+    background: #fff;
+    color: #1e1e1e;
+    border-radius: 999px;
+    padding: 10px 16px;
+    font-size: 14px;
+    line-height: 1.2;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+    cursor: pointer;
+}
+
+.smart-toc-mobile-toggle-btn:focus-visible,
+.smart-toc-mobile-close:focus-visible {
+    outline: 2px solid #0073aa;
+    outline-offset: 2px;
+}
+
+.smart-toc-mobile-close {
+    margin-left: 8px;
+    border: 1px solid #d0d7de;
+    background: #fff;
+    color: #1e1e1e;
+    border-radius: 4px;
+    padding: 3px 8px;
+    font-size: 12px;
+    line-height: 1.2;
+    cursor: pointer;
+}
+
+.smart-toc-mobile-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 99997;
+}
+
+.smart-toc-mobile-overlay.is-visible {
+    display: block;
+}
+
+body.smart-toc-mobile-open {
+    overflow: hidden;
 }
 
 /* Responsive */
@@ -183,24 +531,711 @@
         max-height: 350px;
     }
 
-    .smart-toc-list .toc-item > a {
+    .smart-toc-list .toc-item > a,
+    .smart-toc-list .toc-item > .toc-item-inner > a {
         padding: 7px 10px;
     }
 
-    .toc-level-3 > a {
+    .toc-level-3 > a,
+    .toc-level-3 > .toc-item-inner > a {
         padding-left: 22px;
     }
 
-    .toc-level-4 > a {
+    .toc-level-4 > a,
+    .toc-level-4 > .toc-item-inner > a {
         padding-left: 34px;
     }
 
-    .toc-level-5 > a {
+    .toc-level-5 > a,
+    .toc-level-5 > .toc-item-inner > a {
         padding-left: 46px;
     }
 
-    .toc-level-6 > a {
+    .toc-level-6 > a,
+    .toc-level-6 > .toc-item-inner > a {
         padding-left: 58px;
+    }
+
+    .smart-toc-copy-link {
+        padding: 3px 7px;
+        font-size: 11px;
+    }
+
+    .smart-toc.smart-toc-mobile-modal {
+        position: fixed;
+        right: 14px;
+        left: 14px;
+        bottom: 72px;
+        margin: 0;
+        max-width: none;
+        max-height: 70vh;
+        overflow: auto;
+        z-index: 99998;
+        box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2);
+        visibility: hidden;
+        opacity: 0;
+        pointer-events: none;
+        transform: translateY(12px);
+        transition: opacity 0.2s ease, transform 0.2s ease;
+    }
+
+    .smart-toc.smart-toc-mobile-modal.smart-toc-mobile-open {
+        visibility: visible;
+        opacity: 1;
+        pointer-events: auto;
+        transform: translateY(0);
+    }
+
+    .smart-toc.smart-toc-mobile-modal + .smart-toc-mobile-toggle-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        position: fixed;
+        right: 14px;
+        bottom: 14px;
+        z-index: 99999;
+    }
+
+    .smart-toc.smart-toc-mobile-modal .smart-toc-mobile-close {
+        display: inline-block;
+    }
+}
+
+/* Collapsible Sections */
+.smart-toc-section-toggle {
+    background: transparent;
+    border: none;
+    padding: 3px;
+    margin: 1px 2px 0 0;
+    cursor: pointer;
+    color: #555;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s ease, background 0.2s ease;
+    border-radius: 4px;
+    flex-shrink: 0;
+}
+
+.smart-toc-section-toggle:hover {
+    background: rgba(0, 0, 0, 0.05);
+    color: #0073aa;
+}
+
+.smart-toc-section-toggle:focus-visible {
+    outline: 2px solid #0073aa;
+    outline-offset: 2px;
+}
+
+.section-collapsed .smart-toc-section-toggle {
+    transform: rotate(-90deg);
+}
+
+/* ==========================================================================
+   Floating TOC Button & Panel
+   ========================================================================== */
+
+.smart-toc-floating {
+    position: fixed;
+    top: 100px;
+    z-index: 99998;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateX(20px);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.smart-toc-floating.visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(0);
+}
+
+.smart-toc-floating.dismissed {
+    opacity: 0;
+    transform: scale(0.8);
+    pointer-events: none;
+}
+
+/* Position variants */
+.smart-toc-floating.floating-left {
+    left: 20px;
+    transform: translateX(-20px);
+}
+
+.smart-toc-floating.floating-left.visible {
+    transform: translateX(0);
+}
+
+.smart-toc-floating.floating-right {
+    right: 20px;
+}
+
+/* Floating Button Wrapper */
+.smart-toc-floating-btn-wrapper {
+    position: relative;
+    display: inline-flex;
+}
+
+/* Dismiss Button */
+.smart-toc-floating-dismiss {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    width: 24px;
+    height: 24px;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    opacity: 0;
+    visibility: hidden;
+    transform: scale(0.8);
+    transition: all 0.2s ease;
+    z-index: 2;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    color: #666;
+    padding: 0;
+}
+
+.smart-toc-floating-dismiss svg {
+    width: 14px;
+    height: 14px;
+    display: block;
+}
+
+.smart-toc-floating-btn-wrapper:hover .smart-toc-floating-dismiss,
+.smart-toc-floating-dismiss:focus {
+    opacity: 1;
+    visibility: visible;
+    transform: scale(1);
+}
+
+/* Always show dismiss when floating TOC is visible */
+.smart-toc-floating.visible .smart-toc-floating-dismiss {
+    opacity: 1;
+    visibility: visible;
+    transform: scale(1);
+}
+
+.smart-toc-floating-dismiss:hover {
+    background: #ff4444;
+    border-color: #ff4444;
+    color: #fff;
+}
+
+.smart-toc-floating.floating-left .smart-toc-floating-dismiss {
+    right: auto;
+    left: -8px;
+}
+
+/* Floating Button */
+.smart-toc-floating-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: linear-gradient(135deg, #0073aa 0%, #005580 100%);
+    color: #fff;
+    border: none;
+    padding: 12px 16px;
+    border-radius: 50px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    box-shadow: 0 4px 20px rgba(0, 115, 170, 0.35);
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+.smart-toc-floating-btn:hover {
+    background: linear-gradient(135deg, #005580 0%, #003855 100%);
+    box-shadow: 0 6px 25px rgba(0, 115, 170, 0.45);
+    transform: translateY(-2px);
+}
+
+.smart-toc-floating-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 4px 15px rgba(0, 115, 170, 0.3);
+}
+
+/* Icon only style */
+.smart-toc-floating.style-icon_only .smart-toc-floating-btn {
+    padding: 14px;
+    border-radius: 50%;
+    width: 52px;
+    height: 52px;
+    justify-content: center;
+}
+
+.smart-toc-floating.style-icon_only .smart-toc-floating-btn-text,
+.smart-toc-floating.style-icon_only .smart-toc-floating-counter {
+    display: none;
+}
+
+/* Icon + Counter style */
+.smart-toc-floating.style-icon_counter .smart-toc-floating-btn-text {
+    display: none;
+}
+
+.smart-toc-floating-counter {
+    background: rgba(255, 255, 255, 0.25);
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.smart-toc-floating.style-icon_text .smart-toc-floating-counter {
+    display: none;
+}
+
+/* Button Icon */
+.smart-toc-floating-btn svg {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+    transition: transform 0.3s ease;
+}
+
+.smart-toc-floating.panel-open .smart-toc-floating-btn svg {
+    transform: rotate(180deg);
+}
+
+/* Floating Panel */
+.smart-toc-floating-panel {
+    position: absolute;
+    top: calc(100% + 12px);
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(0, 0, 0, 0.05);
+    max-height: 0;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    opacity: 0;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    width: 320px;
+}
+
+.smart-toc-floating.floating-left .smart-toc-floating-panel {
+    left: 0;
+}
+
+.smart-toc-floating.floating-right .smart-toc-floating-panel {
+    right: 0;
+}
+
+.smart-toc-floating.panel-open .smart-toc-floating-panel {
+    max-height: 60vh;
+    opacity: 1;
+}
+
+/* Panel Header */
+.smart-toc-floating-panel-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 20px 12px;
+    border-bottom: 1px solid #f0f0f0;
+    position: sticky;
+    top: 0;
+    background: #fff;
+    border-radius: 16px 16px 0 0;
+    z-index: 1;
+}
+
+.smart-toc-floating-panel-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: #222;
+    margin: 0;
+}
+
+.smart-toc-floating-panel-close {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 28px !important;
+    height: 28px !important;
+    min-width: 28px !important;
+    min-height: 28px !important;
+    border: none !important;
+    border-radius: 4px !important;
+    cursor: pointer !important;
+    background: transparent !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    opacity: 0.7;
+    transition: opacity 0.2s ease, background 0.2s ease;
+    line-height: 1 !important;
+    box-sizing: border-box !important;
+    font-size: 24px !important;
+    font-weight: 300 !important;
+    font-family: Arial, sans-serif !important;
+    color: #333;
+}
+
+.smart-toc-floating-panel-close:hover {
+    opacity: 1;
+    background: rgba(0, 0, 0, 0.05);
+}
+
+/* Panel Progress Bar */
+.smart-toc-floating-progress {
+    height: 3px;
+    background: #f0f0f0;
+    margin: 0;
+}
+
+.smart-toc-floating-progress-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, #0073aa 0%, #00a0d2 100%);
+    transition: width 0.15s ease-out;
+    border-radius: 0 3px 3px 0;
+}
+
+/* Panel Body */
+.smart-toc-floating-panel-body {
+    padding: 12px 16px 16px;
+    flex: 1 1 auto;
+    overflow-x: hidden;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+}
+
+/* Panel TOC List */
+.smart-toc-floating-panel-body .smart-toc-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.smart-toc-floating-panel-body .toc-item {
+    margin: 0;
+    display: flex;
+    align-items: center;
+    list-style: none !important;
+}
+
+.smart-toc-floating-panel-body .toc-item > a,
+.smart-toc-floating-panel-body .toc-item > .toc-item-inner > a {
+    display: block;
+    padding: 8px 12px;
+    color: #444;
+    text-decoration: none;
+    font-size: 14px;
+    line-height: 1.45;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+    border-left: 3px solid transparent;
+    margin-left: 0;
+    word-break: break-word;
+    overflow-wrap: break-word;
+    flex: 1;
+    min-width: 0;
+}
+
+/* Guard against theme-injected bullets/dots in floating panel list items */
+.smart-toc-floating-panel-body .toc-item::before,
+.smart-toc-floating-panel-body .toc-item::after,
+.smart-toc-floating-panel-body .toc-item::marker,
+.smart-toc-floating-panel-body .toc-item > a::before,
+.smart-toc-floating-panel-body .toc-item > a::after,
+.smart-toc-floating-panel-body .toc-item > .toc-item-inner > a::before,
+.smart-toc-floating-panel-body .toc-item > .toc-item-inner > a::after {
+    content: none !important;
+    display: none !important;
+}
+
+.smart-toc-floating-panel-body .toc-item > .toc-item-inner {
+    width: 100%;
+    align-items: flex-start;
+}
+
+.smart-toc-floating-panel-body .toc-item > a:hover,
+.smart-toc-floating-panel-body .toc-item > .toc-item-inner > a:hover {
+    background: #f5f8fa;
+    color: #0073aa;
+}
+
+.smart-toc-floating-panel-body .toc-item > a.active,
+.smart-toc-floating-panel-body .toc-item > .toc-item-inner > a.active {
+    background: linear-gradient(90deg, #f7fafc 0%, #eef3f7 100%);
+    color: #111827;
+    font-weight: 600;
+    border-left-color: #0073aa;
+    box-shadow: inset 0 0 0 1px rgba(15, 23, 42, 0.08);
+    margin-left: 0;
+}
+
+/* Nested items */
+.smart-toc-floating-panel-body .toc-level-2 { padding-left: 0; }
+.smart-toc-floating-panel-body .toc-level-3 { padding-left: 12px; }
+.smart-toc-floating-panel-body .toc-level-4 { padding-left: 24px; }
+.smart-toc-floating-panel-body .toc-level-5 { padding-left: 36px; }
+.smart-toc-floating-panel-body .toc-level-6 { padding-left: 48px; }
+
+.smart-toc-floating-panel-body ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    border-left: none !important;
+}
+
+/* Show section toggles in floating panel */
+.smart-toc-floating-panel-body .toc-section-toggle {
+    background: #f5f5f5;
+    border: none;
+    color: #666;
+    font-size: 13px;
+    font-weight: 600;
+    width: 20px;
+    height: 20px;
+    min-width: 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 6px;
+    vertical-align: middle;
+    transition: all 0.2s ease;
+    line-height: 1;
+}
+
+.smart-toc-floating-panel-body .toc-section-toggle:hover {
+    background: #e0e0e0;
+    color: #333;
+}
+
+.smart-toc-floating-panel-body .toc-item.has-children {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+}
+
+.smart-toc-floating-panel-body .toc-item.has-children > a,
+.smart-toc-floating-panel-body .toc-item.has-children > .toc-item-inner {
+    flex: 1;
+}
+
+.smart-toc-floating-panel-body .toc-item.has-children > ul {
+    width: 100%;
+    flex-basis: 100%;
+}
+
+/* Remove dashed border from nested lists */
+.smart-toc-floating-panel-body .smart-toc-list ul {
+    border-left: none !important;
+    margin-left: 0 !important;
+    padding-left: 0 !important;
+}
+
+/* Copy link in floating panel */
+.smart-toc-floating-panel-body .smart-toc-copy-link {
+    opacity: 0;
+    visibility: hidden;
+    margin-left: auto;
+    flex-shrink: 0;
+    width: 24px;
+    height: 24px;
+    transition: opacity 0.2s ease, visibility 0.2s ease;
+}
+
+.smart-toc-floating-panel-body .toc-item > a:hover + .smart-toc-copy-link,
+.smart-toc-floating-panel-body .toc-item:hover > .smart-toc-copy-link,
+.smart-toc-floating-panel-body .toc-item > .toc-item-inner > a:hover + .smart-toc-copy-link,
+.smart-toc-floating-panel-body .toc-item > .toc-item-inner:hover > .smart-toc-copy-link,
+.smart-toc-floating-panel-body .toc-item:hover .smart-toc-copy-link,
+.smart-toc-floating-panel-body .toc-item:focus-within .smart-toc-copy-link,
+.smart-toc-floating-panel-body .smart-toc-copy-link:hover,
+.smart-toc-floating-panel-body .smart-toc-copy-link:focus {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Panel scrollbar styling */
+.smart-toc-floating-panel-body::-webkit-scrollbar {
+    width: 5px;
+}
+
+.smart-toc-floating-panel-body::-webkit-scrollbar-track {
+    background: #f5f5f5;
+    border-radius: 3px;
+}
+
+.smart-toc-floating-panel-body::-webkit-scrollbar-thumb {
+    background: #d0d0d0;
+    border-radius: 3px;
+}
+
+.smart-toc-floating-panel-body::-webkit-scrollbar-thumb:hover {
+    background: #b0b0b0;
+}
+
+/* Firefox scrollbar */
+.smart-toc-floating-panel-body {
+    scrollbar-width: thin;
+    scrollbar-color: #d0d0d0 #f5f5f5;
+}
+
+/* Hide on mobile/tablet - floating TOC is desktop only */
+@media screen and (max-width: 1023px) {
+    .smart-toc-floating {
+        display: none !important;
+    }
+}
+
+/* Animation for panel items */
+.smart-toc-floating.panel-open .smart-toc-floating-panel-body .toc-item {
+    animation: fadeInUp 0.2s ease forwards;
+    opacity: 0;
+}
+
+.smart-toc-floating.panel-open .smart-toc-floating-panel-body .toc-item:nth-child(1) { animation-delay: 0.05s; }
+.smart-toc-floating.panel-open .smart-toc-floating-panel-body .toc-item:nth-child(2) { animation-delay: 0.08s; }
+.smart-toc-floating.panel-open .smart-toc-floating-panel-body .toc-item:nth-child(3) { animation-delay: 0.11s; }
+.smart-toc-floating.panel-open .smart-toc-floating-panel-body .toc-item:nth-child(4) { animation-delay: 0.14s; }
+.smart-toc-floating.panel-open .smart-toc-floating-panel-body .toc-item:nth-child(5) { animation-delay: 0.17s; }
+.smart-toc-floating.panel-open .smart-toc-floating-panel-body .toc-item:nth-child(n+6) { animation-delay: 0.2s; }
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ==========================================================================
+   Floating Panel Dark Theme
+   ========================================================================== */
+
+/* Dark theme for floating panel */
+.smart-toc-floating.floating-theme-dark .smart-toc-floating-panel {
+    background: #1e1e1e;
+    border: 1px solid #333;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+.smart-toc-floating.floating-theme-dark .smart-toc-floating-panel-header {
+    background: #2a2a2a;
+    border-bottom-color: #333;
+}
+
+.smart-toc-floating.floating-theme-dark .smart-toc-floating-panel-title {
+    color: #fff;
+}
+
+.smart-toc-floating.floating-theme-dark .smart-toc-floating-panel-close {
+    color: #aaa;
+}
+
+.smart-toc-floating.floating-theme-dark .smart-toc-floating-panel-close:hover {
+    color: #fff;
+    background: #333;
+}
+
+.smart-toc-floating.floating-theme-dark .smart-toc-floating-panel-body {
+    background: #1e1e1e;
+}
+
+.smart-toc-floating.floating-theme-dark .toc-item > a,
+.smart-toc-floating.floating-theme-dark .toc-item > .toc-item-inner > a {
+    color: #ccc;
+}
+
+.smart-toc-floating.floating-theme-dark .toc-item > a:hover,
+.smart-toc-floating.floating-theme-dark .toc-item > .toc-item-inner > a:hover {
+    color: #fff;
+    background: #333;
+}
+
+.smart-toc-floating.floating-theme-dark .toc-item > a.active,
+.smart-toc-floating.floating-theme-dark .toc-item > .toc-item-inner > a.active {
+    background: linear-gradient(90deg, #f8fafc 0%, #e7ecf2 100%);
+    color: #111827;
+    border-left-color: #60a5fa;
+    box-shadow: inset 0 0 0 1px rgba(96, 165, 250, 0.35);
+}
+
+.smart-toc-floating.floating-theme-dark .smart-toc-active-indicator {
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+}
+
+.smart-toc-floating.floating-theme-dark .smart-toc-floating-progress {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.smart-toc-floating.floating-theme-dark .smart-toc-floating-progress-fill {
+    background: #fff;
+}
+
+.smart-toc-floating.floating-theme-dark .smart-toc-floating-btn {
+    background: #1e1e1e;
+    color: #fff;
+    border-color: #333;
+}
+
+.smart-toc-floating.floating-theme-dark .smart-toc-floating-btn:hover {
+    background: #2a2a2a;
+    border-color: #444;
+}
+
+.smart-toc-floating.floating-theme-dark .smart-toc-floating-dismiss {
+    background: rgba(30, 30, 30, 0.95);
+    color: #aaa;
+}
+
+.smart-toc-floating.floating-theme-dark .smart-toc-floating-dismiss:hover {
+    background: #2a2a2a;
+    color: #fff;
+}
+
+.smart-toc-floating.floating-theme-dark .smart-toc-copy-link {
+    color: #888;
+}
+
+.smart-toc-floating.floating-theme-dark .smart-toc-copy-link:hover {
+    color: #fff;
+}
+
+.smart-toc-floating.floating-theme-dark .smart-toc-floating-counter {
+    color: #ccc;
+    background: rgba(255, 255, 255, 0.05);
+}
+
+/* Scrollbar for dark theme */
+.smart-toc-floating.floating-theme-dark .smart-toc-floating-panel-body::-webkit-scrollbar-track {
+    background: #1e1e1e;
+}
+
+.smart-toc-floating.floating-theme-dark .smart-toc-floating-panel-body::-webkit-scrollbar-thumb {
+    background: #444;
+}
+
+.smart-toc-floating.floating-theme-dark .smart-toc-floating-panel-body::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+.smart-toc-floating.floating-theme-dark .smart-toc-floating-panel-body {
+    scrollbar-color: #444 #1e1e1e;
+}
+
+/* Avoid collision with Floating Desktop TOC */
+@media screen and (min-width: 769px) {
+    .smart-toc-floating-btn-wrapper ~ .smart-toc-back-to-top,
+    .smart-toc-floating ~ .smart-toc-back-to-top {
+        bottom: 100px;
     }
 }
 
@@ -227,6 +1262,24 @@
     .smart-toc-list .toc-item > a {
         transition: none;
     }
+}
+
+/* ===================== */
+/* TOC Theme: Default    */
+/* ===================== */
+.smart-toc.toc-theme-default {
+    background: #f3f4f6;
+    border: 1px solid #dce1e7;
+    box-shadow: 0 1px 3px rgba(15, 23, 42, 0.06);
+}
+
+.smart-toc.toc-theme-default .smart-toc-header {
+    background: #eceff3;
+    border-bottom: 1px solid #dce1e7;
+}
+
+.smart-toc.toc-theme-default .smart-toc-body {
+    background: #f7f8fa;
 }
 
 /* ===================== */
@@ -260,12 +1313,21 @@
     border-bottom: 1px solid #2d2d3f;
 }
 
+.smart-toc.toc-theme-dark .smart-toc-reading-time {
+    color: #a0a0b0;
+}
+
 .smart-toc.toc-theme-dark .smart-toc-title {
     color: #e0e0e0;
 }
 
 .smart-toc.toc-theme-dark .toggle-icon {
     border-top-color: #a0a0b0;
+}
+
+.smart-toc.toc-theme-dark.icon-style-plus_minus .toggle-icon::before,
+.smart-toc.toc-theme-dark.icon-style-plus_minus .toggle-icon::after {
+    background-color: #a0a0b0;
 }
 
 .smart-toc.toc-theme-dark .smart-toc-list .toc-item > a {
@@ -279,6 +1341,15 @@
 
 .smart-toc.toc-theme-dark .smart-toc-list .toc-item > a.active {
     background: #3a7bd5;
+    color: #fff;
+}
+
+.smart-toc.toc-theme-dark .smart-toc-section-toggle {
+    color: #a0a0b0;
+}
+
+.smart-toc.toc-theme-dark .smart-toc-section-toggle:hover {
+    background: rgba(255, 255, 255, 0.1);
     color: #fff;
 }
 

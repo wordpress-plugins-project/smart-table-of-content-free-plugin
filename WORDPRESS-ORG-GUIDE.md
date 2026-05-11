@@ -1,6 +1,6 @@
 # WordPress.org Plugin Submission & Approval Guide
 
-> **A battle-tested checklist based on real submission experience with [Anik Smart Table of Contents](https://wordpress.org/plugins/anik-smart-table-of-contents/).**
+> **A battle-tested checklist based on real submission experience with [ Smart Table of Contents](https://wordpress.org/plugins/anik-smart-table-of-contents/).**
 > Use this guide as a reusable template for every future plugin you submit.
 
 ---

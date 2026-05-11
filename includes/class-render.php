@@ -51,12 +51,37 @@ class Aniksmta_Render {
 	 * Conditionally enqueue assets
 	 */
 	public function maybe_enqueue_assets() {
-		if ( ! is_singular() ) {
+		if ( ! $this->settings->get( 'enabled' ) ) {
 			return;
 		}
 
-		if ( ! $this->settings->should_display() ) {
+		// Respect context-based exclusions before loading frontend assets.
+		if ( $this->settings->get( 'exclude_home', true ) && ( is_front_page() || is_home() ) ) {
 			return;
+		}
+		if ( $this->settings->get( 'exclude_archive', true ) && is_archive() ) {
+			return;
+		}
+		if ( $this->settings->get( 'exclude_search', true ) && is_search() ) {
+			return;
+		}
+		if ( $this->settings->get( 'exclude_404', true ) && is_404() ) {
+			return;
+		}
+
+		// On singular content we can cheaply verify post-specific eligibility.
+		if ( is_singular() ) {
+			$post_id    = get_queried_object_id();
+			$post_type  = $post_id ? get_post_type( $post_id ) : '';
+			$post_types = $this->settings->get( 'post_types' );
+
+			if ( $post_type && ! in_array( $post_type, $post_types, true ) ) {
+				return;
+			}
+
+			if ( $post_id && get_post_meta( $post_id, '_aniksmta_disable', true ) ) {
+				return;
+			}
 		}
 
 		$this->enqueue_assets();
@@ -74,14 +99,26 @@ class Aniksmta_Render {
 		);
 
 		// Add dynamic theme color styles.
-		$theme_color = $this->settings->get( 'theme_color' );
+		$theme_color = sanitize_hex_color( $this->settings->get( 'theme_color' ) );
 		if ( ! empty( $theme_color ) ) {
-			$hover_color = $this->adjust_brightness( $theme_color, -20 );
-			$inline_css  = '.smart-toc .toc-item > a { color: ' . esc_attr( $theme_color ) . '; }';
-			$inline_css .= '.smart-toc .toc-item > a:hover { color: ' . esc_attr( $hover_color ) . '; }';
-			$inline_css .= '.smart-toc .smart-toc-toggle { color: ' . esc_attr( $theme_color ) . '; }';
-			$inline_css .= '.smart-toc .toc-item > a.active { background: ' . esc_attr( $theme_color ) . ' !important; color: #fff !important; }';
-			$inline_css .= '.smart-toc-header { border-left-color: ' . esc_attr( $theme_color ) . '; }';
+			$is_light_color       = $this->is_light_color( $theme_color );
+			$accent_color         = $is_light_color ? $this->adjust_brightness( $theme_color, -170 ) : $theme_color;
+			$hover_color          = $this->adjust_brightness( $accent_color, -20 );
+			$active_bg_color      = $is_light_color ? $this->adjust_brightness( $theme_color, -20 ) : $theme_color;
+			$active_text_color    = $this->get_contrast_text_color( $active_bg_color );
+			$active_border_color  = $is_light_color ? $this->adjust_brightness( $theme_color, -90 ) : $hover_color;
+			$active_outline_color = $is_light_color ? '#d5d9dd' : $this->adjust_brightness( $theme_color, -40 );
+
+			$inline_css  = '.smart-toc .toc-item > a, .smart-toc .toc-item > .toc-item-inner > a { color: ' . esc_attr( $accent_color ) . '; }';
+			$inline_css .= '.smart-toc .toc-item > a:hover, .smart-toc .toc-item > .toc-item-inner > a:hover { color: ' . esc_attr( $hover_color ) . '; }';
+			$inline_css .= '.smart-toc .smart-toc-toggle { color: ' . esc_attr( $accent_color ) . '; }';
+			$inline_css .= '.smart-toc .toc-item > a.active, .smart-toc .toc-item > .toc-item-inner > a.active { background: ' . esc_attr( $active_bg_color ) . ' !important; color: ' . esc_attr( $active_text_color ) . ' !important; border-left-color: ' . esc_attr( $active_border_color ) . ' !important; box-shadow: inset 0 0 0 1px ' . esc_attr( $active_outline_color ) . '; }';
+			$inline_css .= '.smart-toc-header { border-left-color: ' . esc_attr( $accent_color ) . '; }';
+			$inline_css .= '.smart-toc-reading-progress { background: ' . esc_attr( $accent_color ) . '; }';
+			$inline_css .= '.smart-toc-floating-btn { background: ' . esc_attr( $accent_color ) . ' !important; }';
+			$inline_css .= '.smart-toc-floating-btn:hover { background: ' . esc_attr( $hover_color ) . ' !important; }';
+			$inline_css .= '.smart-toc-back-to-top { --btt-bg-color: ' . esc_attr( $accent_color ) . '; --btt-bg-hover-color: ' . esc_attr( $hover_color ) . '; }';
+			$inline_css .= '.smart-toc.icon-style-plus_minus .smart-toc-toggle:hover .toggle-icon::before, .smart-toc.icon-style-plus_minus .smart-toc-toggle:hover .toggle-icon::after { background-color: ' . esc_attr( $accent_color ) . ' !important; }';
 			wp_add_inline_style( 'aniksmta-toc', $inline_css );
 		}
 
@@ -97,9 +134,42 @@ class Aniksmta_Render {
 			'aniksmta-toc-js',
 			'aniksmtaSettings',
 			array(
-				'smoothScroll'    => $this->settings->get( 'smooth_scroll' ),
-				'highlightActive' => $this->settings->get( 'highlight_active' ),
-				'scrollOffset'    => $this->settings->get( 'scroll_offset', 80 ),
+				'smoothScroll'               => $this->settings->get( 'smooth_scroll' ),
+				'highlightActive'            => $this->settings->get( 'highlight_active' ),
+				'scrollOffset'               => $this->settings->get( 'scroll_offset', 80 ),
+				'copyLink'                   => $this->settings->get( 'copy_link', true ),
+				'readingProgress'            => $this->settings->get( 'reading_progress', true ),
+				'dynamicContent'             => $this->settings->get( 'dynamic_content', true ),
+				'lazyLoad'                   => $this->settings->get( 'lazy_load_toc', true ),
+				'mobileModal'                => $this->settings->get( 'mobile_toc_modal', false ),
+				'floatingDesktop'            => $this->settings->get( 'floating_desktop', true ),
+				'floatingTocPosition'        => $this->settings->get( 'floating_toc_position', 'right' ),
+				'floatingTocStyle'           => $this->settings->get( 'floating_toc_style', 'icon_text' ),
+				'floatingTocTheme'           => $this->settings->get( 'floating_toc_theme', 'dark' ),
+				'floatingTocPanelWidth'      => $this->settings->get( 'floating_toc_panel_width', 320 ),
+				'floatingTocAutoClose'       => $this->settings->get( 'floating_toc_auto_close', true ),
+				'floatingTocShowProgress'    => $this->settings->get( 'floating_toc_show_progress', true ),
+				'floatingTocDefaultExpanded' => $this->settings->get( 'floating_toc_default_expanded', true ),
+				'stickyPosition'             => $this->settings->get( 'sticky_position', 'inline' ),
+				'stickyWidth'                => $this->settings->get( 'sticky_width', 280 ),
+				'stickyOffsetTop'            => $this->settings->get( 'sticky_offset', 20 ),
+				'collapsibleSections'        => $this->settings->get( 'collapsible_sections', true ),
+				'sectionsCollapsed'          => $this->settings->get( 'sections_collapsed', false ),
+				'backToTop'                  => $this->settings->get( 'back_to_top', false ),
+				'backToTopIcon'              => $this->settings->get( 'back_to_top_icon', 'arrow' ),
+				'backToTopStyle'             => $this->settings->get( 'back_to_top_style', 'circle' ),
+				'backToTopBgColor'           => $this->settings->get( 'back_to_top_bg_color', '' ),
+				'backToTopIconColor'         => $this->settings->get( 'back_to_top_icon_color', '#ffffff' ),
+				'backToTopShowDesktop'       => $this->settings->get( 'back_to_top_show_desktop', true ),
+				'backToTopShowTablet'        => $this->settings->get( 'back_to_top_show_tablet', true ),
+				'backToTopShowMobile'        => $this->settings->get( 'back_to_top_show_mobile', true ),
+				'autoDarkMode'               => $this->settings->get( 'auto_dark_mode', false ),
+				'copyLabel'                  => __( 'Copy', 'anik-smart-table-of-contents' ),
+				'copySuccessLabel'           => __( 'Copied', 'anik-smart-table-of-contents' ),
+				'copyErrorLabel'             => __( 'Error', 'anik-smart-table-of-contents' ),
+				'mobileOpenLabel'            => __( 'Contents', 'anik-smart-table-of-contents' ),
+				'mobileCloseLabel'           => __( 'Close', 'anik-smart-table-of-contents' ),
+				'desktopOpenLabel'           => __( 'Table of Contents', 'anik-smart-table-of-contents' ),
 			)
 		);
 	}
@@ -133,13 +203,63 @@ class Aniksmta_Render {
 	}
 
 	/**
+	 * Determine if a hex color is considered light.
+	 *
+	 * @param string $hex Hex color.
+	 * @return bool
+	 */
+	private function is_light_color( $hex ) {
+		$rgb = $this->hex_to_rgb( $hex );
+		if ( null === $rgb ) {
+			return false;
+		}
+
+		$luminance = ( ( 0.299 * $rgb['r'] ) + ( 0.587 * $rgb['g'] ) + ( 0.114 * $rgb['b'] ) ) / 255;
+		return $luminance >= 0.78;
+	}
+
+	/**
+	 * Get readable text color for a given background color.
+	 *
+	 * @param string $background_hex Hex background color.
+	 * @return string
+	 */
+	private function get_contrast_text_color( $background_hex ) {
+		return $this->is_light_color( $background_hex ) ? '#1f2937' : '#ffffff';
+	}
+
+	/**
+	 * Convert hex color to RGB array.
+	 *
+	 * @param string $hex Hex color.
+	 * @return array|null
+	 */
+	private function hex_to_rgb( $hex ) {
+		$hex = ltrim( (string) $hex, '#' );
+
+		if ( 3 === strlen( $hex ) ) {
+			$hex = $hex[0] . $hex[0] . $hex[1] . $hex[1] . $hex[2] . $hex[2];
+		}
+
+		if ( 6 !== strlen( $hex ) || ! ctype_xdigit( $hex ) ) {
+			return null;
+		}
+
+		return array(
+			'r' => hexdec( substr( $hex, 0, 2 ) ),
+			'g' => hexdec( substr( $hex, 2, 2 ) ),
+			'b' => hexdec( substr( $hex, 4, 2 ) ),
+		);
+	}
+
+	/**
 	 * Main render function
 	 *
 	 * @param string $content Post content.
 	 * @return string
 	 */
 	public function render( $content ) {
-		if ( ! is_singular() || ! in_the_loop() || ! is_main_query() ) {
+		if ( ! in_the_loop() || ! is_main_query() ) {
 			return $content;
 		}
 
@@ -289,7 +409,7 @@ class Aniksmta_Render {
 				$id         = $this->generate_heading_id( $clean_text, $used_ids );
 				$used_ids[] = $id;
 
-				// Add ID to heading — use positional replace to avoid duplicate heading corruption.
+				// Add ID to heading; use positional replace to avoid duplicate heading corruption.
 				$new_heading = sprintf(
 					'<h%s id="%s"%s>%s</h%s>',
 					$level,
@@ -311,7 +431,12 @@ class Aniksmta_Render {
 			);
 		}
 
-		// Build TOC HTML
+		// Calculate reading time
+		if ( $this->settings->get( 'reading_time', true ) ) {
+			$word_count                     = count( preg_split( '/\s+/', wp_strip_all_tags( $content ) ) );
+			$overrides['reading_time_mins'] = max( 1, (int) ceil( $word_count / 200 ) );
+		}
+
 		$toc_html = $this->build_toc_html( $toc_items, $overrides );
 
 		return array(
@@ -363,14 +488,56 @@ class Aniksmta_Render {
 
 		$collapsed_class = $collapsed ? ' collapsed' : '';
 		$aria_expanded   = $collapsed ? 'false' : 'true';
+		$sticky_class    = '';
+		$sticky_style    = '';
+		$sticky_attrs    = '';
+		$mobile_class    = '';
+		$icon_style      = $this->settings->get( 'toggle_icon_style', 'chevron' );
+		$icon_class      = ' icon-style-' . sanitize_html_class( $icon_style );
+
+		if ( $this->settings->get( 'sticky_toc', false ) ) {
+			$sticky_position = $this->settings->get( 'sticky_position', 'inline' );
+			if ( ! in_array( $sticky_position, array( 'inline', 'left', 'right' ), true ) ) {
+				$sticky_position = 'inline';
+			}
+
+			$sticky_class = ' smart-toc-sticky smart-toc-sticky-' . sanitize_html_class( $sticky_position );
+			$sticky_top   = absint( $this->settings->get( 'sticky_offset', 20 ) );
+			$sticky_width = absint( $this->settings->get( 'sticky_width', 280 ) );
+
+			if ( 'inline' === $sticky_position ) {
+				$sticky_style = ' style="--aniksmta-sticky-top: ' . esc_attr( $sticky_top ) . 'px;"';
+			}
+
+			$sticky_attrs  = ' data-sticky-position="' . esc_attr( $sticky_position ) . '"';
+			$sticky_attrs .= ' data-sticky-width="' . esc_attr( $sticky_width ) . '"';
+			$sticky_attrs .= ' data-sticky-offset="' . esc_attr( $sticky_top ) . '"';
+		}
+
+		if ( $this->settings->get( 'mobile_toc_modal', false ) ) {
+			$mobile_class = ' smart-toc-mobile-modal';
+		}
 
 		// TOC theme class.
-		$toc_theme   = $this->settings->get( 'toc_theme', 'default' );
-		$theme_class = 'default' !== $toc_theme ? ' toc-theme-' . sanitize_html_class( $toc_theme ) : '';
+		$toc_theme   = $this->settings->get( 'toc_theme', 'dark' );
+		$theme_class = ' toc-theme-' . sanitize_html_class( $toc_theme );
 
-		$html  = '<nav class="smart-toc' . esc_attr( $collapsed_class . $theme_class ) . '" aria-label="' . esc_attr__( 'Table of Contents', 'anik-smart-table-of-contents' ) . '">';
+		$reading_time_html = '';
+		if ( $this->settings->get( 'reading_time', true ) && isset( $overrides['reading_time_mins'] ) ) {
+			$mins = $overrides['reading_time_mins'];
+			/* translators: %d: Estimated reading time in minutes. */
+			$time_text         = sprintf( _n( '%d min read', '%d mins read', $mins, 'anik-smart-table-of-contents' ), $mins );
+			$reading_time_html = '<span class="smart-toc-reading-time">' . esc_html( $time_text ) . '</span>';
+		}
+
+		$html  = '<nav class="smart-toc' . esc_attr( $collapsed_class . $theme_class . $sticky_class . $mobile_class . $icon_class ) . '"' . $sticky_style . $sticky_attrs . ' aria-label="' . esc_attr__( 'Table of Contents', 'anik-smart-table-of-contents' ) . '">';
 		$html .= '<div class="smart-toc-header">';
+		$html .= '<div class="smart-toc-title-wrapper">';
 		$html .= '<span class="smart-toc-title">' . esc_html( $title ) . '</span>';
+		if ( $reading_time_html ) {
+			$html .= $reading_time_html;
+		}
+		$html .= '</div>';
 		$html .= '<button class="smart-toc-toggle" aria-expanded="' . esc_attr( $aria_expanded ) . '" aria-label="' . esc_attr__( 'Toggle Table of Contents', 'anik-smart-table-of-contents' ) . '">';
 		$html .= '<span class="toggle-icon"></span>';
 		$html .= '</button>';
@@ -403,22 +570,48 @@ class Aniksmta_Render {
 			$show_numbers = false;
 		}
 
-		$html    = '<ul class="smart-toc-list">';
-		$counter = 1;
+		$html                  = '<ul class="smart-toc-list">';
+		$flat_counter          = 1;
+		$hierarchical_counters = array();
+		$copy_link             = (bool) $this->settings->get( 'copy_link', true );
+
+		// Determine the highest heading level present to use as the base
+		$base_level = 6;
+		foreach ( $items as $item ) {
+			if ( $item['level'] < $base_level ) {
+				$base_level = $item['level'];
+			}
+		}
 
 		foreach ( $items as $item ) {
-			$indent_class = 'toc-level-' . $item['level'];
+			$level        = $item['level'];
+			$indent_class = 'toc-level-' . $level;
 			$number_html  = '';
 
 			if ( $show_numbers ) {
-				$formatted_number = $this->format_counter( $counter, $counter_format );
-				$number_html      = '<span class="toc-number">' . esc_html( $formatted_number ) . '.</span> ';
+				if ( 'hierarchical' === $counter_format ) {
+					// Reset deeper levels
+					foreach ( $hierarchical_counters as $l => $v ) {
+						if ( $l > $level ) {
+							unset( $hierarchical_counters[ $l ] );
+						}
+					}
+					$hierarchical_counters[ $level ] = isset( $hierarchical_counters[ $level ] ) ? $hierarchical_counters[ $level ] + 1 : 1;
+
+					$parts = array();
+					for ( $i = $base_level; $i <= $level; $i++ ) {
+						$parts[] = isset( $hierarchical_counters[ $i ] ) ? $hierarchical_counters[ $i ] : 1;
+					}
+					$number_html = '<span class="toc-number">' . esc_html( implode( '.', $parts ) ) . '</span> ';
+				} else {
+					$number_html = '<span class="toc-number">' . esc_html( $this->format_counter( $flat_counter, $counter_format ) ) . '.</span> ';
+				}
 			}
 
 			$html .= '<li class="toc-item ' . esc_attr( $indent_class ) . '">';
 			$html .= '<a href="#' . esc_attr( $item['id'] ) . '">' . $number_html . esc_html( $item['text'] ) . '</a>';
 			$html .= '</li>';
-			++$counter;
+			++$flat_counter;
 		}
 
 		$html .= '</ul>';

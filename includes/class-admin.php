@@ -69,8 +69,8 @@ class Aniksmta_Admin {
 	 */
 	public function add_admin_menu() {
 		add_options_page(
-			__( 'Anik Smart TOC Settings', 'anik-smart-table-of-contents' ),
-			__( 'Anik Smart TOC', 'anik-smart-table-of-contents' ),
+			__( 'Smart TOC Settings', 'anik-smart-table-of-contents' ),
+			__( 'Smart TOC', 'anik-smart-table-of-contents' ),
 			'manage_options',
 			'aniksmta-settings',
 			array( $this, 'settings_page' )
@@ -138,6 +138,15 @@ class Aniksmta_Admin {
 	 * Sanitize settings
 	 */
 	public function sanitize_settings( $input ): array {
+		if ( ! is_array( $input ) ) {
+			$input = array();
+		}
+
+		// submit_button() posts the button label as value, so check key presence instead of literal value.
+		if ( array_key_exists( 'reset_defaults', $input ) ) {
+			return $this->settings->get_defaults();
+		}
+
 		$sanitized = array();
 
 		$sanitized['enabled'] = ! empty( $input['enabled'] );
@@ -178,7 +187,7 @@ class Aniksmta_Admin {
 		$sanitized['show_numbers'] = ! empty( $input['show_numbers'] );
 
 		// Counter format.
-		$allowed_formats             = array( 'decimal', 'roman', 'none' );
+		$allowed_formats             = array( 'decimal', 'roman', 'hierarchical', 'none' );
 		$sanitized['counter_format'] = isset( $input['counter_format'] ) && in_array( $input['counter_format'], $allowed_formats, true )
 			? $input['counter_format']
 			: 'decimal';
@@ -187,7 +196,13 @@ class Aniksmta_Admin {
 		$allowed_themes         = array( 'default', 'light', 'dark', 'minimal' );
 		$sanitized['toc_theme'] = isset( $input['toc_theme'] ) && in_array( $input['toc_theme'], $allowed_themes, true )
 			? $input['toc_theme']
-			: 'default';
+			: 'dark';
+
+		// Toggle icon style.
+		$allowed_icons                  = array( 'chevron', 'plus_minus' );
+		$sanitized['toggle_icon_style'] = isset( $input['toggle_icon_style'] ) && in_array( $input['toggle_icon_style'], $allowed_icons, true )
+			? $input['toggle_icon_style']
+			: 'chevron';
 
 		// Exclude headings by text (comma-separated).
 		$sanitized['exclude_headings'] = isset( $input['exclude_headings'] )
@@ -196,6 +211,71 @@ class Aniksmta_Admin {
 
 		// Schema enabled.
 		$sanitized['schema_enabled'] = ! empty( $input['schema_enabled'] );
+
+		// Floating Desktop TOC.
+		$sanitized['floating_desktop'] = ! empty( $input['floating_desktop'] );
+
+		// Freemium settings added.
+		$sanitized['sticky_toc']      = ! empty( $input['sticky_toc'] );
+		$sanitized['sticky_position'] = isset( $input['sticky_position'] ) ? sanitize_key( $input['sticky_position'] ) : 'inline';
+		if ( ! in_array( $sanitized['sticky_position'], array( 'inline', 'left', 'right' ), true ) ) {
+			$sanitized['sticky_position'] = 'inline';
+		}
+		$sanitized['sticky_width'] = isset( $input['sticky_width'] ) ? absint( $input['sticky_width'] ) : 280;
+		if ( $sanitized['sticky_width'] < 200 || $sanitized['sticky_width'] > 500 ) {
+			$sanitized['sticky_width'] = 280;
+		}
+		$sanitized['sticky_offset']        = isset( $input['sticky_offset'] )
+			? absint( $input['sticky_offset'] )
+			: 20;
+		$sanitized['copy_link']            = ! empty( $input['copy_link'] );
+		$sanitized['reading_progress']     = ! empty( $input['reading_progress'] );
+		$sanitized['dynamic_content']      = ! empty( $input['dynamic_content'] );
+		$sanitized['lazy_load_toc']        = ! empty( $input['lazy_load_toc'] );
+		$sanitized['mobile_toc_modal']     = ! empty( $input['mobile_toc_modal'] );
+		$sanitized['collapsible_sections'] = ! empty( $input['collapsible_sections'] );
+		$sanitized['sections_collapsed']   = ! empty( $input['sections_collapsed'] );
+		$sanitized['reading_time']         = ! empty( $input['reading_time'] );
+		$sanitized['back_to_top']          = ! empty( $input['back_to_top'] );
+		$sanitized['back_to_top_icon']     = isset( $input['back_to_top_icon'] ) ? sanitize_key( $input['back_to_top_icon'] ) : 'arrow';
+		if ( ! in_array( $sanitized['back_to_top_icon'], array( 'arrow', 'chevron', 'double', 'rocket' ), true ) ) {
+			$sanitized['back_to_top_icon'] = 'arrow';
+		}
+		$sanitized['back_to_top_style'] = isset( $input['back_to_top_style'] ) ? sanitize_key( $input['back_to_top_style'] ) : 'circle';
+		if ( ! in_array( $sanitized['back_to_top_style'], array( 'circle', 'rounded', 'pill' ), true ) ) {
+			$sanitized['back_to_top_style'] = 'circle';
+		}
+		$sanitized['back_to_top_bg_color']     = ! empty( $input['back_to_top_bg_color'] ) ? sanitize_hex_color( $input['back_to_top_bg_color'] ) : '';
+		$sanitized['back_to_top_icon_color']   = ! empty( $input['back_to_top_icon_color'] ) ? sanitize_hex_color( $input['back_to_top_icon_color'] ) : '#ffffff';
+		$sanitized['back_to_top_show_desktop'] = ! empty( $input['back_to_top_show_desktop'] );
+		$sanitized['back_to_top_show_tablet']  = ! empty( $input['back_to_top_show_tablet'] );
+		$sanitized['back_to_top_show_mobile']  = ! empty( $input['back_to_top_show_mobile'] );
+
+		$sanitized['floating_toc_position'] = isset( $input['floating_toc_position'] ) ? sanitize_key( $input['floating_toc_position'] ) : 'right';
+		if ( ! in_array( $sanitized['floating_toc_position'], array( 'left', 'right' ), true ) ) {
+			$sanitized['floating_toc_position'] = 'right';
+		}
+		$sanitized['floating_toc_style'] = isset( $input['floating_toc_style'] ) ? sanitize_key( $input['floating_toc_style'] ) : 'icon_text';
+		if ( ! in_array( $sanitized['floating_toc_style'], array( 'icon_only', 'icon_text', 'icon_counter' ), true ) ) {
+			$sanitized['floating_toc_style'] = 'icon_text';
+		}
+		$sanitized['floating_toc_theme'] = isset( $input['floating_toc_theme'] ) ? sanitize_key( $input['floating_toc_theme'] ) : 'dark';
+		if ( ! in_array( $sanitized['floating_toc_theme'], array( 'default', 'dark' ), true ) ) {
+			$sanitized['floating_toc_theme'] = 'dark';
+		}
+		$sanitized['floating_toc_panel_width'] = isset( $input['floating_toc_panel_width'] ) ? absint( $input['floating_toc_panel_width'] ) : 320;
+		if ( $sanitized['floating_toc_panel_width'] < 280 || $sanitized['floating_toc_panel_width'] > 450 ) {
+			$sanitized['floating_toc_panel_width'] = 320;
+		}
+		$sanitized['floating_toc_auto_close']       = ! empty( $input['floating_toc_auto_close'] );
+		$sanitized['floating_toc_show_progress']    = ! empty( $input['floating_toc_show_progress'] );
+		$sanitized['floating_toc_default_expanded'] = ! empty( $input['floating_toc_default_expanded'] );
+
+		$sanitized['exclude_home']    = ! empty( $input['exclude_home'] );
+		$sanitized['exclude_archive'] = ! empty( $input['exclude_archive'] );
+		$sanitized['exclude_search']  = ! empty( $input['exclude_search'] );
+		$sanitized['exclude_404']     = ! empty( $input['exclude_404'] );
+		$sanitized['auto_dark_mode']  = ! empty( $input['auto_dark_mode'] );
 
 		// Preserve exclude_class (not in the form, but used by the renderer).
 		$sanitized['exclude_class'] = isset( $input['exclude_class'] )
@@ -214,13 +294,13 @@ class Aniksmta_Admin {
 		$active_tab = isset( $_GET['tab'] ) ? sanitize_key( wp_unslash( $_GET['tab'] ) ) : 'settings';
 		?>
 		<div class="wrap smart-toc-admin">
-			<h1><?php esc_html_e( 'Anik Smart Table of Contents', 'anik-smart-table-of-contents' ); ?></h1>
+			<h1><?php esc_html_e( 'Smart Table of Contents', 'anik-smart-table-of-contents' ); ?></h1>
 			
 			<!-- Pro Banner -->
 			<div class="smart-toc-pro-banner">
 				<div class="pro-banner-content">
 					<h3>🚀 <?php esc_html_e( 'Upgrade to Smart TOC Pro', 'anik-smart-table-of-contents' ); ?></h3>
-					<p><?php esc_html_e( 'Get advanced features like Sticky TOC, Reading Progress Bar, Gutenberg Block, Sidebar Widget, and more!', 'anik-smart-table-of-contents' ); ?></p>
+					<p><?php esc_html_e( 'Get advanced features like Custom CSS, Advanced Mobile Controls, Estimated Reading Time, Premium Themes, and more!', 'anik-smart-table-of-contents' ); ?></p>
 					<a href="https://smallseoengine.com/plugins/smart-table-of-contents/" target="_blank" class="button button-primary"><?php esc_html_e( 'Get Pro Version', 'anik-smart-table-of-contents' ); ?></a>
 				</div>
 			</div>
@@ -313,6 +393,28 @@ class Aniksmta_Admin {
 									<p class="description"><?php esc_html_e( 'Enter heading texts to exclude from TOC, separated by commas. Partial matches are supported.', 'anik-smart-table-of-contents' ); ?></p>
 								</td>
 							</tr>
+							<tr>
+								<th scope="row"><?php esc_html_e( 'Display Conditions', 'anik-smart-table-of-contents' ); ?></th>
+								<td>
+									<label style="display: block; margin-bottom: 5px;">
+										<input type="checkbox" name="aniksmta_settings[exclude_home]" value="1" <?php checked( ! empty( $settings['exclude_home'] ) ); ?>>
+										<?php esc_html_e( 'Exclude on Homepage', 'anik-smart-table-of-contents' ); ?>
+									</label>
+									<label style="display: block; margin-bottom: 5px;">
+										<input type="checkbox" name="aniksmta_settings[exclude_archive]" value="1" <?php checked( ! empty( $settings['exclude_archive'] ) ); ?>>
+										<?php esc_html_e( 'Exclude on Archive Pages', 'anik-smart-table-of-contents' ); ?>
+									</label>
+									<label style="display: block; margin-bottom: 5px;">
+										<input type="checkbox" name="aniksmta_settings[exclude_search]" value="1" <?php checked( ! empty( $settings['exclude_search'] ) ); ?>>
+										<?php esc_html_e( 'Exclude on Search Pages', 'anik-smart-table-of-contents' ); ?>
+									</label>
+									<label style="display: block; margin-bottom: 5px;">
+										<input type="checkbox" name="aniksmta_settings[exclude_404]" value="1" <?php checked( ! empty( $settings['exclude_404'] ) ); ?>>
+										<?php esc_html_e( 'Exclude on 404 Pages', 'anik-smart-table-of-contents' ); ?>
+									</label>
+									<p class="description"><?php esc_html_e( 'Checked by default to prevent TOC from appearing on non-singular views.', 'anik-smart-table-of-contents' ); ?></p>
+								</td>
+							</tr>
 						</table>
 					</div>
 
@@ -328,6 +430,15 @@ class Aniksmta_Admin {
 											name="aniksmta_settings[title]" 
 											value="<?php echo esc_attr( $settings['title'] ); ?>" 
 											class="regular-text">
+								</td>
+							</tr>
+							<tr>
+								<th scope="row"><?php esc_html_e( 'Reading Time', 'anik-smart-table-of-contents' ); ?></th>
+								<td>
+									<label>
+										<input type="checkbox" name="aniksmta_settings[reading_time]" value="1" <?php checked( ! empty( $settings['reading_time'] ) ); ?>>
+										<?php esc_html_e( 'Display estimated reading time next to the TOC title', 'anik-smart-table-of-contents' ); ?>
+									</label>
 								</td>
 							</tr>
 							<tr>
@@ -374,6 +485,9 @@ class Aniksmta_Admin {
 										<option value="roman" <?php selected( $settings['counter_format'], 'roman' ); ?>>
 											<?php esc_html_e( 'Roman (I, II, III...)', 'anik-smart-table-of-contents' ); ?>
 										</option>
+										<option value="hierarchical" <?php selected( $settings['counter_format'], 'hierarchical' ); ?>>
+											<?php esc_html_e( 'Hierarchical (1, 1.1, 1.1.1)', 'anik-smart-table-of-contents' ); ?>
+										</option>
 										<option value="none" <?php selected( $settings['counter_format'], 'none' ); ?>>
 											<?php esc_html_e( 'No Numbers', 'anik-smart-table-of-contents' ); ?>
 										</option>
@@ -398,6 +512,37 @@ class Aniksmta_Admin {
 											<?php esc_html_e( 'Minimal (Borderless)', 'anik-smart-table-of-contents' ); ?>
 										</option>
 									</select>
+								</td>
+							</tr>
+							<tr>
+								<th scope="row"><?php esc_html_e( 'Toggle Icon Style', 'anik-smart-table-of-contents' ); ?></th>
+								<td>
+									<select name="aniksmta_settings[toggle_icon_style]">
+										<option value="chevron" <?php selected( $settings['toggle_icon_style'], 'chevron' ); ?>>
+											<?php esc_html_e( 'Chevron (Default)', 'anik-smart-table-of-contents' ); ?>
+										</option>
+										<option value="plus_minus" <?php selected( $settings['toggle_icon_style'], 'plus_minus' ); ?>>
+											<?php esc_html_e( 'Plus / Minus', 'anik-smart-table-of-contents' ); ?>
+										</option>
+									</select>
+								</td>
+							</tr>
+							<tr>
+								<th scope="row"><?php esc_html_e( 'Auto Dark Mode', 'anik-smart-table-of-contents' ); ?></th>
+								<td>
+									<label>
+										<input type="checkbox" name="aniksmta_settings[auto_dark_mode]" value="1" <?php checked( ! empty( $settings['auto_dark_mode'] ) ); ?>>
+										<?php esc_html_e( 'Automatically switch to dark theme if the user\'s device is in dark mode', 'anik-smart-table-of-contents' ); ?>
+									</label>
+								</td>
+							</tr>
+							<tr>
+								<th scope="row"><?php esc_html_e( 'Copy Anchor Links', 'anik-smart-table-of-contents' ); ?></th>
+								<td>
+									<label>
+										<input type="checkbox" name="aniksmta_settings[copy_link]" value="1" <?php checked( ! empty( $settings['copy_link'] ) ); ?>>
+										<?php esc_html_e( 'Show a copy link button next to TOC items', 'anik-smart-table-of-contents' ); ?>
+									</label>
 								</td>
 							</tr>
 							<tr>
@@ -448,6 +593,151 @@ class Aniksmta_Admin {
 								</td>
 							</tr>
 							<tr>
+								<th scope="row"><?php esc_html_e( 'Basic Sticky TOC', 'anik-smart-table-of-contents' ); ?></th>
+								<td>
+									<label>
+										<input type="checkbox" name="aniksmta_settings[sticky_toc]" value="1" <?php checked( ! empty( $settings['sticky_toc'] ) ); ?>>
+										<?php esc_html_e( 'Keep the TOC visible while scrolling (basic mode)', 'anik-smart-table-of-contents' ); ?>
+									</label>
+								</td>
+							</tr>
+							<tr>
+								<th scope="row"><?php esc_html_e( 'Sticky Position', 'anik-smart-table-of-contents' ); ?></th>
+								<td>
+									<select name="aniksmta_settings[sticky_position]">
+										<option value="inline" <?php selected( isset( $settings['sticky_position'] ) ? $settings['sticky_position'] : 'inline', 'inline' ); ?>>
+											<?php esc_html_e( 'Inline (in content column)', 'anik-smart-table-of-contents' ); ?>
+										</option>
+										<option value="left" <?php selected( isset( $settings['sticky_position'] ) ? $settings['sticky_position'] : 'inline', 'left' ); ?>>
+											<?php esc_html_e( 'Left side (desktop)', 'anik-smart-table-of-contents' ); ?>
+										</option>
+										<option value="right" <?php selected( isset( $settings['sticky_position'] ) ? $settings['sticky_position'] : 'inline', 'right' ); ?>>
+											<?php esc_html_e( 'Right side (desktop)', 'anik-smart-table-of-contents' ); ?>
+										</option>
+									</select>
+								</td>
+							</tr>
+							<tr>
+								<th scope="row"><?php esc_html_e( 'Sticky Width', 'anik-smart-table-of-contents' ); ?></th>
+								<td>
+									<input type="number"
+											name="aniksmta_settings[sticky_width]"
+											value="<?php echo esc_attr( isset( $settings['sticky_width'] ) ? $settings['sticky_width'] : 280 ); ?>"
+											min="200"
+											max="500"
+											class="small-text"> px
+									<p class="description"><?php esc_html_e( 'Applies to Left/Right sticky mode.', 'anik-smart-table-of-contents' ); ?></p>
+								</td>
+							</tr>
+							<tr>
+								<th scope="row"><?php esc_html_e( 'Sticky Offset', 'anik-smart-table-of-contents' ); ?></th>
+								<td>
+									<input type="number" 
+											name="aniksmta_settings[sticky_offset]" 
+											value="<?php echo esc_attr( isset( $settings['sticky_offset'] ) ? $settings['sticky_offset'] : 20 ); ?>" 
+											min="0" 
+											max="500"
+											class="small-text"> px
+									<p class="description"><?php esc_html_e( 'Space between the top of the screen and the sticky TOC (in pixels)', 'anik-smart-table-of-contents' ); ?></p>
+								</td>
+							</tr>
+							<tr>
+								<th scope="row"><?php esc_html_e( 'Collapsible Sections', 'anik-smart-table-of-contents' ); ?></th>
+								<td>
+									<label>
+										<input type="checkbox" name="aniksmta_settings[collapsible_sections]" value="1" <?php checked( ! empty( $settings['collapsible_sections'] ) ); ?>>
+										<?php esc_html_e( 'Add toggle buttons to collapse/expand nested headings', 'anik-smart-table-of-contents' ); ?>
+									</label>
+								</td>
+							</tr>
+							<tr>
+								<th scope="row"><?php esc_html_e( 'Default Collapsed Sections', 'anik-smart-table-of-contents' ); ?></th>
+								<td>
+									<label>
+										<input type="checkbox" name="aniksmta_settings[sections_collapsed]" value="1" <?php checked( ! empty( $settings['sections_collapsed'] ) ); ?>>
+										<?php esc_html_e( 'Start nested section groups in collapsed state', 'anik-smart-table-of-contents' ); ?>
+									</label>
+								</td>
+							</tr>
+							<tr>
+								<th scope="row"><?php esc_html_e( 'Reading Progress Bar', 'anik-smart-table-of-contents' ); ?></th>
+								<td>
+									<label>
+										<input type="checkbox" name="aniksmta_settings[reading_progress]" value="1" <?php checked( ! empty( $settings['reading_progress'] ) ); ?>>
+										<?php esc_html_e( 'Display a basic reading progress bar at the top of the screen', 'anik-smart-table-of-contents' ); ?>
+									</label>
+								</td>
+							</tr>
+							<tr>
+								<th scope="row"><?php esc_html_e( 'Back to Top Button', 'anik-smart-table-of-contents' ); ?></th>
+								<td>
+									<label>
+										<input type="checkbox" name="aniksmta_settings[back_to_top]" value="1" <?php checked( ! empty( $settings['back_to_top'] ) ); ?>>
+										<?php esc_html_e( 'Display a back-to-top button when scrolling down', 'anik-smart-table-of-contents' ); ?>
+									</label>
+								</td>
+							</tr>
+							<tr>
+								<th scope="row"><?php esc_html_e( 'Back to Top Icon', 'anik-smart-table-of-contents' ); ?></th>
+								<td>
+									<select name="aniksmta_settings[back_to_top_icon]">
+										<option value="arrow" <?php selected( isset( $settings['back_to_top_icon'] ) ? $settings['back_to_top_icon'] : 'arrow', 'arrow' ); ?>><?php esc_html_e( 'Arrow', 'anik-smart-table-of-contents' ); ?></option>
+										<option value="chevron" <?php selected( isset( $settings['back_to_top_icon'] ) ? $settings['back_to_top_icon'] : 'arrow', 'chevron' ); ?>><?php esc_html_e( 'Chevron', 'anik-smart-table-of-contents' ); ?></option>
+										<option value="double" <?php selected( isset( $settings['back_to_top_icon'] ) ? $settings['back_to_top_icon'] : 'arrow', 'double' ); ?>><?php esc_html_e( 'Double Arrow', 'anik-smart-table-of-contents' ); ?></option>
+										<option value="rocket" <?php selected( isset( $settings['back_to_top_icon'] ) ? $settings['back_to_top_icon'] : 'arrow', 'rocket' ); ?>><?php esc_html_e( 'Rocket', 'anik-smart-table-of-contents' ); ?></option>
+									</select>
+								</td>
+							</tr>
+							<tr>
+								<th scope="row"><?php esc_html_e( 'Back to Top Shape', 'anik-smart-table-of-contents' ); ?></th>
+								<td>
+									<select name="aniksmta_settings[back_to_top_style]">
+										<option value="circle" <?php selected( isset( $settings['back_to_top_style'] ) ? $settings['back_to_top_style'] : 'circle', 'circle' ); ?>><?php esc_html_e( 'Circle', 'anik-smart-table-of-contents' ); ?></option>
+										<option value="rounded" <?php selected( isset( $settings['back_to_top_style'] ) ? $settings['back_to_top_style'] : 'circle', 'rounded' ); ?>><?php esc_html_e( 'Rounded', 'anik-smart-table-of-contents' ); ?></option>
+										<option value="pill" <?php selected( isset( $settings['back_to_top_style'] ) ? $settings['back_to_top_style'] : 'circle', 'pill' ); ?>><?php esc_html_e( 'Pill', 'anik-smart-table-of-contents' ); ?></option>
+									</select>
+								</td>
+							</tr>
+							<tr>
+								<th scope="row"><?php esc_html_e( 'Back to Top Colors', 'anik-smart-table-of-contents' ); ?></th>
+								<td>
+									<label style="display: inline-block; margin-right: 16px;">
+										<?php esc_html_e( 'Background', 'anik-smart-table-of-contents' ); ?>
+										<input type="text" name="aniksmta_settings[back_to_top_bg_color]" value="<?php echo esc_attr( isset( $settings['back_to_top_bg_color'] ) ? $settings['back_to_top_bg_color'] : '' ); ?>" class="smart-toc-color-picker">
+									</label>
+									<label style="display: inline-block;">
+										<?php esc_html_e( 'Icon', 'anik-smart-table-of-contents' ); ?>
+										<input type="text" name="aniksmta_settings[back_to_top_icon_color]" value="<?php echo esc_attr( isset( $settings['back_to_top_icon_color'] ) ? $settings['back_to_top_icon_color'] : '#ffffff' ); ?>" class="smart-toc-color-picker">
+									</label>
+								</td>
+							</tr>
+							<tr>
+								<th scope="row"><?php esc_html_e( 'Back to Top Device Visibility', 'anik-smart-table-of-contents' ); ?></th>
+								<td>
+									<label style="display: block; margin-bottom: 5px;">
+										<input type="checkbox" name="aniksmta_settings[back_to_top_show_desktop]" value="1" <?php checked( ! isset( $settings['back_to_top_show_desktop'] ) || ! empty( $settings['back_to_top_show_desktop'] ) ); ?>>
+										<?php esc_html_e( 'Show on Desktop', 'anik-smart-table-of-contents' ); ?>
+									</label>
+									<label style="display: block; margin-bottom: 5px;">
+										<input type="checkbox" name="aniksmta_settings[back_to_top_show_tablet]" value="1" <?php checked( ! isset( $settings['back_to_top_show_tablet'] ) || ! empty( $settings['back_to_top_show_tablet'] ) ); ?>>
+										<?php esc_html_e( 'Show on Tablet', 'anik-smart-table-of-contents' ); ?>
+									</label>
+									<label style="display: block;">
+										<input type="checkbox" name="aniksmta_settings[back_to_top_show_mobile]" value="1" <?php checked( ! isset( $settings['back_to_top_show_mobile'] ) || ! empty( $settings['back_to_top_show_mobile'] ) ); ?>>
+										<?php esc_html_e( 'Show on Mobile', 'anik-smart-table-of-contents' ); ?>
+									</label>
+								</td>
+							</tr>
+							<tr>
+								<th scope="row"><?php esc_html_e( 'Mobile TOC Modal', 'anik-smart-table-of-contents' ); ?></th>
+								<td>
+									<label>
+										<input type="checkbox" name="aniksmta_settings[mobile_toc_modal]" value="1" <?php checked( ! empty( $settings['mobile_toc_modal'] ) ); ?>>
+										<?php esc_html_e( 'Show a floating TOC button and compact modal on mobile devices', 'anik-smart-table-of-contents' ); ?>
+									</label>
+								</td>
+							</tr>
+							<tr>
 								<th scope="row"><?php esc_html_e( 'SEO Schema', 'anik-smart-table-of-contents' ); ?></th>
 								<td>
 									<label>
@@ -457,30 +747,166 @@ class Aniksmta_Admin {
 									<p class="description"><?php esc_html_e( 'Helps search engines understand your page structure and may enable "Jump to" links in results.', 'anik-smart-table-of-contents' ); ?></p>
 								</td>
 							</tr>
+							<tr>
+								<th scope="row"><?php esc_html_e( 'Floating Desktop TOC', 'anik-smart-table-of-contents' ); ?></th>
+								<td>
+									<label>
+										<input type="checkbox" name="aniksmta_settings[floating_desktop]" value="1" <?php checked( ! empty( $settings['floating_desktop'] ) ); ?>>
+										<?php esc_html_e( 'Enable basic floating button on desktop', 'anik-smart-table-of-contents' ); ?>
+									</label>
+									<p class="description"><?php esc_html_e( 'Adds a persistent TOC button on the side of the screen for desktop users.', 'anik-smart-table-of-contents' ); ?></p>
+								</td>
+							</tr>
+							<tr>
+								<th scope="row"><?php esc_html_e( 'Floating Button Position', 'anik-smart-table-of-contents' ); ?></th>
+								<td>
+									<select name="aniksmta_settings[floating_toc_position]">
+										<option value="left" <?php selected( isset( $settings['floating_toc_position'] ) ? $settings['floating_toc_position'] : 'right', 'left' ); ?>>
+											<?php esc_html_e( 'Left', 'anik-smart-table-of-contents' ); ?>
+										</option>
+										<option value="right" <?php selected( isset( $settings['floating_toc_position'] ) ? $settings['floating_toc_position'] : 'right', 'right' ); ?>>
+											<?php esc_html_e( 'Right', 'anik-smart-table-of-contents' ); ?>
+										</option>
+									</select>
+								</td>
+							</tr>
+							<tr>
+								<th scope="row"><?php esc_html_e( 'Floating Button Style', 'anik-smart-table-of-contents' ); ?></th>
+								<td>
+									<select name="aniksmta_settings[floating_toc_style]">
+										<option value="icon_only" <?php selected( isset( $settings['floating_toc_style'] ) ? $settings['floating_toc_style'] : 'icon_text', 'icon_only' ); ?>>
+											<?php esc_html_e( 'Icon Only', 'anik-smart-table-of-contents' ); ?>
+										</option>
+										<option value="icon_text" <?php selected( isset( $settings['floating_toc_style'] ) ? $settings['floating_toc_style'] : 'icon_text', 'icon_text' ); ?>>
+											<?php esc_html_e( 'Icon + Text', 'anik-smart-table-of-contents' ); ?>
+										</option>
+										<option value="icon_counter" <?php selected( isset( $settings['floating_toc_style'] ) ? $settings['floating_toc_style'] : 'icon_text', 'icon_counter' ); ?>>
+											<?php esc_html_e( 'Icon + Counter', 'anik-smart-table-of-contents' ); ?>
+										</option>
+									</select>
+								</td>
+							</tr>
+							<tr>
+								<th scope="row"><?php esc_html_e( 'Floating Theme', 'anik-smart-table-of-contents' ); ?></th>
+								<td>
+									<select name="aniksmta_settings[floating_toc_theme]">
+										<option value="default" <?php selected( isset( $settings['floating_toc_theme'] ) ? $settings['floating_toc_theme'] : 'default', 'default' ); ?>>
+											<?php esc_html_e( 'Default', 'anik-smart-table-of-contents' ); ?>
+										</option>
+										<option value="dark" <?php selected( isset( $settings['floating_toc_theme'] ) ? $settings['floating_toc_theme'] : 'default', 'dark' ); ?>>
+											<?php esc_html_e( 'Dark', 'anik-smart-table-of-contents' ); ?>
+										</option>
+									</select>
+								</td>
+							</tr>
+							<tr>
+								<th scope="row"><?php esc_html_e( 'Floating Panel Width', 'anik-smart-table-of-contents' ); ?></th>
+								<td>
+									<input type="number"
+											name="aniksmta_settings[floating_toc_panel_width]"
+											value="<?php echo esc_attr( isset( $settings['floating_toc_panel_width'] ) ? $settings['floating_toc_panel_width'] : 320 ); ?>"
+											min="280"
+											max="450"
+											step="10"
+											class="small-text"> px
+								</td>
+							</tr>
+							<tr>
+								<th scope="row"><?php esc_html_e( 'Floating Auto-close', 'anik-smart-table-of-contents' ); ?></th>
+								<td>
+									<label>
+										<input type="checkbox" name="aniksmta_settings[floating_toc_auto_close]" value="1" <?php checked( ! isset( $settings['floating_toc_auto_close'] ) || ! empty( $settings['floating_toc_auto_close'] ) ); ?>>
+										<?php esc_html_e( 'Automatically close the floating panel after clicking a TOC link', 'anik-smart-table-of-contents' ); ?>
+									</label>
+								</td>
+							</tr>
+							<tr>
+								<th scope="row"><?php esc_html_e( 'Floating Progress Bar', 'anik-smart-table-of-contents' ); ?></th>
+								<td>
+									<label>
+										<input type="checkbox" name="aniksmta_settings[floating_toc_show_progress]" value="1" <?php checked( ! isset( $settings['floating_toc_show_progress'] ) || ! empty( $settings['floating_toc_show_progress'] ) ); ?>>
+										<?php esc_html_e( 'Show scroll progress bar in the floating panel header', 'anik-smart-table-of-contents' ); ?>
+									</label>
+								</td>
+							</tr>
+							<tr>
+								<th scope="row"><?php esc_html_e( 'Floating Default Expanded', 'anik-smart-table-of-contents' ); ?></th>
+								<td>
+									<label>
+										<input type="checkbox" name="aniksmta_settings[floating_toc_default_expanded]" value="1" <?php checked( ! isset( $settings['floating_toc_default_expanded'] ) || ! empty( $settings['floating_toc_default_expanded'] ) ); ?>>
+										<?php esc_html_e( 'Auto-open floating panel the first time it appears while scrolling', 'anik-smart-table-of-contents' ); ?>
+									</label>
+								</td>
+							</tr>
+						</table>
+					</div>
+
+					<!-- Advanced Settings -->
+					<div class="smart-toc-card">
+						<h2><?php esc_html_e( 'Advanced Settings', 'anik-smart-table-of-contents' ); ?></h2>
+						
+						<table class="form-table">
+							<tr>
+								<th scope="row"><?php esc_html_e( 'Dynamic Content Support', 'anik-smart-table-of-contents' ); ?></th>
+								<td>
+									<label>
+										<input type="checkbox" name="aniksmta_settings[dynamic_content]" value="1" <?php checked( ! empty( $settings['dynamic_content'] ) ); ?>>
+										<?php esc_html_e( 'Auto-detect content changes (useful for AJAX, Infinite Scroll, and Page Builders)', 'anik-smart-table-of-contents' ); ?>
+									</label>
+								</td>
+							</tr>
+							<tr>
+								<th scope="row"><?php esc_html_e( 'Lazy Load Initialization', 'anik-smart-table-of-contents' ); ?></th>
+								<td>
+									<label>
+										<input type="checkbox" name="aniksmta_settings[lazy_load_toc]" value="1" <?php checked( ! empty( $settings['lazy_load_toc'] ) ); ?>>
+										<?php esc_html_e( 'Delay TOC scripts until it enters the viewport (Performance boost)', 'anik-smart-table-of-contents' ); ?>
+									</label>
+								</td>
+							</tr>
 						</table>
 					</div>
 
 					<!-- Pro Features Preview -->
 					<div class="smart-toc-card smart-toc-pro-features">
-						<h2>✨ <?php esc_html_e( 'Pro Features', 'anik-smart-table-of-contents' ); ?></h2>
+						<h2><span aria-hidden="true">&#10024;</span> <?php esc_html_e( 'Pro Features', 'anik-smart-table-of-contents' ); ?></h2>
 						<ul class="pro-features-list">
-							<li>🔒 <?php esc_html_e( 'Sticky/Floating TOC', 'anik-smart-table-of-contents' ); ?></li>
-							<li>🔒 <?php esc_html_e( 'Reading Progress Bar', 'anik-smart-table-of-contents' ); ?></li>
-							<li>🔒 <?php esc_html_e( 'Estimated Reading Time', 'anik-smart-table-of-contents' ); ?></li>
-							<li>🔒 <?php esc_html_e( 'Back to Top Button', 'anik-smart-table-of-contents' ); ?></li>
-							<li>🔒 <?php esc_html_e( 'Keyboard Navigation', 'anik-smart-table-of-contents' ); ?></li>
-							<li>🔒 <?php esc_html_e( '10+ Premium Theme Presets', 'anik-smart-table-of-contents' ); ?></li>
-							<li>🔒 <?php esc_html_e( 'Custom CSS Support', 'anik-smart-table-of-contents' ); ?></li>
-							<li>🔒 <?php esc_html_e( 'Mobile-specific Options', 'anik-smart-table-of-contents' ); ?></li>
-							<li>🔒 <?php esc_html_e( 'Gutenberg Block', 'anik-smart-table-of-contents' ); ?></li>
-							<li>🔒 <?php esc_html_e( 'Sidebar Widget', 'anik-smart-table-of-contents' ); ?></li>
+							<li><span aria-hidden="true">&#128274;</span> <?php esc_html_e( 'Elementor Widget Integration (Pro Only)', 'anik-smart-table-of-contents' ); ?></li>
+							<li><span aria-hidden="true">&#128274;</span> <?php esc_html_e( 'Floating TOC Automation (Auto-close, Panel Progress, Dismiss)', 'anik-smart-table-of-contents' ); ?></li>
+							<li><span aria-hidden="true">&#128274;</span> <?php esc_html_e( 'Advanced Mobile UX (Scroll Trigger, Swipe Close, Safe Areas)', 'anik-smart-table-of-contents' ); ?></li>
+							<li><span aria-hidden="true">&#128274;</span> <?php esc_html_e( 'Advanced Reading Progress and Reading Time Controls', 'anik-smart-table-of-contents' ); ?></li>
+							<li><span aria-hidden="true">&#128274;</span> <?php esc_html_e( 'Advanced Display Conditions and Page Rules', 'anik-smart-table-of-contents' ); ?></li>
+							<li><span aria-hidden="true">&#128274;</span> <?php esc_html_e( '6 Premium Theme Presets (Glass and Gradient Included)', 'anik-smart-table-of-contents' ); ?></li>
+							<li><span aria-hidden="true">&#128274;</span> <?php esc_html_e( 'Settings Export and Import', 'anik-smart-table-of-contents' ); ?></li>
+							<li><span aria-hidden="true">&#128274;</span> <?php esc_html_e( 'Advanced SEO and Accessibility Controls', 'anik-smart-table-of-contents' ); ?></li>
+							<li><span aria-hidden="true">&#128274;</span> <?php esc_html_e( 'Performance Optimization Suite (Lazy Load, Defer, Minified Assets)', 'anik-smart-table-of-contents' ); ?></li>
+							<li><span aria-hidden="true">&#128274;</span> <?php esc_html_e( 'Universal Compatibility (Elementor, Gutenberg, RTL, Multisite)', 'anik-smart-table-of-contents' ); ?></li>
+							<li><span aria-hidden="true">&#128274;</span> <?php esc_html_e( 'Custom CSS and Deep Style Controls', 'anik-smart-table-of-contents' ); ?></li>
+							<li><span aria-hidden="true">&#128274;</span> <?php esc_html_e( 'Priority Support', 'anik-smart-table-of-contents' ); ?></li>
 						</ul>
 						<a href="https://smallseoengine.com/plugins/smart-table-of-contents/" target="_blank" class="button button-primary"><?php esc_html_e( 'Unlock All Features', 'anik-smart-table-of-contents' ); ?></a>
 					</div>
 				</div>
 
-				<?php submit_button(); ?>
-			</form>
+					<div class="smart-toc-settings-actions">
+						<?php
+						submit_button();
+
+						$reset_confirm = esc_js( __( 'Are you sure you want to reset all settings to default values?', 'anik-smart-table-of-contents' ) );
+						submit_button(
+							__( 'Reset to Defaults', 'anik-smart-table-of-contents' ),
+							'secondary',
+							'aniksmta_settings[reset_defaults]',
+							false,
+							array(
+								'id'      => 'aniksmta-reset-settings',
+								'onclick' => "return confirm('{$reset_confirm}');",
+							)
+						);
+						?>
+						<p class="description"><?php esc_html_e( 'This will restore all plugin settings to default values.', 'anik-smart-table-of-contents' ); ?></p>
+					</div>
+				</form>
 
 			<!-- Shortcode Info -->
 			<div class="smart-toc-card">
@@ -575,7 +1001,7 @@ class Aniksmta_Admin {
 						</tr>
 						<tr>
 							<td><strong><?php esc_html_e( 'Counter Format', 'anik-smart-table-of-contents' ); ?></strong></td>
-							<td><?php esc_html_e( 'Decimal (1, 2, 3), Roman (I, II, III), or None', 'anik-smart-table-of-contents' ); ?></td>
+							<td><?php esc_html_e( 'Decimal, Roman, Hierarchical (1, 1.1, 1.1.1), or None', 'anik-smart-table-of-contents' ); ?></td>
 						</tr>
 						<tr>
 							<td><strong><?php esc_html_e( 'TOC Theme', 'anik-smart-table-of-contents' ); ?></strong></td>
@@ -604,6 +1030,38 @@ class Aniksmta_Admin {
 						<tr>
 							<td><strong><?php esc_html_e( 'SEO Schema', 'anik-smart-table-of-contents' ); ?></strong></td>
 							<td><?php esc_html_e( 'Output SiteNavigationElement JSON-LD schema for search engines', 'anik-smart-table-of-contents' ); ?></td>
+						</tr>
+						<tr>
+							<td><strong><?php esc_html_e( 'Copy Heading Link', 'anik-smart-table-of-contents' ); ?></strong></td>
+							<td><?php esc_html_e( 'Shows a copy icon on TOC items to copy direct anchor links', 'anik-smart-table-of-contents' ); ?></td>
+						</tr>
+						<tr>
+							<td><strong><?php esc_html_e( 'Sticky TOC', 'anik-smart-table-of-contents' ); ?></strong></td>
+							<td><?php esc_html_e( 'Make TOC sticky with Left/Right/Inline position, width, and top offset controls', 'anik-smart-table-of-contents' ); ?></td>
+						</tr>
+						<tr>
+							<td><strong><?php esc_html_e( 'Collapsible Sections', 'anik-smart-table-of-contents' ); ?></strong></td>
+							<td><?php esc_html_e( 'Enable nested heading section toggles and optionally start collapsed', 'anik-smart-table-of-contents' ); ?></td>
+						</tr>
+						<tr>
+							<td><strong><?php esc_html_e( 'Reading Progress', 'anik-smart-table-of-contents' ); ?></strong></td>
+							<td><?php esc_html_e( 'Shows a progress indicator while reading the content', 'anik-smart-table-of-contents' ); ?></td>
+						</tr>
+						<tr>
+							<td><strong><?php esc_html_e( 'Back to Top', 'anik-smart-table-of-contents' ); ?></strong></td>
+							<td><?php esc_html_e( 'Adds a customizable back-to-top button (icon, shape, colors, and device visibility)', 'anik-smart-table-of-contents' ); ?></td>
+						</tr>
+						<tr>
+							<td><strong><?php esc_html_e( 'Floating TOC (Desktop)', 'anik-smart-table-of-contents' ); ?></strong></td>
+							<td><?php esc_html_e( 'Floating trigger + panel with position, style, theme, width, auto-close, progress bar, and default expanded options', 'anik-smart-table-of-contents' ); ?></td>
+						</tr>
+						<tr>
+							<td><strong><?php esc_html_e( 'Mobile TOC Modal', 'anik-smart-table-of-contents' ); ?></strong></td>
+							<td><?php esc_html_e( 'Display TOC as a modal drawer on mobile devices', 'anik-smart-table-of-contents' ); ?></td>
+						</tr>
+						<tr>
+							<td><strong><?php esc_html_e( 'Performance', 'anik-smart-table-of-contents' ); ?></strong></td>
+							<td><?php esc_html_e( 'Dynamic content observer and lazy TOC initialization for better compatibility and speed', 'anik-smart-table-of-contents' ); ?></td>
 						</tr>
 					</table>
 				</div>
@@ -661,7 +1119,7 @@ class Aniksmta_Admin {
 					<h2><span class="dashicons dashicons-hidden"></span> <?php esc_html_e( 'Excluding Headings', 'anik-smart-table-of-contents' ); ?></h2>
 
 					<h3><?php esc_html_e( 'Method 1: Global Exclusion by Text', 'anik-smart-table-of-contents' ); ?></h3>
-					<p><?php esc_html_e( 'Go to Settings → Anik Smart TOC → General Settings → Exclude Headings. Enter a comma-separated list of heading texts to exclude. Partial matches are supported (e.g., "Related" will exclude "Related Posts" and "Related Articles").', 'anik-smart-table-of-contents' ); ?></p>
+					<p><?php esc_html_e( 'Go to Settings → Smart TOC → General Settings → Exclude Headings. Enter a comma-separated list of heading texts to exclude. Partial matches are supported (e.g., "Related" will exclude "Related Posts" and "Related Articles").', 'anik-smart-table-of-contents' ); ?></p>
 
 					<h3><?php esc_html_e( 'Method 2: CSS Class per Heading', 'anik-smart-table-of-contents' ); ?></h3>
 					<p><?php esc_html_e( 'Add the "no-toc" CSS class to exclude specific headings:', 'anik-smart-table-of-contents' ); ?></p>
@@ -743,9 +1201,14 @@ class Aniksmta_Admin {
 						<tr><td><code>.toc-level-2</code> to <code>.toc-level-6</code></td><td><?php esc_html_e( 'Heading level classes', 'anik-smart-table-of-contents' ); ?></td></tr>
 						<tr><td><code>.collapsed</code></td><td><?php esc_html_e( 'Applied when TOC is collapsed', 'anik-smart-table-of-contents' ); ?></td></tr>
 						<tr><td><code>.active</code></td><td><?php esc_html_e( 'Applied to current section link', 'anik-smart-table-of-contents' ); ?></td></tr>
+						<tr><td><code>.toc-theme-default</code></td><td><?php esc_html_e( 'Default gray theme preset', 'anik-smart-table-of-contents' ); ?></td></tr>
 						<tr><td><code>.toc-theme-light</code></td><td><?php esc_html_e( 'Light theme preset', 'anik-smart-table-of-contents' ); ?></td></tr>
 						<tr><td><code>.toc-theme-dark</code></td><td><?php esc_html_e( 'Dark theme preset', 'anik-smart-table-of-contents' ); ?></td></tr>
 						<tr><td><code>.toc-theme-minimal</code></td><td><?php esc_html_e( 'Minimal theme preset', 'anik-smart-table-of-contents' ); ?></td></tr>
+						<tr><td><code>.toc-item-inner</code></td><td><?php esc_html_e( 'Inline row wrapper for toggle/link/copy button', 'anik-smart-table-of-contents' ); ?></td></tr>
+						<tr><td><code>.smart-toc-copy-link</code></td><td><?php esc_html_e( 'Copy anchor icon button', 'anik-smart-table-of-contents' ); ?></td></tr>
+						<tr><td><code>.smart-toc-floating</code></td><td><?php esc_html_e( 'Floating TOC desktop container', 'anik-smart-table-of-contents' ); ?></td></tr>
+						<tr><td><code>.smart-toc-back-to-top</code></td><td><?php esc_html_e( 'Back-to-top button container', 'anik-smart-table-of-contents' ); ?></td></tr>
 					</tbody>
 				</table>
 			</div>
@@ -796,8 +1259,8 @@ class Aniksmta_Admin {
 					</a>
 				</div>
 
-				<div class="smart-toc-card smart-toc-support-card">
-					<div class="support-icon"></div>
+					<div class="smart-toc-card smart-toc-support-card">
+						<div class="support-icon">🐛</div>
 					<h3><?php esc_html_e( 'Report a Bug', 'anik-smart-table-of-contents' ); ?></h3>
 					<p><?php esc_html_e( 'Found a bug? Report it on GitHub and help us improve the plugin.', 'anik-smart-table-of-contents' ); ?></p>
 					<a href="https://github.com/wordpress-plugins-project/smart-table-of-content-free-plugin/issues" target="_blank" class="button">
@@ -820,7 +1283,7 @@ class Aniksmta_Admin {
 				<div class="rate-content">
 					<div class="rate-icon">⭐</div>
 					<div class="rate-text">
-						<h3><?php esc_html_e( 'Enjoying Anik Smart Table of Contents?', 'anik-smart-table-of-contents' ); ?></h3>
+						<h3><?php esc_html_e( 'Enjoying Smart Table of Contents?', 'anik-smart-table-of-contents' ); ?></h3>
 						<p><?php esc_html_e( 'Please consider leaving a 5-star review. Your feedback helps us improve and motivates us to add more features!', 'anik-smart-table-of-contents' ); ?></p>
 					</div>
 					<a href="https://wordpress.org/support/plugin/anik-smart-table-of-contents/reviews/#new-post" target="_blank" class="button button-primary">
@@ -834,11 +1297,11 @@ class Aniksmta_Admin {
 				<h3>🚀 <?php esc_html_e( 'Need More Features?', 'anik-smart-table-of-contents' ); ?></h3>
 				<p><?php esc_html_e( 'Upgrade to Smart TOC Pro for advanced features and priority support:', 'anik-smart-table-of-contents' ); ?></p>
 				<ul class="pro-features-list">
-					<li>📌 <?php esc_html_e( 'Sticky/Floating TOC', 'anik-smart-table-of-contents' ); ?></li>
-					<li>📊 <?php esc_html_e( 'Reading Progress Bar', 'anik-smart-table-of-contents' ); ?></li>
-					<li>⏱️ <?php esc_html_e( 'Estimated Reading Time', 'anik-smart-table-of-contents' ); ?></li>
-					<li>🧱 <?php esc_html_e( 'Gutenberg Block', 'anik-smart-table-of-contents' ); ?></li>
-					<li>🎨 <?php esc_html_e( 'Multiple Theme Presets', 'anik-smart-table-of-contents' ); ?></li>
+					<li>🔒 <?php esc_html_e( 'Elementor Widget Integration (Pro Only)', 'anik-smart-table-of-contents' ); ?></li>
+					<li>📌 <?php esc_html_e( 'Floating TOC Automation + Advanced Sticky Controls', 'anik-smart-table-of-contents' ); ?></li>
+					<li>📱 <?php esc_html_e( 'Advanced Mobile UX (Scroll Trigger, Swipe Close)', 'anik-smart-table-of-contents' ); ?></li>
+					<li>🎨 <?php esc_html_e( 'Premium Theme Presets (Including Glass and Gradient)', 'anik-smart-table-of-contents' ); ?></li>
+					<li>⚙️ <?php esc_html_e( 'Export/Import, SEO, Accessibility, and Performance Controls', 'anik-smart-table-of-contents' ); ?></li>
 					<li>🔒 <?php esc_html_e( 'Priority Support', 'anik-smart-table-of-contents' ); ?></li>
 				</ul>
 				<a href="https://smallseoengine.com/plugins/smart-table-of-contents/" target="_blank" class="button button-primary button-hero">
@@ -952,7 +1415,10 @@ class Aniksmta_Admin {
 			return;
 		}
 
-		$disabled = ! empty( $_POST['aniksmta_disable'] );
+		$disabled = isset( $_POST['aniksmta_disable'] )
+			? sanitize_text_field( wp_unslash( $_POST['aniksmta_disable'] ) )
+			: '';
+		$disabled = '1' === $disabled;
 		if ( $disabled ) {
 			update_post_meta( $post_id, '_aniksmta_disable', '1' );
 		} else {
@@ -960,15 +1426,17 @@ class Aniksmta_Admin {
 		}
 
 		// Save per-post heading levels.
-		if ( ! empty( $_POST['aniksmta_heading_levels'] ) && is_array( $_POST['aniksmta_heading_levels'] ) ) {
-			$levels = array_map( 'absint', $_POST['aniksmta_heading_levels'] );
-			$levels = array_filter(
-				$levels,
+		$heading_levels = ( isset( $_POST['aniksmta_heading_levels'] ) && is_array( $_POST['aniksmta_heading_levels'] ) )
+			? array_map( 'absint', wp_unslash( $_POST['aniksmta_heading_levels'] ) )
+			: array();
+		if ( ! empty( $heading_levels ) && is_array( $heading_levels ) ) {
+			$heading_levels = array_filter(
+				$heading_levels,
 				function ( $level ) {
 					return $level >= 2 && $level <= 6;
 				}
 			);
-			update_post_meta( $post_id, '_aniksmta_heading_levels', array_values( $levels ) );
+			update_post_meta( $post_id, '_aniksmta_heading_levels', array_values( $heading_levels ) );
 		} else {
 			delete_post_meta( $post_id, '_aniksmta_heading_levels' );
 		}
@@ -980,7 +1448,7 @@ class Aniksmta_Admin {
 	public function add_dashboard_widget() {
 		wp_add_dashboard_widget(
 			'aniksmta_dashboard_widget',
-			__( '📑 Anik Smart Table of Contents', 'anik-smart-table-of-contents' ),
+			__( '📑 Smart Table of Contents', 'anik-smart-table-of-contents' ),
 			array( $this, 'render_dashboard_widget' )
 		);
 	}
@@ -1064,10 +1532,11 @@ class Aniksmta_Admin {
 			<div class="smart-toc-widget-pro">
 				<h4>🚀 <?php esc_html_e( 'Unlock Pro Features', 'anik-smart-table-of-contents' ); ?></h4>
 				<ul>
-					<li>📌 <?php esc_html_e( 'Sticky/Floating TOC', 'anik-smart-table-of-contents' ); ?></li>
-					<li>📊 <?php esc_html_e( 'Reading Progress Bar', 'anik-smart-table-of-contents' ); ?></li>
-					<li>⏱️ <?php esc_html_e( 'Reading Time Display', 'anik-smart-table-of-contents' ); ?></li>
-					<li>🎨 <?php esc_html_e( '5+ Theme Presets', 'anik-smart-table-of-contents' ); ?></li>
+					<li>🔒 <?php esc_html_e( 'Elementor Widget Integration (Pro Only)', 'anik-smart-table-of-contents' ); ?></li>
+					<li>📌 <?php esc_html_e( 'Advanced Floating + Sticky TOC Controls', 'anik-smart-table-of-contents' ); ?></li>
+					<li>📱 <?php esc_html_e( 'Advanced Mobile TOC Experience', 'anik-smart-table-of-contents' ); ?></li>
+					<li>🎨 <?php esc_html_e( 'Premium Theme Presets (Glass and Gradient)', 'anik-smart-table-of-contents' ); ?></li>
+					<li>⚙️ <?php esc_html_e( 'Export/Import, SEO, and Performance Toolset', 'anik-smart-table-of-contents' ); ?></li>
 				</ul>
 				<a href="https://smallseoengine.com/plugins/smart-table-of-contents/" target="_blank" class="button button-primary">
 					<?php esc_html_e( 'Get Pro Version', 'anik-smart-table-of-contents' ); ?>
@@ -1113,7 +1582,7 @@ class Aniksmta_Admin {
 				<div class="smart-toc-review-icon">⭐</div>
 				<div class="smart-toc-review-text">
 					<p>
-						<strong><?php esc_html_e( 'Enjoying Anik Smart Table of Contents?', 'anik-smart-table-of-contents' ); ?></strong>
+						<strong><?php esc_html_e( 'Enjoying Smart Table of Contents?', 'anik-smart-table-of-contents' ); ?></strong>
 						<?php esc_html_e( "We'd love to hear your feedback! Please take a moment to leave a review on WordPress.org. Your support helps us improve and reach more users.", 'anik-smart-table-of-contents' ); ?>
 					</p>
 					<p class="smart-toc-review-actions">
@@ -1143,7 +1612,7 @@ class Aniksmta_Admin {
 			wp_die();
 		}
 
-		$action = isset( $_POST['review_action'] ) ? sanitize_key( $_POST['review_action'] ) : 'dismiss';
+		$action = isset( $_POST['review_action'] ) ? sanitize_key( wp_unslash( $_POST['review_action'] ) ) : 'dismiss';
 
 		if ( 'reviewed' === $action || 'dismiss' === $action ) {
 			update_option( 'aniksmta_review_done', true );

@@ -18,6 +18,7 @@ phpunit.xml
 .phpcs.xml
 .phpunit.xml
 composer.lock
+.phpcs-cache
 
 # Build artifacts
 node_modules/
@@ -32,12 +33,3 @@ vendor/
 # Local testing
 audit.md
 tests/
-
-# WordPress.org SVN credentials (local only)
-.wporg-svn-auth
-.wporg-svn-password
-
-# Workspace security code (local only)
-.workspace-security-code
-.local-security-code
-

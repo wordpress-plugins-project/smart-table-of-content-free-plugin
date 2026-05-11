@@ -1,10 +1,10 @@
-=== Anik Smart Table of Contents ===
+=== Smart Table of Contents ===
 Contributors: anikchowdhury
 Donate link: https://smallseoengine.com
 Tags: table of contents, toc, seo, anchor links, content navigation
 Requires at least: 5.0
 Tested up to: 6.9
-Stable tag: 1.1.0
+Stable tag: 1.2.0
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -13,9 +13,9 @@ A lightweight, SEO-friendly Table of Contents plugin that automatically generate
 
 == Description ==
 
-**Anik Smart Table of Contents** is the ultimate lightweight, SEO-friendly Table of Contents plugin for WordPress. It automatically generates a beautiful, clickable TOC from your post and page headings — helping visitors navigate long-form content effortlessly while boosting your site's SEO with structured, crawlable anchor links.
+**Smart Table of Contents** is the ultimate lightweight, SEO-friendly Table of Contents plugin for WordPress. It automatically generates a beautiful, clickable TOC from your post and page headings — helping visitors navigate long-form content effortlessly while boosting your site's SEO with structured, crawlable anchor links.
 
-🚀 **[Upgrade to Smart TOC Pro](https://smallseoengine.com/plugins/smart-table-of-contents/)** for Sticky TOC, Reading Progress Bar, Gutenberg Block, and more!
+🚀 **[Upgrade to Smart TOC Pro](https://smallseoengine.com/plugins/smart-table-of-contents/)** for advanced sticky/floating controls, advanced mobile behavior, and more!
 
 = 🎯 Perfect For =
 
@@ -34,9 +34,12 @@ A lightweight, SEO-friendly Table of Contents plugin that automatically generate
 * **Active Heading Highlight** - Highlights the current section as users scroll
 * **Shortcode Support** - Use `[aniksmta_toc]` to place TOC anywhere in your content
 * **Customizable Heading Levels** - Choose which headings to include (H2-H6)
-* **Counter Formats** - Choose decimal numbers, Roman numerals, or no counters
+* **Counter Formats** - Choose decimal numbers, Roman numerals, hierarchical (1.1.1), or no counters
+* **Collapsible Sections** - Add toggle buttons to expand and collapse nested headings
 * **Theme Presets** - Light, Dark, and Minimal theme presets plus default style
 * **Theme Color Picker** - Match your site's branding with custom accent color
+* **Toggle Icon Styles** - Choose between Chevron (Default) and Plus/Minus icons
+* **Auto Dark Mode** - Automatically switch to dark theme if the user's device is in dark mode
 * **SEO Schema Markup** - SiteNavigation JSON-LD structured data for search engines
 * **SEO Optimized** - Clean HTML markup with proper anchor links for search engines
 * **Ultra Lightweight** - Under 15KB, zero jQuery dependency
@@ -45,21 +48,37 @@ A lightweight, SEO-friendly Table of Contents plugin that automatically generate
 * **Per-Post Heading Override** - Override global heading levels on individual posts
 * **Global Heading Exclusion** - Exclude headings by text across the entire site
 * **Exclude Headings by CSS Class** - Skip specific headings using the `no-toc` class
+* **Page Exclusion Rules** - Easily hide TOC on Home, Archive, Search, and 404 pages
 * **Multiple Positions** - Before content, after first paragraph, or manual placement
+* **Sticky TOC (Basic)** - Keep TOC visible while reading with simple sticky behavior
+* **Floating Desktop TOC (Basic)** - Persistent TOC button and panel on the side of the screen for desktop users
+* **Mobile TOC Modal (Basic)** - Mobile button opens TOC in a compact modal panel
+* **Copy Anchor Links** - One-click copy for any TOC item link
+* **Reading Progress Bar (Basic)** - Top progress indicator for long-form content
+* **Estimated Reading Time (Basic)** - Display how long it takes to read the article
+* **Back to Top Button (Basic)** - Quick scroll-to-top functionality
+* **Dynamic Content Refresh** - Auto-initialize TOC behavior for content added after page load
+* **Lazy-load TOC Init** - Delayed initialization until TOC enters viewport
+* **Gutenberg Block (Basic)** - Insert TOC from the block editor with title and collapsed controls
+* **Sidebar Widget (Basic)** - Display TOC in widget areas with title and collapsed controls
 * **Dashboard Widget** - Quick TOC stats and access from your WordPress dashboard
 
 Take your table of contents to the next level with **[Smart TOC Pro](https://smallseoengine.com/plugins/smart-table-of-contents/)**:
 
-* **📌 Sticky/Floating TOC** - Always-visible TOC that follows users as they scroll
-* **📊 Reading Progress Bar** - Visual indicator showing reading progress
-* **⏱️ Estimated Reading Time** - Display how long it takes to read the article
-* **⬆️ Back to Top Button** - Quick scroll-to-top functionality
-* **⌨️ Keyboard Navigation** - Navigate TOC with keyboard shortcuts
+* **📌 Advanced Sticky/Floating TOC** - Rich sticky modes, floating panel layouts, offsets, and behavior controls
+* **📊 Advanced Progress Modes** - Extra progress variants and panel-integrated progress experiences
+* **⏱️ Advanced Reading Time Controls** - Custom WPM speed, advanced formatting, and placement options
+* **⬆️ Advanced Back to Top Button** - Icon packs, shapes, colors, visibility controls, and circular progress ring
+* **⌨️ Keyboard Navigation** - Navigate TOC with keyboard shortcuts for better accessibility
 * **💻 Custom CSS Support** - Full styling control with custom CSS
-* **📱 Mobile-Specific Options** - Optimized settings for mobile devices
-* **🔢 Hierarchical Numbering** - Advanced numbering like 1.1, 1.2, 2.1...
-* **🧱 Gutenberg Block** - Native block editor support
-* **📦 Sidebar Widget** - Display TOC in any widget area
+* **📱 Advanced Mobile Options** - Themed modal styles, gestures, and advanced trigger controls
+* **🔢 Advanced Numbering Controls** - Color overrides, prefixes, and suffixes for numbers
+* **🗂️ Fine-Grained Collapsible Controls** - Set default expanded/collapsed states per nested section
+* **🎨 10+ Premium Theme Presets** - Glassmorphism, gradient, and modern UI styles
+* **⚙️ Advanced Display Conditions** - Granular URL, category, tag, and author exclusion logic
+* **📦 Settings Export/Import** - Easily migrate settings between sites
+* **🧱 Advanced Gutenberg Block Controls** - More layout and behavior customization
+* **📦 Advanced Sidebar Widget Controls** - Rich display and behavior options
 * **🔒 Priority Support** - Fast, dedicated customer support
 
 👉 **[Get Smart TOC Pro Now](https://smallseoengine.com/plugins/smart-table-of-contents/)**
@@ -67,7 +86,7 @@ Take your table of contents to the next level with **[Smart TOC Pro](https://sma
 = How It Works =
 
 1. Install and activate the plugin
-3. Configure settings under **Settings → Anik Smart TOC**
+2. Configure settings under **Settings → Smart TOC**
 3. The TOC automatically appears on your posts and pages
 4. Or use `[aniksmta_toc]` shortcode for manual placement
 
@@ -88,7 +107,7 @@ Found a bug? Please report it on our [GitHub Issues](https://github.com/wordpres
 
 = 💬 Support & Help =
 
-* **Documentation**: [Anik Smart Table of Contents Documentation](https://smallseoengine.com/plugins/anik-smart-table-of-contents/docs)
+* **Documentation**: [Smart Table of Contents Documentation](https://smallseoengine.com/plugins/anik-smart-table-of-contents/docs)
 * **Support Forum**: [WordPress.org Support](https://wordpress.org/support/plugin/anik-smart-table-of-contents/)
 * **Contact**: [Contact](https://smallseoengine.com/contact/)
 * **Pro Support**: [Priority Support for Pro Users](https://smallseoengine.com/plugins/smart-table-of-contents/)
@@ -108,7 +127,7 @@ Have a feature request? [Submit it on GitHub](https://github.com/wordpress-plugi
 
 1. Upload the `anik-smart-table-of-contents` folder to the `/wp-content/plugins/` directory
 2. Activate the plugin through the 'Plugins' menu in WordPress
-3. Go to Settings → Anik Smart TOC to configure the plugin
+3. Go to Settings → Smart TOC to configure the plugin
 4. That's it! TOC will automatically appear on your posts and pages
 
 == Frequently Asked Questions ==
@@ -123,7 +142,7 @@ Yes! Edit the post and look for the "Smart TOC" meta box in the sidebar. Check t
 
 = How do I change the TOC position? =
 
-Go to Settings → Anik Smart TOC → Display Settings and choose from:
+Go to Settings → Smart TOC → Display Settings and choose from:
 * **Before Content** - TOC appears at the top of your content
 * **After First Paragraph** - TOC appears after the first paragraph
 * **Manual (Shortcode only)** - Use `[aniksmta_toc]` shortcode for custom placement
@@ -135,7 +154,7 @@ Yes! Add the CSS class `no-toc` to any heading you want to exclude:
 
 = How do I change the TOC title? =
 
-Go to Settings → Anik Smart TOC → Display Settings and change the "TOC Title" field. Or use the shortcode attribute: `[aniksmta_toc title="In This Article"]`
+Go to Settings → Smart TOC → Display Settings and change the "TOC Title" field. Or use the shortcode attribute: `[aniksmta_toc title="In This Article"]`
 
 = Does it work with page builders? =
 
@@ -158,7 +177,7 @@ Yes, Smart TOC is fully compatible with popular caching plugins:
 = Why isn't the TOC showing on my posts? =
 
 Check these common issues:
-1. Make sure the plugin is enabled in Settings → Anik Smart TOC
+1. Make sure the plugin is enabled in Settings → Smart TOC
 2. Verify the post type is selected in settings
 3. Check if you have the minimum number of headings required
 4. Make sure TOC isn't disabled for that specific post
@@ -180,7 +199,7 @@ Yes, Smart TOC fully supports RTL (Right-to-Left) languages like Arabic, Hebrew,
 
 = How do I display numbers before TOC items? =
 
-Go to Settings → Anik Smart TOC → Display Settings and check "Show Numbers" option.
+Go to Settings → Smart TOC → Display Settings and check "Show Numbers" option.
 
 == Screenshots ==
 
@@ -191,6 +210,30 @@ Go to Settings → Anik Smart TOC → Display Settings and check "Show Numbers" 
 5. Per-post TOC settings
 
 == Changelog ==
+
+= 1.2.0 =
+* Added Gutenberg Block for easy TOC insertion in the block editor
+* Added Sidebar Widget for displaying TOC in widget areas
+* Added Basic Sticky TOC support
+* Added Mobile TOC Modal (floating button and panel for mobile devices)
+* Added Copy Anchor Link button for TOC items
+* Added Basic Reading Progress Bar
+* Added Dynamic Content Support (auto-detect AJAX and Page Builder changes)
+* Added Lazy Load TOC Initialization for improved performance
+* Added Basic Floating Desktop TOC
+* Added Collapsible Sections for nested headings
+* Added Hierarchical Numbering support (1, 1.1, 1.1.1)
+* Added Estimated Reading Time display
+* Added Basic Back-to-Top Button functionality
+* Added Page Exclusion Rules (Home, Archive, Search, 404 toggles)
+* Added Auto Dark Mode feature to sync with system preferences
+* Added Toggle Icon Style setting (Chevron vs Plus/Minus)
+* Added Settings UI panel options for the newly included freemium features
+* Improved inline TOC copy icon alignment so copy buttons stay on the same line as heading links
+* Improved floating panel active heading contrast for both default and dark themes
+* Improved theme color contrast handling for very light colors (including white) to keep active links readable
+* Made the default TOC preset explicitly gray for consistent rendering (`toc-theme-default`)
+* Updated admin Documentation tab references for newly added freemium settings and CSS classes
 
 = 1.1.0 =
 * Added counter format setting: choose Decimal, Roman numerals, or None
@@ -277,6 +320,9 @@ Go to Settings → Anik Smart TOC → Display Settings and check "Show Numbers" 
 
 == Upgrade Notice ==
 
+= 1.2.0 =
+Major freemium update including Gutenberg block, Sidebar widget, Sticky TOC, Mobile modal, Reading progress, Floating desktop TOC, and Collapsible nested sections.
+
 = 1.1.0 =
 New features: counter formats (decimal/roman/none), TOC theme presets, per-post heading override, global heading exclusion, and SiteNavigation Schema for SEO.
 
@@ -308,4 +354,4 @@ Additional security hardening and WordPress.org review compliance.
 Includes improved scrolling, numbering, and admin assets—update to keep frontend behavior consistent.
 
 = 1.0.0 =
-Initial release of Anik Smart Table of Contents.
+Initial release of Smart Table of Contents.

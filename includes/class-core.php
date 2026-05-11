@@ -52,6 +52,8 @@ class Aniksmta_Core {
 		require_once ANIKSMTA_PATH . 'includes/class-settings.php';
 		require_once ANIKSMTA_PATH . 'includes/class-render.php';
 		require_once ANIKSMTA_PATH . 'includes/class-shortcode.php';
+		require_once ANIKSMTA_PATH . 'includes/class-widget.php';
+		require_once ANIKSMTA_PATH . 'includes/class-block.php';
 		require_once ANIKSMTA_PATH . 'includes/class-admin.php';
 	}
 
@@ -64,6 +66,8 @@ class Aniksmta_Core {
 		// Initialize components
 		new Aniksmta_Render( $this->settings );
 		new Aniksmta_Shortcode( $this->settings );
+		new Aniksmta_Widget( $this->settings );
+		new Aniksmta_Block( $this->settings );
 
 		// Admin only
 		if ( is_admin() ) {
