@@ -33,11 +33,11 @@ vendor/
 audit.md
 tests/
 
-#wordpress.org svn password file
-***REMOVED***
+# WordPress.org SVN credentials (local only)
+.wporg-svn-auth
+.wporg-svn-password
 
-
-
-#workspace security code
-***REMOVED***
+# Workspace security code (local only)
+.workspace-security-code
+.local-security-code
 
